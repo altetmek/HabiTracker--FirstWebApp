@@ -61,14 +61,18 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+The System will serve as a motivation to do things that you might normally put off. It will keep track of things like training or simple chores. Completing a certain amount will reward the user with certain titles and achievements. 
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+* Home: Brief overview of the user profile and buttons that direct you to the other sections.
+* Profile: Shows the achievements, user level and other relevant information to the user.
+* Chores: List of chores, both done and in progress. Also able to add/delete chores.
+* Budget: control over the budget which includes savings, expenses and income. 
+* Education: List of studies, both done and in progress. Also able to add/delete studies.
+* Training: List of sessions, both done and in progress. Also able to add/delete sessions.
 
-### Entity-Relationship (ER) Diagram
+# Entity-Relationship (ER) Diagram
 
 ![ER Diagram](./images/er_diagram.png)
 
