@@ -175,3 +175,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,vuejs,visualstudiocode,linux,macos,windows
+
+#heroku repo 
+blooming-beyond-37279/
