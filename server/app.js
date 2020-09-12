@@ -11,6 +11,7 @@ var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/HabiTracker
 var port = process.env.PORT || 3000;
 
 var userRouter = require('./controllers/users');
+var achievementRouter = require('./controllers/achievements');
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function(err) {
     if (err) {
@@ -37,6 +38,7 @@ app.get('/api', function(req, res) {
 });
 
 app.use('/api/users', userRouter);
+app.use('/api/achievements', achievementRouter);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {

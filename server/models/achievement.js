@@ -6,6 +6,7 @@ var achievementSchema = new Schema ({
     type: {type: String},
     name: {type: String},
     degree: {type: String},
+    experiencePoints: {type: Number},
     description: {type: String}
 
 })
