@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 
 var achievementSchema = new Schema ({
     
-    goal: {},
-    name: {},
-    degree: {},
-    description: {}
+    type: {type: String},
+    name: {type: String},
+    degree: {type: String},
+    description: {type: String}
 
 })
 
