@@ -47,7 +47,7 @@ router.patch('/budgets/:id', function(req, res) {
         "_id": id,
         "income": req.body.income,
         "expense": req.body.expense,
-        "expense_name": req.body.expense.name,
+        "expense_name": req.body.name,
         "savings": req.body.savings,
         "experience_points": req.body.experiencePoints
 
