@@ -52,7 +52,7 @@ router.patch('/budgets/:id', function(req, res) {
         "experience_points": experiencePoints
 
     };
-    user[id] = updated_budgets;
+    budget[id] = updated_budgets;
     res.json(updated_budgets);
 })
 

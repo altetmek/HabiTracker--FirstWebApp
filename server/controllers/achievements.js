@@ -71,7 +71,7 @@ router.patch('/achievements/:id', function(req, res) {
         "goal": goal
 
     };
-    user[id] = updated_achievements;
+    achievement[name] = updated_achievements;
     res.json(updated_achievements);
 })
 

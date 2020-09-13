@@ -51,7 +51,7 @@ router.patch('/categories/:id', function(req, res) {
         "experience_points": type.experiencePoints
 
     };
-    user[id] = updated_categories;
+    category[id] = updated_categories;
     res.json(updated_categories);
 })
 
