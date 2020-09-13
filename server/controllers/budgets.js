@@ -40,4 +40,20 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
+router.patch('/budgets/:id', function(req, res) {
+    var id = re.params.id;
+    var budgets = budgets[id];
+    var updated_budgets = {
+        "_id": id,
+        "income": income,
+        "expense": expense,
+        "expense_name": expense.name,
+        "savings": savings,
+        "experience_points": experiencePoints
+
+    };
+    user[id] = updated_budgets;
+    res.json(updated_budgets);
+})
+
 module.exports = router;

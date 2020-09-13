@@ -40,4 +40,19 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
+router.patch('/categories/:id', function(req, res) {
+    var id = re.params.id;
+    var categories = categories[id];
+    var updated_categories = {
+        "_id": id,
+        "type": type,
+        "task": type.task,
+        "level": type.level,
+        "experience_points": type.experiencePoints
+
+    };
+    user[id] = updated_categories;
+    res.json(updated_categories);
+})
+
 module.exports = router;
