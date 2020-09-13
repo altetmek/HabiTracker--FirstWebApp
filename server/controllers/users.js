@@ -45,10 +45,10 @@ router.patch('/users/:id', function(req, res) {
     var users = users[id];
     var updated_users = {
         "_id": id,
-        "title": title,
-        "experience_points": experiencePoints,
-        "level": level,
-        "username": username
+        "title": req.body.title,
+        "experience_points": req.body.experiencePoints,
+        "level": req.body.level,
+        "username": req.body.username
 
     };
     user[id] = updated_users;

@@ -65,10 +65,10 @@ router.patch('/achievements/:id', function(req, res) {
     var achievements = achievements[name];
     var updated_achievements = {
         "_name": name,
-        "degree": degree,
-        "degree_experience": degree.experiencePoints,
-        "description": description,
-        "goal": goal
+        "degree": req.body.degree,
+        "degree_experience": req.body.degree.experiencePoints,
+        "description": req.body.description,
+        "goal": req.body.goal
 
     };
     achievement[name] = updated_achievements;

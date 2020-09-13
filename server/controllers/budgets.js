@@ -45,11 +45,11 @@ router.patch('/budgets/:id', function(req, res) {
     var budgets = budgets[id];
     var updated_budgets = {
         "_id": id,
-        "income": income,
-        "expense": expense,
-        "expense_name": expense.name,
-        "savings": savings,
-        "experience_points": experiencePoints
+        "income": req.body.income,
+        "expense": req.body.expense,
+        "expense_name": req.body.expense.name,
+        "savings": req.body.savings,
+        "experience_points": req.body.experiencePoints
 
     };
     budget[id] = updated_budgets;

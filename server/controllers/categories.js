@@ -45,10 +45,10 @@ router.patch('/categories/:id', function(req, res) {
     var categories = categories[id];
     var updated_categories = {
         "_id": id,
-        "type": type,
-        "task": type.task,
-        "level": type.level,
-        "experience_points": type.experiencePoints
+        "type": req.body.type,
+        "task": req.body.type.task,
+        "level": req.body.type.level,
+        "experience_points": req.body.type.experiencePoints
 
     };
     category[id] = updated_categories;
