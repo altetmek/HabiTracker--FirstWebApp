@@ -36,7 +36,7 @@ router.delete('/:id', function(req, res, next) {
     User.findOneAndDelete({_id: id}, function(err, user) {
         if (err) {return next(err); }
         if (user === null){
-            return res.status(404).json({'message': 'User not found'});
+            return res.status(404).json({'message': 'Budget not found'});
         }
         res.status(202).json(budget)
     
