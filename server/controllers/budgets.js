@@ -38,7 +38,7 @@ router.delete('/:id', function(req, res, next) {
         if (user === null){
             return res.status(404).json({'message': 'User not found'});
         }
-        res.status(200).json(budget)
+        res.status(202).json(budget)
     
         });
 });

@@ -38,7 +38,7 @@ router.delete('/:id', function(req, res, next) {
         if (category === null){
             return res.status(404).json({'message': 'Category not found'});
         }
-        res.status(200).json(category)
+        res.status(202).json(category)
     
         });
 });

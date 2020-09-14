@@ -18,7 +18,7 @@ router.get('/:id', function(req, res, next) {
         if (err) { return next(err); }
         if (users === null) {
             return res.status(404).json({'message': 'User not found'});
-        }
+        };
         res.status(200).json(users);
     });
 });
@@ -31,14 +31,24 @@ router.post('/', function(req, res, next) {
     });
 });
 
+router.delete('/', function(req, res, next){
+    User.db.dropCollection("users", function(err, users){
+        if (err) {return next(err); }
+        if (users === null){
+            return res.status(404).json({'message': 'There is no user to delete!'});
+        };
+        res.status(202).json({'message': 'All users has been deleted.'})
+    });
+});
+
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findOneAndDelete({_id: id}, function(err, user) {
         if (err) {return next(err); }
         if (user === null){
             return res.status(404).json({'message': 'User not found'});
-        }
-        res.status(200).json({'message': 'User deleted'})
+        };
+        res.status(202).json({'message': 'User deleted'})
     
         });
 });

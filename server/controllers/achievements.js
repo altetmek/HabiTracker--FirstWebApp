@@ -58,7 +58,7 @@ router.delete('/:id', function(req, res, next) {
         if (achievement === null){
             return res.status(404).json({'message': 'Achievement not found'});
         }
-        res.status(200).json(achievement)
+        res.status(202).json(achievement)
     
         });
 });
