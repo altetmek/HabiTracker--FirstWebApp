@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var category = require('../models/category');
+var Category = require('../models/category');
 
+//GET all categories.
 router.get('/', function(req, res, next){
     Category.find(function(err, categories){
         if (err) {return next(err);}
@@ -12,6 +13,7 @@ router.get('/', function(req, res, next){
     });
 });
 
+//GET category by id.
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     Category.findById(id, function(err, categories) {
@@ -23,14 +25,27 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
+//POST a category.
 router.post('/', function(req, res, next) {
     var category = new Category(req.body);
-    Category.save(function(err, category) {
+    category.save(function(err, category) {
         if(err) { return next(err); }
-        res.status(201).json(Category);
+        res.status(201).json(category);
     });
 });
 
+//DELETE category collection.
+router.delete('/', function(req, res, next){
+    Category.db.dropCollection("categories", function(err, categories){
+        if (err) {return next(err); }
+        if (categories === null){
+            return res.status(404).json({'message': 'There is no category to delete!'});
+        };
+        res.status(202).json({'message': 'All categories have been deleted.'})
+    });
+});
+
+//DELETE category by id.
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     Category.findOneAndDelete({_id: id}, function(err, category) {
@@ -38,14 +53,15 @@ router.delete('/:id', function(req, res, next) {
         if (category === null){
             return res.status(404).json({'message': 'Category not found'});
         }
-        res.status(202).json(category)
+        res.status(202).json({'message': 'Category deleted'});
     
         });
 });
 
+//PATCH category by id.
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, category){
+    Category.findById(id, function(err, category){
         if(err) {return next(err);}
         if(category == null){
             return res.status(404).json({"message": "User not found"});

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
+//GET all users.
 router.get('/', function(req, res, next){
     User.find(function(err, users){
         if (err) {return next(err);}
@@ -12,6 +13,7 @@ router.get('/', function(req, res, next){
     });
 });
 
+//GET user by id.
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findById(id, function(err, users) {
@@ -23,6 +25,7 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
+//POST a user.
 router.post('/', function(req, res, next) {
     var user = new User(req.body);
     user.save(function(err, user) {
@@ -31,16 +34,18 @@ router.post('/', function(req, res, next) {
     });
 });
 
+//DELETE user collection.
 router.delete('/', function(req, res, next){
     User.db.dropCollection("users", function(err, users){
         if (err) {return next(err); }
         if (users === null){
             return res.status(404).json({'message': 'There is no user to delete!'});
         };
-        res.status(202).json({'message': 'All users has been deleted.'})
+        res.status(202).json({'message': 'All users have been deleted.'})
     });
 });
 
+//DELETE a user by id.
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findOneAndDelete({_id: id}, function(err, user) {
@@ -53,6 +58,7 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
+//PATCH user by id.
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
     User.findById(id, function(err, user){

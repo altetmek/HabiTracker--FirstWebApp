@@ -6,6 +6,7 @@ const bronze = 10;
 const silver = 20;
 const gold = 30;
 
+//GET all achievements.
 router.get('/', function(req, res, next){
     Achievement.find(function(err, achievements){
         if (err) {return next(err);}
@@ -16,6 +17,7 @@ router.get('/', function(req, res, next){
     });
 });
 
+//GET achievement by id.
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     Achievement.findById(id, function(err, achievements) {
@@ -27,6 +29,7 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
+//Function to return experiencePoints related to the degree.
 function degree(req) {
     var degree = req.body.degree;
     switch (degree) {
@@ -42,6 +45,7 @@ function degree(req) {
     };  
 };
 
+//POST an achievement.
 router.post('/', function(req, res, next) {
     var achievement = new Achievement(req.body);
     achievement.experiencePoints = degree(req);
@@ -51,6 +55,18 @@ router.post('/', function(req, res, next) {
     });
 });
 
+//DELETE achievement collection
+router.delete('/', function(req, res, next){
+    Achievement.db.dropCollection("users", function(err, achievements){
+        if (err) {return next(err); }
+        if (achievements === null){
+            return res.status(404).json({'message': 'There is no achievement to delete!'});
+        };
+        res.status(202).json({'message': 'All achievements have been deleted.'})
+    });
+});
+
+//DELETE achievement by id.
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     Achievement.findOneAndDelete({_id: id}, function(err, achievement) {
@@ -63,12 +79,13 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
+//PATCH an achievement by id.
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, achievement){
+    Achievement.findById(id, function(err, achievement){
         if(err) {return next(err);}
         if(achievement == null){
-            return res.status(404).json({"message": "User not found"});
+            return res.status(404).json({"message": "Achievement not found"});
         }
         achievement.description = (req.body.description || achievement.description),
         achievement.name = (req.body.name || achievement.name),

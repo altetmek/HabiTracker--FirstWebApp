@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Budget = require('../models/budget');
 
+//GET all budgets.
 router.get('/', function(req, res, next){
-    User.find(function(err, budgets){
+    Budget.find(function(err, budgets){
         if (err) {return next(err);}
         if (budgets.length === 0) {
             return res.status(404).json({'message': 'There is no existing budget!'});
@@ -12,43 +13,58 @@ router.get('/', function(req, res, next){
     });
 });
 
+//GET budget by id.
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, budgets) {
+    Budget.findById(id, function(err, budgets) {
         if (err) { return next(err); }
         if (budgets === null) {
-            return res.status(404).json({'message': 'User not found'});
+            return res.status(404).json({'message': 'Budget not found'});
         }
         res.status(200).json(budgets);
     });
 });
 
+//POST a budget.
 router.post('/', function(req, res, next) {
     var budget = new Budget(req.body);
-    user.save(function(err, budget) {
+    budget.save(function(err, budget) {
         if(err) { return next(err); }
         res.status(201).json(budget);
     });
 });
 
+//DELETE budget collection.
+router.delete('/', function(req, res, next){
+    Budget.db.dropCollection("budgets", function(err, budgets){
+        if (err) {return next(err); }
+        if (budgets === null){
+            return res.status(404).json({'message': 'There is no budget to delete!'});
+        };
+        res.status(202).json({'message': 'All bugets have been deleted.'})
+    });
+});
+
+//DELETE budget by colleciton.
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findOneAndDelete({_id: id}, function(err, user) {
+    Budget.findOneAndDelete({_id: id}, function(err, budget) {
         if (err) {return next(err); }
-        if (user === null){
+        if (budget === null){
             return res.status(404).json({'message': 'Budget not found'});
         }
-        res.status(202).json(budget)
+        res.status(202).json({'message': 'Budget deleted.'})
     
         });
 });
 
+//PATCH a bucget by id.
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, budget){
+    Budget.findById(id, function(err, budget){
         if(err) {return next(err);}
         if(budget == null){
-            return res.status(404).json({"message": "User not found"});
+            return res.status(404).json({"message": "Budget not found"});
         }
         budget.expense = (req.body.expense || budget.expense),
         budget.expenseName = (req.body.expenseName || budget.expenseName),
