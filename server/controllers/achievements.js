@@ -9,7 +9,10 @@ const gold = 30;
 router.get('/', function(req, res, next){
     Achievement.find(function(err, achievements){
         if (err) {return next(err);}
-        res.json({'achievements': achievements});
+        if (achievements.length === 0) {
+            return res.status(404).json({'message': 'There is no existing achievement!'});
+        }
+        res.status(200).json({'achievements': achievements});
     });
 });
 
@@ -20,7 +23,7 @@ router.get('/:id', function(req, res, next) {
         if (achievements === null) {
             return res.status(404).json({'message': 'Achievement not found'});
         }
-        res.json(achievements);
+        res.status(200).json(achievements);
     });
 });
 
@@ -55,7 +58,7 @@ router.delete('/:id', function(req, res, next) {
         if (achievement === null){
             return res.status(404).json({'message': 'Achievement not found'});
         }
-        res.json(achievement)
+        res.status(200).json(achievement)
     
         });
 });

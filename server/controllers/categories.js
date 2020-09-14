@@ -5,7 +5,10 @@ var category = require('../models/category');
 router.get('/', function(req, res, next){
     Category.find(function(err, categories){
         if (err) {return next(err);}
-        res.json({'categories': categories});
+        if (categories.length === 0) {
+            return res.status(404).json({'message': 'There is no existing category!'});
+        }
+        res.status(200).json({'categories': categories});
     });
 });
 
@@ -16,7 +19,7 @@ router.get('/:id', function(req, res, next) {
         if (categories === null) {
             return res.status(404).json({'message': 'Category not found'});
         }
-        res.json(categories);
+        res.status(200).json(categories);
     });
 });
 
@@ -35,7 +38,7 @@ router.delete('/:id', function(req, res, next) {
         if (category === null){
             return res.status(404).json({'message': 'Category not found'});
         }
-        res.json(category)
+        res.status(200).json(category)
     
         });
 });

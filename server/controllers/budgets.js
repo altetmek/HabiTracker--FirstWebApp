@@ -5,7 +5,10 @@ var Budget = require('../models/budget');
 router.get('/', function(req, res, next){
     User.find(function(err, budgets){
         if (err) {return next(err);}
-        res.json({'budgets': budgets});
+        if (budgets.length === 0) {
+            return res.status(404).json({'message': 'There is no existing budget!'});
+        }
+        res.status(200).json({'budgets': budgets});
     });
 });
 
@@ -16,7 +19,7 @@ router.get('/:id', function(req, res, next) {
         if (budgets === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.json(budgets);
+        res.status(200).json(budgets);
     });
 });
 
@@ -35,7 +38,7 @@ router.delete('/:id', function(req, res, next) {
         if (user === null){
             return res.status(404).json({'message': 'User not found'});
         }
-        res.json(budget)
+        res.status(200).json(budget)
     
         });
 });
