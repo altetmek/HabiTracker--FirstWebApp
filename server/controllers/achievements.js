@@ -60,4 +60,19 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
+router.patch('/achievements/:id', function(req, res) {
+    var name = re.params.name;
+    var achievements = achievements[name];
+    var updated_achievements = {
+        "_name": name,
+        "degree": req.body.degree,
+        "degree_experience": req.body.experiencePoints,
+        "description": req.body.description,
+        "goal": req.body.goal
+
+    };
+    achievement[name] = updated_achievements;
+    res.json(updated_achievements);
+})
+
 module.exports = router;

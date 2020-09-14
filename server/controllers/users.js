@@ -43,4 +43,19 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
+router.patch('/users/:id', function(req, res) {
+    var id = re.params.id;
+    var users = users[id];
+    var updated_users = {
+        "_id": id,
+        "title": req.body.title,
+        "experience_points": req.body.experiencePoints,
+        "level": req.body.level,
+        "username": req.body.username
+
+    };
+    user[id] = updated_users;
+    res.json(updated_users);
+})
+
 module.exports = router;
