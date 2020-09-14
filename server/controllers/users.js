@@ -8,7 +8,7 @@ router.get('/', function(req, res, next){
         if (users.length === 0) {
             return res.status(404).json({'message': 'There is no existing user!'});
         }
-        res.json({'users': users});
+        res.status(200).json({'users': users});
     });
 });
 
@@ -19,7 +19,7 @@ router.get('/:id', function(req, res, next) {
         if (users === null) {
             return res.status(404).json({'message': 'User not found'});
         }
-        res.json(users);
+        res.status(200).json(users);
     });
 });
 
@@ -38,25 +38,10 @@ router.delete('/:id', function(req, res, next) {
         if (user === null){
             return res.status(404).json({'message': 'User not found'});
         }
-        res.json(user)
+        res.status(200).json({'message': 'User deleted'})
     
         });
 });
-
-/*router.patch('/users/:id', function(req, res) {
-    var id = re.params.id;
-    var users = users[id];
-    var updated_users = {
-        "_id": id,
-        "title": req.body.title,
-        "experience_points": req.body.experiencePoints,
-        "level": req.body.level,
-        "username": req.body.username
-
-    };
-    user[id] = updated_users;
-    res.json(updated_users);
-})*/
 
 router.patch('/:id', function(req, res, next) {
     var id = req.params.id;
@@ -69,6 +54,8 @@ router.patch('/:id', function(req, res, next) {
         user.experiencePoints = (req.body.experiencePoints || user.experiencePoints),
         user.level = (req.body.level || user.level),
         user.username = (req.body.username || user.username)
+        user.save();
+        res.status(201).json(user);
     })
 })
 
