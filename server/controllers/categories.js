@@ -67,7 +67,7 @@ router.patch('/:id', function(req, res, next) {
             return res.status(404).json({"message": "User not found"});
         }
         category.task = (req.body.task || category.task),
-        category.type = (req.body.type || category.type),
+        category.typeName = (req.body.typeName || category.typeName),
         category.level = (req.body.level || category.level),
         category.experiencePoints = (req.body.experiencePoints || category.experiencePoints)
         category.save();

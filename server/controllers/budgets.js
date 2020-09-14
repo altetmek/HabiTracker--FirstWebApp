@@ -66,8 +66,8 @@ router.patch('/:id', function(req, res, next) {
         if(budget == null){
             return res.status(404).json({"message": "Budget not found"});
         }
-        budget.expense = (req.body.expense || budget.expense),
-        budget.expenseName = (req.body.expenseName || budget.expenseName),
+        budget.expenses = (req.body.expense || budget.expense),
+       // budget.expenseName = (req.body.expenseName || budget.expenseName),
         budget.savings = (req.body.savings || budget.savings),
         budget.income = (req.body.income || budget.income)
         budget.save();

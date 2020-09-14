@@ -89,7 +89,7 @@ router.patch('/:id', function(req, res, next) {
         }
         achievement.description = (req.body.description || achievement.description),
         achievement.name = (req.body.name || achievement.name),
-        achievement.goal = (req.body.goal || achievement.goal),
+        achievement.type = (req.body.type || achievement.type),
         achievement.degree = (req.body.degree || achievement.degree)
         achievement.experiencePoints = (req.body.experiencePoints || achievement.experiencePoints)
         achievement.save();
