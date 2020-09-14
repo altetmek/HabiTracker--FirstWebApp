@@ -43,19 +43,20 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
-router.patch('/categories/:id', function(req, res) {
-    var id = re.params.id;
-    var categories = categories[id];
-    var updated_categories = {
-        "_id": id,
-        "type": req.body.type,
-        "task": req.body.task,
-        "level": req.body.level,
-        "experience_points": req.body.experiencePoints
-
-    };
-    category[id] = updated_categories;
-    res.json(updated_categories);
+router.patch('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, function(err, category){
+        if(err) {return next(err);}
+        if(category == null){
+            return res.status(404).json({"message": "User not found"});
+        }
+        category.task = (req.body.task || category.task),
+        category.type = (req.body.type || category.type),
+        category.level = (req.body.level || category.level),
+        category.experiencePoints = (req.body.experiencePoints || category.experiencePoints)
+        category.save();
+        res.status(201).json(category);
+    })
 })
 
 module.exports = router;

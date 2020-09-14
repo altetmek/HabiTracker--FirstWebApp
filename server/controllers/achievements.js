@@ -63,19 +63,21 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
-router.patch('/achievements/:id', function(req, res) {
-    var name = re.params.name;
-    var achievements = achievements[name];
-    var updated_achievements = {
-        "_name": name,
-        "degree": req.body.degree,
-        "degree_experience": req.body.experiencePoints,
-        "description": req.body.description,
-        "goal": req.body.goal
-
-    };
-    achievement[name] = updated_achievements;
-    res.json(updated_achievements);
+router.patch('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, function(err, achievement){
+        if(err) {return next(err);}
+        if(achievement == null){
+            return res.status(404).json({"message": "User not found"});
+        }
+        achievement.description = (req.body.description || achievement.description),
+        achievement.name = (req.body.name || achievement.name),
+        achievement.goal = (req.body.goal || achievement.goal),
+        achievement.degree = (req.body.degree || achievement.degree)
+        achievement.experiencePoints = (req.body.experiencePoints || achievement.experiencePoints)
+        achievement.save();
+        res.status(201).json(achievement);
+    })
 })
 
 module.exports = router;

@@ -43,20 +43,20 @@ router.delete('/:id', function(req, res, next) {
         });
 });
 
-router.patch('/budgets/:id', function(req, res) {
-    var id = re.params.id;
-    var budgets = budgets[id];
-    var updated_budgets = {
-        "_id": id,
-        "income": req.body.income,
-        "expense": req.body.expense,
-        "expense_name": req.body.name,
-        "savings": req.body.savings,
-        "experience_points": req.body.experiencePoints
-
-    };
-    budget[id] = updated_budgets;
-    res.json(updated_budgets);
+router.patch('/:id', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, function(err, budget){
+        if(err) {return next(err);}
+        if(budget == null){
+            return res.status(404).json({"message": "User not found"});
+        }
+        budget.expense = (req.body.expense || budget.expense),
+        budget.expenseName = (req.body.expenseName || budget.expenseName),
+        budget.savings = (req.body.savings || budget.savings),
+        budget.income = (req.body.income || budget.income)
+        budget.save();
+        res.status(201).json(budget);
+    })
 })
 
 module.exports = router;
