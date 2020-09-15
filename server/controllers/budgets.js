@@ -72,6 +72,24 @@ router.patch('/:id', function(req, res, next) {
         budget.savings = (req.body.savings || budget.savings)
         budget.save();
         res.status(201).json(budget);
+    });
+});
+
+//PUT budget by id.
+router.put('/:id', function(req,res,next) {
+    var id = req.params.id;
+    Budget.findById(id, function(err, budget) {
+        if (err) {return next(err);}
+        if (budget == null) {
+            return res.status(404).json({"message": "Budget not found"})
+        }
+        budget.name = req.body.name,
+        budget.income = req.body.income,
+        budget.expenses = req.body.expenses,
+        budget.savings = req.body.savings
+        budget.save();
+        res.status(200).json(budget);
+
     })
 })
 
