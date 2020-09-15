@@ -75,4 +75,21 @@ router.patch('/:id', function(req, res, next) {
     })
 })
 
+router.put('/:id', function(req,res,next) {
+    var id = req.params.id;
+    User.findById(id, function(err, user) {
+        if (err) {return next(err);}
+        if (user == null) {
+            return res.status(404).json({"message": "User not found"})
+        }
+        user.title = req.body.title,
+        user.experiencePoints = req.body.experiencePoints,
+        user.level = req.body.level
+        user.username = req.body.username
+        user.save();
+        res.status(200).json(user);
+
+    })
+})
+
 module.exports = router;
