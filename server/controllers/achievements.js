@@ -57,7 +57,7 @@ router.post('/', function(req, res, next) {
 
 //DELETE achievement collection
 router.delete('/', function(req, res, next){
-    Achievement.db.dropCollection("users", function(err, achievements){
+    Achievement.db.dropCollection("achievements", function(err, achievements){
         if (err) {return next(err); }
         if (achievements === null){
             return res.status(404).json({'message': 'There is no achievement to delete!'});
@@ -74,7 +74,7 @@ router.delete('/:id', function(req, res, next) {
         if (achievement === null){
             return res.status(404).json({'message': 'Achievement not found'});
         }
-        res.status(202).json(achievement)
+        res.status(202).json({'message': 'Achievement deleted.'})
     
         });
 });
@@ -87,14 +87,33 @@ router.patch('/:id', function(req, res, next) {
         if(achievement == null){
             return res.status(404).json({"message": "Achievement not found"});
         }
-        achievement.description = (req.body.description || achievement.description),
-        achievement.name = (req.body.name || achievement.name),
+        achievement.experiencePoints = degree(req);
         achievement.type = (req.body.type || achievement.type),
-        achievement.degree = (req.body.degree || achievement.degree)
-        achievement.experiencePoints = (req.body.experiencePoints || achievement.experiencePoints)
+        achievement.name = (req.body.name || achievement.name),
+        achievement.degree = (req.body.degree || achievement.degree),
+        achievement.description = (req.body.description || achievement.description)
         achievement.save();
         res.status(201).json(achievement);
-    })
-})
+    });
+});
+
+//PUT achievement by id.
+router.put('/:id', function(req,res,next) {
+    var id = req.params.id;
+    Achievement.findById(id, function(err, achievement) {
+        if (err) {return next(err);}
+        if (achievement == null) {
+            return res.status(404).json({"message": "Achievement not found"})
+        }
+        achievement.experiencePoints = degree(req);
+        achievement.type = req.body.type,
+        achievement.name = req.body.name,
+        achievement.degree = req.body.degree,
+        achievement.description = req.body.description
+        achievement.save();
+        res.status(200).json(achievement);
+
+    });
+});
 
 module.exports = router;
