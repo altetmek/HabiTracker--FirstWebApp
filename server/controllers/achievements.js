@@ -97,4 +97,22 @@ router.patch('/:id', function(req, res, next) {
     })
 })
 
+router.put('/:id', function(req, res, next) {
+    var id = req.params.id;
+    Achievement.findById(id, function(err, achievement) {
+        if(err) {return next(err);}
+        if(achievement == null) {
+            return res.status(404).json({"message": "Achievement not found"})
+        }
+        achievement.description = req.body.description,
+        achievement.name = req.body.name,
+        achievement.type = req.body.type,
+        achievement.degree = req.body.req,
+        achievement.experiencePoints = req.body.experiencePoints
+        achievement.save();
+        res.status(200).json(achievement);
+ 
+    })
+})
+
 module.exports = router;
