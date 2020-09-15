@@ -64,7 +64,7 @@ router.patch('/:id', function(req, res, next) {
     Category.findById(id, function(err, category){
         if(err) {return next(err);}
         if(category == null){
-            return res.status(404).json({"message": "User not found"});
+            return res.status(404).json({"message": "Category not found"});
         }
         category.task = (req.body.task || category.task),
         category.typeName = (req.body.typeName || category.typeName),
@@ -73,6 +73,24 @@ router.patch('/:id', function(req, res, next) {
         category.save();
         res.status(201).json(category);
     })
+})
+
+router.put('/:id', function(req, res, next) {
+    var id = req.params.id;
+    Category.findById(id, function(err, category) {
+        if(err) {return next(err);}
+        if(category == null) {
+            return res.status(404).json({"message": "Category not found"});
+        }
+        category.task = req.body.task,
+        category.typeName = req.body.typeName,
+        category.level = req.body.level,
+        category.experiencePoints = req.body.experiencePoints
+        category.save();
+        res.json(200).json(category);
+
+    })
+
 })
 
 module.exports = router;
