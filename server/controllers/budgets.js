@@ -45,7 +45,7 @@ router.delete('/', function(req, res, next){
     });
 });
 
-//DELETE budget by colleciton.
+//DELETE budget by id.
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     Budget.findOneAndDelete({_id: id}, function(err, budget) {
@@ -66,10 +66,10 @@ router.patch('/:id', function(req, res, next) {
         if(budget == null){
             return res.status(404).json({"message": "Budget not found"});
         }
-        budget.expenses = (req.body.expense || budget.expense),
-       // budget.expenseName = (req.body.expenseName || budget.expenseName),
-        budget.savings = (req.body.savings || budget.savings),
-        budget.income = (req.body.income || budget.income)
+        budget.name = (req.body.name || budget.name),
+        budget.income = (req.body.income || budget.income),
+        budget.expenses = (req.body.expenses || budget.expenses),
+        budget.savings = (req.body.savings || budget.savings)
         budget.save();
         res.status(201).json(budget);
     })
