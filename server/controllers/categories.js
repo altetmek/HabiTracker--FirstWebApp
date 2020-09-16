@@ -66,10 +66,10 @@ router.patch('/:id', function(req, res, next) {
         if(category == null){
             return res.status(404).json({"message": "Category not found"});
         }
-        category.task = (req.body.task || category.task),
-        category.typeName = (req.body.typeName || category.typeName),
-        category.level = (req.body.level || category.level),
-        category.experiencePoints = (req.body.experiencePoints || category.experiencePoints)
+        category.categoryType.typeName = (req.body.categoryType.typeName || category.categoryType.typeName),
+        category.categoryType.task = (req.body.categoryType.task || category.categoryType.task),
+        category.categoryType.level = (req.body.categoryType.level || category.categoryType.level),
+        category.categoryType.typeExperience = (req.body.categoryType.typeExperience || category.categoryType.typeExperience)
         category.save();
         res.status(201).json(category);
     });
@@ -83,12 +83,12 @@ router.put('/:id', function(req, res, next) {
         if(category == null) {
             return res.status(404).json({"message": "Category not found"});
         }
-        category.task = req.body.task,
-        category.typeName = req.body.typeName,
-        category.level = req.body.level,
-        category.experiencePoints = req.body.experiencePoints
+        category.categoryType.typeName = req.body.categoryType.typeName,
+        category.categoryType.task = req.body.categoryType.task,
+        category.categoryType.level = req.body.categoryType.level,
+        category.categoryType.typeExperience = req.body.categoryType.typeExperience
         category.save();
-        res.json(200).json(category);
+        res.status(200).json(category);
 
     });
 });

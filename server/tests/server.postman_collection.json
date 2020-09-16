@@ -1,19 +1,165 @@
 {
 	"info": {
-		"_postman_id": "f7ee95b5-9cb9-442f-a6a9-42de46138872",
+		"_postman_id": "fd207b96-ecdc-4930-8f16-ddabf447e78c",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET /api",
+			"name": "Create a user (Gustav)",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b58d92ec-5214-450c-adb0-28e068aa71b9",
+						"id": "cb8bf60c-388e-4bb0-8570-ec733b953c62",
 						"exec": [
 							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "10167043-f3c8-4807-8151-13b5d183bee6",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var userId = jsonData._id;",
+							"pm.environment.set(\"user_id\", userId);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct user response\", function () {",
+							"     pm.expect(jsonData.username).to.eql(\"gustav\");",
+							"    pm.expect(jsonData.level).to.eql(1);",
+							"    pm.expect(jsonData.title).to.eql(\"This is a title\");",
+							"    pm.expect(jsonData.experiencePoints).to.eql(1);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"gustav\",\n    \"level\": 1,\n    \"title\": \"This is a title\",\n    \"experiencePoints\": \"1\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create another user (Altug)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f37d310d-099c-4f5f-9643-758e37fe79f3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff8075cf-6a17-485b-9653-ce1c81112c49",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var userId2 = jsonData._id;",
+							"pm.environment.set(\"user_id2\", userId2);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct user response\", function () {",
+							"     pm.expect(jsonData.username).to.eql(\"altug\");",
+							"    pm.expect(jsonData.level).to.eql(2);",
+							"    pm.expect(jsonData.title).to.eql(\"This is another title\");",
+							"    pm.expect(jsonData.experiencePoints).to.eql(3);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"altug\",\n    \"level\": 2,\n    \"title\": \"This is another title\",\n    \"experiencePoints\": \"3\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users (Gustav and Altug)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a8a77eb-4e80-429d-9874-d5348e1b3230",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -29,46 +175,2006 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/api",
+					"raw": "{{host}}/api/users",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"api"
+						"api",
+						"users"
 					]
 				}
 			},
 			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "05864cff-5cba-4070-bac3-a59328954ebf",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
 		},
 		{
-			"listen": "test",
-			"script": {
-				"id": "e9c319be-3306-4fc5-ba34-fcf64391213a",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
+			"name": "Get user by id before delete (Gustav)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c02aaa9-6c09-4934-b44c-03877e538c61",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"     pm.expect(jsonData.username).to.eql(\"gustav\");\r",
+							"    pm.expect(jsonData.level).to.eql(1);\r",
+							"    pm.expect(jsonData.title).to.eql(\"This is a title\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "applciation/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{user_id}}",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
 		{
-			"id": "cd185905-a834-4211-8030-583d17702534",
-			"key": "host",
-			"value": "http://localhost:3000",
-			"type": "string"
+			"name": "Delete one user (Gustav)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1c98a28-f8e6-441d-8e94-91eadcca4703",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id after deleting (Gustav)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b392201-cccf-41a2-bbd7-d92af8420096",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "applciation/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users after deleting one (Altug)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2be9b318-f24e-416d-a445-3a81a66dd266",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var username = jsonData.username;\r",
+							"var level = jsonData.level;\r",
+							"var title = jsonData.title;\r",
+							"var experiencePoints = jsonData.experiencePoints;\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.username).to.eql(username);\r",
+							"    pm.expect(jsonData.level).to.eql(level);\r",
+							"    pm.expect(jsonData.title).to.eql(title);\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(experiencePoints);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a user with id (Altug to Filip)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1879379-dab0-4645-98ed-074076d1a32c",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"     pm.expect(jsonData.username).to.eql(\"filip\");\r",
+							"    pm.expect(jsonData.level).to.eql(2);\r",
+							"    pm.expect(jsonData.title).to.eql(\"changed title\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"filip\",\r\n    \"title\": \"changed title\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id2}}",
+							"value": "{{user_id2}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a user with id (Filip to Gustav v2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "303fbee4-2859-4071-943a-b46e13985172",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"     pm.expect(jsonData.username).to.eql(\"gustav v2\");\r",
+							"    pm.expect(jsonData.level).to.eql(100);\r",
+							"    pm.expect(jsonData.title).to.eql(\"Put works!\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(123);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"gustav v2\",\r\n    \"level\": 100,\r\n    \"title\": \"Put works!\",\r\n    \"experiencePoints\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id2}}"
+					],
+					"variable": [
+						{
+							"id": "b9661db2-3115-46e4-a618-fbde268830a4",
+							"key": "{{user_id2}}",
+							"value": "{{user_id2}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the users collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24ff4a4f-8d6d-410e-9e6b-42d318793d7a",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an achievement (Get to level 10 in Fitness)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cb7ecee5-65f0-4677-8e7d-d1c7da6ddf01",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e67d4373-e1ad-4657-875f-7fc220781aa7",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var achievementId = jsonData._id;",
+							"pm.environment.set(\"achievement_id\", achievementId);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct achievement response\", function () {",
+							"    pm.expect(jsonData.type).to.eql(\"Fitness\");",
+							"    pm.expect(jsonData.name).to.eql(\"Get to level 10\");",
+							"    pm.expect(jsonData.degree).to.eql(\"Silver\");",
+							"    pm.expect(jsonData.experiencePoints).to.eql(20);",
+							"    pm.expect(jsonData.description).to.eql(\"You must get to level 10 within a week\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"Fitness\",\n    \"name\": \"Get to level 10\",\n    \"degree\": \"Silver\",\n    \"description\": \"You must get to level 10 within a week\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/achievements",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create another achievement (Get to level 5 in Chores)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b0e64955-6f69-4f1b-9bcc-71298aba4067",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b6f5339-9f33-4f2f-ac17-ca05995cc6c5",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var achievementId2 = jsonData._id;",
+							"pm.environment.set(\"achievement_id2\", achievementId2);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct achievement response\", function () {",
+							"    pm.expect(jsonData.type).to.eql(\"Chores\");",
+							"    pm.expect(jsonData.name).to.eql(\"Get to level 5\");",
+							"    pm.expect(jsonData.degree).to.eql(\"Silver\");",
+							"    pm.expect(jsonData.experiencePoints).to.eql(20);",
+							"    pm.expect(jsonData.description).to.eql(\"You must get to level 5 within a week\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"Chores\",\n    \"name\": \"Get to level 5\",\n    \"degree\": \"Silver\",\n    \"description\": \"You must get to level 5 within a week\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/achievements",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all achievements (Fitness and Chores)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e6657a8-1677-4497-bf88-0198b0e03e86",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get achievement by id before delete (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d545eb1c-ae58-4861-9b4c-36bb966cb9b2",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct achievement response\", function () {\r",
+							"    pm.expect(jsonData.type).to.eql(\"Fitness\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"Get to level 10\");\r",
+							"    pm.expect(jsonData.degree).to.eql(\"Silver\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(20);\r",
+							"    pm.expect(jsonData.description).to.eql(\"You must get to level 10 within a week\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "applciation/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements/:{{achievement_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						":{{achievement_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{achievement_id}}",
+							"value": "{{achievement_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one user (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40a3b1bd-4aa9-4866-a435-1a068a92fde1",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements/:{{achievement_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						":{{achievement_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{achievement_id}}",
+							"value": "{{achievement_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id after deleting (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d120975-5573-408b-9e9f-da2f6b17ad92",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "applciation/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements/:{{achievement_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						":{{achievement_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{achievement_id}}",
+							"value": "{{achievement_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users after deleting one (Chores)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "345f14bd-3a4d-4665-a406-927b12ee44a2",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var username = jsonData.username;\r",
+							"var level = jsonData.level;\r",
+							"var title = jsonData.title;\r",
+							"var experiencePoints = jsonData.experiencePoints;\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.username).to.eql(username);\r",
+							"    pm.expect(jsonData.level).to.eql(level);\r",
+							"    pm.expect(jsonData.title).to.eql(title);\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(experiencePoints);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch an achievement with id (Chores to Studies (silver to gold))",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9691ec4-dc04-461b-8dec-a7b015cdc4e0",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct achievement response\", function () {\r",
+							"    pm.expect(jsonData.type).to.eql(\"Studies\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"Get to level 5\");\r",
+							"    pm.expect(jsonData.degree).to.eql(\"Gold\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(30);\r",
+							"    pm.expect(jsonData.description).to.eql(\"You must get to level 5 within a week\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Studies\",\r\n    \"degree\": \"Gold\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/achievements/:{{achievement_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						":{{achievement_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{achievement_id2}}",
+							"value": "{{achievement_id2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an achievement with id (Studies to Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad83fb14-c5f3-40e8-86a5-54a74e6ef51e",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct achievement response\", function () {\r",
+							"    pm.expect(jsonData.type).to.eql(\"Chores\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"Get to level 5\");\r",
+							"    pm.expect(jsonData.degree).to.eql(\"Silver\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(20);\r",
+							"    pm.expect(jsonData.description).to.eql(\"You must get to level 5 within a week\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Chores\",\r\n    \"name\": \"Get to level 5\",\r\n    \"degree\": \"Silver\",\r\n    \"description\": \"You must get to level 5 within a week\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/achievements/:{{achievement_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						":{{achievement_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{achievement_id2}}",
+							"value": "{{achievement_id2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the users collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef9d80f5-492a-49ba-8b60-f7d63574d2e4",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a budget (I like money)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0980a6c0-64d6-4d9c-a6b2-502b08b0ce47",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4fb34231-40b7-41f0-ae07-2f63f3dea943",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var budgetId = jsonData._id;",
+							"pm.environment.set(\"budget_id\", budgetId);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct budget response\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"I like money\")",
+							"    pm.expect(jsonData.income).to.eql(100);",
+							"    pm.expect(jsonData.expenses).to.eql(20);",
+							"    pm.expect(jsonData.savings).to.eql(10);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"I like money\",\n    \"income\": 100,\n    \"expenses\": 20,\n    \"savings\": 10\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create another budget (I like money more)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "91369e72-f717-4266-b314-4bc9531efbe7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "752f4a7f-7efe-41da-97e0-87db741f96b8",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var budgetId2 = jsonData._id;",
+							"pm.environment.set(\"budget_id2\", budgetId2);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct budget response\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"I like money more\")",
+							"    pm.expect(jsonData.income).to.eql(1000);",
+							"    pm.expect(jsonData.expenses).to.eql(200);",
+							"    pm.expect(jsonData.savings).to.eql(100);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"I like money more\",\n    \"income\": 1000,\n    \"expenses\": 200,\n    \"savings\": 100\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all budgets (I like money and I like money more)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5147b14-a0b9-42cc-b062-07c4ed99f606",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get budget by id before delete (I like money)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "728174cb-47b2-47af-ae97-11b981b89372",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct budget response\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(\"I like money\")\r",
+							"    pm.expect(jsonData.income).to.eql(100);\r",
+							"    pm.expect(jsonData.expenses).to.eql(20);\r",
+							"    pm.expect(jsonData.savings).to.eql(10);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "applciation/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/budgets/:{{budget_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets",
+						":{{budget_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{budget_id}}",
+							"value": "{{budget_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one budget (I like money)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d6b5b23-153a-47dd-b9bc-1b5cd0e89391",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/budgets/:{{budget_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets",
+						":{{budget_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{budget_id}}",
+							"value": "{{budget_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get budget by id after deleting (I like money)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f405d46-3859-4401-aa66-53c46b58f4b5",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "applciation/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/budgets/:{{budget_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets",
+						":{{budget_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{budget_id}}",
+							"value": "{{budget_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all budgets after deleting one (I like money more)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9719d962-f59c-4ccb-aac2-795c4c9bb34c",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var name = jsonData.name;\r",
+							"var income = jsonData.income;\r",
+							"var expenses = jsonData.expenses;\r",
+							"var savings = jsonData.savings;\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(name);\r",
+							"    pm.expect(jsonData.income).to.eql(income);\r",
+							"    pm.expect(jsonData.expenses).to.eql(expenses);\r",
+							"    pm.expect(jsonData.savings).to.eql(savings);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/budgets/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch a user with id (I like money more TO Wow money is nice)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4a9d522-7cc4-42c1-98bf-df702d14ca66",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(\"Wow money is nice\")\r",
+							"    pm.expect(jsonData.income).to.eql(1000);\r",
+							"    pm.expect(jsonData.expenses).to.eql(200);\r",
+							"    pm.expect(jsonData.savings).to.eql(1234);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Wow money is nice\",\r\n    \"savings\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/budgets/:{{budget_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets",
+						":{{budget_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{budget_id2}}",
+							"value": "{{budget_id2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a budget with id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9153fbc3-021e-4e0a-a382-4b2d83521e5a",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(\"Put works!\")\r",
+							"    pm.expect(jsonData.income).to.eql(1002);\r",
+							"    pm.expect(jsonData.expenses).to.eql(2440);\r",
+							"    pm.expect(jsonData.savings).to.eql(101);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Put works!\",\r\n    \"income\": 1002,\r\n    \"expenses\": 2440,\r\n    \"savings\": 101\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/budgets/:{{budget_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets",
+						":{{budget_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{budget_id2}}",
+							"value": "{{budget_id2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the budgets collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80da0c83-1064-412c-a420-7e00cf694e43",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"budgets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a category (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f227382e-5e16-459b-a0a7-f522bb5ed062",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var categoryId = jsonData._id;",
+							"pm.environment.set(\"category_id\", categoryId);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct category response\", function () {",
+							"    pm.expect(jsonData.categoryType.typeName).to.eql(\"Fitness\");",
+							"    pm.expect(jsonData.categoryType.task).to.eql(\"Increase fitness level\");",
+							"    pm.expect(jsonData.categoryType.level).to.eql(1);",
+							"    pm.expect(jsonData.categoryType.typeExperience).to.eql(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1839cc35-d244-4361-b494-392167dd13ed",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoryType\": {\n        \"typeName\": \"Fitness\",\n        \"task\": \"Increase fitness level\",\n        \"level\": \"1\",\n        \"typeExperience\": \"0\"\n    }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create another category (Chores)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a268dc33-bd1c-45cc-adf5-a435b0390e87",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "66f7c53f-5bb4-459a-be70-442f816cc730",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var categoryId2 = jsonData._id;",
+							"pm.environment.set(\"category_id2\", categoryId2);",
+							"",
+							"pm.test(\"Correct status code\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Correct category response\", function () {",
+							"    pm.expect(jsonData.categoryType.typeName).to.eql(\"Chores\");",
+							"    pm.expect(jsonData.categoryType.task).to.eql(\"Increase chore level\");",
+							"    pm.expect(jsonData.categoryType.level).to.eql(1);",
+							"    pm.expect(jsonData.categoryType.typeExperience).to.eql(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoryType\": {\n        \"typeName\": \"Chores\",\n        \"task\": \"Increase chore level\",\n        \"level\": \"1\",\n        \"typeExperience\": \"0\"\n    }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all categories (Fitness and Chores)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2155e57d-7ea8-42a9-837b-0014a17143da",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get category by id before delete (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00270ecd-a0c8-4e44-b365-e7593c3d6848",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct category response\", function () {\r",
+							"    pm.expect(jsonData.categoryType.typeName).to.eql(\"Fitness\");\r",
+							"    pm.expect(jsonData.categoryType.task).to.eql(\"Increase fitness level\");\r",
+							"    pm.expect(jsonData.categoryType.level).to.eql(1);\r",
+							"    pm.expect(jsonData.categoryType.typeExperience).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "applciation/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/categories/:{{category_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":{{category_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{category_id}}",
+							"value": "{{category_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one category (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d422335c-c62e-4eb4-93bb-61f43897fce8",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/categories/:{{category_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":{{category_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{category_id}}",
+							"value": "{{category_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get category by id after deleting (Fitness)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1eea38a3-f4e5-4419-9d2d-7a7baaf42256",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "applciation/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/categories/:{{category_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":{{category_id}}"
+					],
+					"variable": [
+						{
+							"key": "{{category_id}}",
+							"value": "{{category_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all budgets after deleting one (Chores)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5b8dbe2-ba9e-4ee4-92d3-c1d89a60b5f0",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch a category with id (Chores to Studies)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84c8b6b3-6d3a-427b-b973-ad94372c2167",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct category response\", function () {\r",
+							"    pm.expect(jsonData.categoryType.typeName).to.eql(\"Studies\");\r",
+							"    pm.expect(jsonData.categoryType.task).to.eql(\"Increase study level\");\r",
+							"    pm.expect(jsonData.categoryType.level).to.eql(1);\r",
+							"    pm.expect(jsonData.categoryType.typeExperience).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryType\": {\r\n        \"typeName\": \"Studies\",\r\n        \"task\": \"Increase study level\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/categories/:{{category_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":{{category_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{category_id2}}",
+							"value": "{{category_id2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a category with id (Studies to Fitnessv2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "badd1717-6250-43e8-a188-63565a98f412",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct category response\", function () {\r",
+							"    pm.expect(jsonData.categoryType.typeName).to.eql(\"Fitnessv2\");\r",
+							"    pm.expect(jsonData.categoryType.task).to.eql(\"Increase fitness level even more\");\r",
+							"    pm.expect(jsonData.categoryType.level).to.eql(22);\r",
+							"    pm.expect(jsonData.categoryType.typeExperience).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryType\": {\r\n        \"typeName\": \"Fitnessv2\",\r\n        \"task\": \"Increase fitness level even more\",\r\n        \"level\": \"22\",\r\n        \"typeExperience\": \"0\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/categories/:{{category_id2}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						":{{category_id2}}"
+					],
+					"variable": [
+						{
+							"key": "{{category_id2}}",
+							"value": "{{category_id2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the categories collection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4185fea-adb1-423f-b755-6dc46beed35d",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
