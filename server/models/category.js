@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var categorySchema = new Schema({
-    categoryType: {
+    categoryType: {      
         typeName: {type: String},
         task: {type: String},
         level: {type: Number},
-        typeExperience: {type: Number} 
+        typeExperience: {type: Number}
     }
 });
 
