@@ -17,7 +17,7 @@ router.post('/:id/achievements', function(req, res, next){
         achievement.save();
         user.achievement.push(achievement);
         user.save();
-        res.status(201).json({'message': 'Achievement has been saved!'});
+        res.status(201).json(achievement);
     });
 });
 
