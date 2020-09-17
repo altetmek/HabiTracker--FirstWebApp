@@ -1,6 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Achievement = require('../models/achievement');
+
+//POST achievement to a user by id.
+router.post('/:id/achievements', function(req, res, next){
+    var id = req.params.id;
+    User.findById(id).populate('achievement').exec(function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        var achievement = new Achievement(req.body);
+        achievement.save();
+        user.achievement.push(achievement);
+        user.save();
+        res.status(200).json({'message': 'Achievement has been saved!'});
+    });
+});
 
 //GET all users.
 router.get('/', function(req, res, next){

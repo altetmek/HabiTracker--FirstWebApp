@@ -6,7 +6,9 @@ var categorySchema = new Schema({
         typeName: {type: String},
         task: {type: String},
         level: {type: Number},
-        typeExperience: {type: Number}
+        typeExperience: {type: Number},
+        user: [{type: Schema.Types.ObjectId, ref: 'user'}],
+        achievement: [{type: Schema.Types.ObjectId, ref: 'achievement'}]
     }
 });
 
