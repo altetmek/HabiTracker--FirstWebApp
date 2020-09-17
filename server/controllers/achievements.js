@@ -76,7 +76,7 @@ router.delete('/', function(req, res, next){
         if (achievements === null){
             return res.status(404).json({'message': 'There is no achievement to delete!'});
         };
-        res.status(202).json({'message': 'All achievements have been deleted.'})
+        res.status(200).json({'message': 'All achievements have been deleted.'})
     });
 });
 
@@ -88,7 +88,7 @@ router.delete('/:id', function(req, res, next) {
         if (achievement === null){
             return res.status(404).json({'message': 'Achievement not found'});
         }
-        res.status(202).json({'message': 'Achievement deleted.'})
+        res.status(200).json({'message': 'Achievement deleted.'})
     
         });
 });
@@ -107,7 +107,7 @@ router.patch('/:id', function(req, res, next) {
         achievement.degree = (req.body.degree || achievement.degree),
         achievement.description = (req.body.description || achievement.description)
         achievement.save();
-        res.status(201).json(achievement);
+        res.status(200).json(achievement);
     });
 });
 

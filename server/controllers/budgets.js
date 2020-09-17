@@ -53,7 +53,7 @@ router.delete('/:id', function(req, res, next) {
         if (budget === null){
             return res.status(404).json({'message': 'Budget not found'});
         }
-        res.status(202).json({'message': 'Budget deleted.'})
+        res.status(200).json({'message': 'Budget deleted.'})
     
         });
 });
@@ -71,7 +71,7 @@ router.patch('/:id', function(req, res, next) {
         budget.expenses = (req.body.expenses || budget.expenses),
         budget.savings = (req.body.savings || budget.savings)
         budget.save();
-        res.status(201).json(budget);
+        res.status(200).json(budget);
     });
 });
 

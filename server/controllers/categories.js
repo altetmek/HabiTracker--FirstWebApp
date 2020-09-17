@@ -71,7 +71,7 @@ router.patch('/:id', function(req, res, next) {
         category.categoryType.level = (req.body.categoryType.level || category.categoryType.level),
         category.categoryType.typeExperience = (req.body.categoryType.typeExperience || category.categoryType.typeExperience)
         category.save();
-        res.status(201).json(category);
+        res.status(200).json(category);
     });
 });
 
