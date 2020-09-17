@@ -1,6 +1,82 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Achievement = require('../models/achievement');
+var achievementController = require('../controllers/achievements');
+
+//POST achievement to a user by id.
+router.post('/:id/achievements', function(req, res, next){
+    var id = req.params.id;
+    User.findById(id).populate('achievement').exec(function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        var achievement = new Achievement(req.body);
+        achievement.experiencePoints = achievementController.degree(req);
+        achievement.save();
+        user.achievement.push(achievement);
+        user.save();
+        res.status(201).json(achievement);
+    });
+});
+
+//GET achievement(s) user has by user id.
+router.get('/:id/achievements', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, async function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        if(user.achievement.length === 0) {
+            return res.status(404).json({'message': 'User has no achievements.'})
+        };
+        var arr = [];
+        for(el of user.achievement) {
+            var achievement = await Achievement.findById(el).exec(); 
+            arr.push(achievement);
+        }
+        res.status(200).json(arr);
+    });
+});
+
+//GET specific achievement from specific user by id.
+router.get('/:id/achievements/:idAch', function(req, res, next) {
+    var id = req.params.id;
+    var idAchievement = req.params.idAch;
+    User.findById(id, function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        Achievement.findById(idAchievement, function(err, achievement) {
+            if (err) { return next(err); }
+            if (achievement === null) {
+                return res.status(404).json({'message': 'Achievement not found'});
+            };
+            res.status(200).json(achievement);
+        });
+    });
+});
+
+//DELETE a specific achievement from a specific user by id.
+router.delete('/:id/achievements/:idAch', function(req, res, next) {
+    var id = req.params.id;
+    var idAch = req.params.idAch;
+    User.findById(id, function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        user.achievement.pull(idAch);
+        user.save()
+        Achievement.findByIdAndDelete(idAch, function(err, achievement){
+            if (err) { return next(err); };
+            res.status(200).json({'message': 'Achievement deleted succesfully!'});
+        });
+    }); 
+});
 
 //GET all users.
 router.get('/', function(req, res, next){
@@ -41,7 +117,7 @@ router.delete('/', function(req, res, next){
         if (users === null){
             return res.status(404).json({'message': 'There is no user to delete!'});
         };
-        res.status(202).json({'message': 'All users have been deleted.'})
+        res.status(200).json({'message': 'All users have been deleted.'})
     });
 });
 
@@ -53,7 +129,7 @@ router.delete('/:id', function(req, res, next) {
         if (user === null){
             return res.status(404).json({'message': 'User not found'});
         };
-        res.status(202).json({'message': 'User deleted'})
+        res.status(200).json({'message': 'User deleted'})
     
         });
 });
@@ -71,10 +147,11 @@ router.patch('/:id', function(req, res, next) {
         user.level = (req.body.level || user.level),
         user.username = (req.body.username || user.username)
         user.save();
-        res.status(201).json(user);
+        res.status(200).json(user);
     })
 })
 
+//PUT user by id.
 router.put('/:id', function(req,res,next) {
     var id = req.params.id;
     User.findById(id, function(err, user) {
@@ -82,14 +159,14 @@ router.put('/:id', function(req,res,next) {
         if (user == null) {
             return res.status(404).json({"message": "User not found"})
         }
+        user.username = req.body.username,
+        user.level = req.body.level,
         user.title = req.body.title,
-        user.experiencePoints = req.body.experiencePoints,
-        user.level = req.body.level
-        user.username = req.body.username
+        user.experiencePoints = req.body.experiencePoints
         user.save();
         res.status(200).json(user);
 
-    })
-})
+    });
+});
 
 module.exports = router;

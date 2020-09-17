@@ -41,7 +41,7 @@ router.delete('/', function(req, res, next){
         if (categories === null){
             return res.status(404).json({'message': 'There is no category to delete!'});
         };
-        res.status(202).json({'message': 'All categories have been deleted.'})
+        res.status(200).json({'message': 'All categories have been deleted.'})
     });
 });
 
@@ -53,7 +53,7 @@ router.delete('/:id', function(req, res, next) {
         if (category === null){
             return res.status(404).json({'message': 'Category not found'});
         }
-        res.status(202).json({'message': 'Category deleted'});
+        res.status(200).json({'message': 'Category deleted'});
     
         });
 });
@@ -66,14 +66,32 @@ router.patch('/:id', function(req, res, next) {
         if(category == null){
             return res.status(404).json({"message": "Category not found"});
         }
-        category.task = (req.body.task || category.task),
-        category.typeName = (req.body.typeName || category.typeName),
-        category.level = (req.body.level || category.level),
-        category.experiencePoints = (req.body.experiencePoints || category.experiencePoints)
+        category.categoryType.typeName = (req.body.categoryType.typeName || category.categoryType.typeName),
+        category.categoryType.task = (req.body.categoryType.task || category.categoryType.task),
+        category.categoryType.level = (req.body.categoryType.level || category.categoryType.level),
+        category.categoryType.typeExperience = (req.body.categoryType.typeExperience || category.categoryType.typeExperience)
         category.save();
-        res.status(201).json(category);
-    })
-})
+        res.status(200).json(category);
+    });
+});
+
+//PUT category by id.
+router.put('/:id', function(req, res, next) {
+    var id = req.params.id;
+    Category.findById(id, function(err, category) {
+        if(err) {return next(err);}
+        if(category == null) {
+            return res.status(404).json({"message": "Category not found"});
+        }
+        category.categoryType.typeName = req.body.categoryType.typeName,
+        category.categoryType.task = req.body.categoryType.task,
+        category.categoryType.level = req.body.categoryType.level,
+        category.categoryType.typeExperience = req.body.categoryType.typeExperience
+        category.save();
+        res.status(200).json(category);
+
+    });
+});
 
 router.put('/:id', function(req, res, next) {
     var id = req.params.id;

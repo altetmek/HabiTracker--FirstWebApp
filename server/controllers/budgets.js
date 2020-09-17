@@ -41,11 +41,11 @@ router.delete('/', function(req, res, next){
         if (budgets === null){
             return res.status(404).json({'message': 'There is no budget to delete!'});
         };
-        res.status(202).json({'message': 'All bugets have been deleted.'})
+        res.status(200).json({'message': 'All bugets have been deleted.'})
     });
 });
 
-//DELETE budget by colleciton.
+//DELETE budget by id.
 router.delete('/:id', function(req, res, next) {
     var id = req.params.id;
     Budget.findOneAndDelete({_id: id}, function(err, budget) {
@@ -53,7 +53,7 @@ router.delete('/:id', function(req, res, next) {
         if (budget === null){
             return res.status(404).json({'message': 'Budget not found'});
         }
-        res.status(202).json({'message': 'Budget deleted.'})
+        res.status(200).json({'message': 'Budget deleted.'})
     
         });
 });
@@ -66,12 +66,30 @@ router.patch('/:id', function(req, res, next) {
         if(budget == null){
             return res.status(404).json({"message": "Budget not found"});
         }
+        budget.name = (req.body.name || budget.name),
+        budget.income = (req.body.income || budget.income),
         budget.expenses = (req.body.expenses || budget.expenses),
-       // budget.expenseName = (req.body.expenseName || budget.expenseName),
-        budget.savings = (req.body.savings || budget.savings),
-        budget.income = (req.body.income || budget.income)
+        budget.savings = (req.body.savings || budget.savings)
         budget.save();
-        res.status(201).json(budget);
+        res.status(200).json(budget);
+    });
+});
+
+//PUT budget by id.
+router.put('/:id', function(req,res,next) {
+    var id = req.params.id;
+    Budget.findById(id, function(err, budget) {
+        if (err) {return next(err);}
+        if (budget == null) {
+            return res.status(404).json({"message": "Budget not found"})
+        }
+        budget.name = req.body.name,
+        budget.income = req.body.income,
+        budget.expenses = req.body.expenses,
+        budget.savings = req.body.savings
+        budget.save();
+        res.status(200).json(budget);
+
     })
 })
 

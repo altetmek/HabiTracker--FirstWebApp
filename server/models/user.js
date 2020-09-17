@@ -5,7 +5,10 @@ var userSchema = new Schema({
     username: {type: String},
     level: {type: Number},
     title: {type: String},
-    experiencePoints: {type: Number}
+    experiencePoints: {type: Number},
+    achievement: [{type: Schema.Types.ObjectId, ref: 'achievement'}],
+    category: [{type: Schema.Types.ObjectId, ref: 'category'}],
+    budget: [{type: Schema.Types.ObjectId, ref: 'budget'}]
 
 });
 
