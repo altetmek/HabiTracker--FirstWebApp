@@ -41,7 +41,7 @@ router.delete('/', function(req, res, next){
         if (categories === null){
             return res.status(404).json({'message': 'There is no category to delete!'});
         };
-        res.status(202).json({'message': 'All categories have been deleted.'})
+        res.status(200).json({'message': 'All categories have been deleted.'})
     });
 });
 
@@ -53,7 +53,7 @@ router.delete('/:id', function(req, res, next) {
         if (category === null){
             return res.status(404).json({'message': 'Category not found'});
         }
-        res.status(202).json({'message': 'Category deleted'});
+        res.status(200).json({'message': 'Category deleted'});
     
         });
 });

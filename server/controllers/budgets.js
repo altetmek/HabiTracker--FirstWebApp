@@ -41,7 +41,7 @@ router.delete('/', function(req, res, next){
         if (budgets === null){
             return res.status(404).json({'message': 'There is no budget to delete!'});
         };
-        res.status(202).json({'message': 'All bugets have been deleted.'})
+        res.status(200).json({'message': 'All bugets have been deleted.'})
     });
 });
 
