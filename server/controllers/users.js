@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Achievement = require('../models/achievement');
+var achievementController = require('../controllers/achievements');
 
 //POST achievement to a user by id.
 router.post('/:id/achievements', function(req, res, next){
@@ -12,10 +13,58 @@ router.post('/:id/achievements', function(req, res, next){
             return res.status(404).json({'message': 'User not found'});
         };
         var achievement = new Achievement(req.body);
+        achievement.experiencePoints = achievementController.degree(req);
         achievement.save();
         user.achievement.push(achievement);
         user.save();
-        res.status(200).json({'message': 'Achievement has been saved!'});
+        res.status(201).json({'message': 'Achievement has been saved!'});
+    });
+});
+
+//GET achievement(s) user has by user id.
+router.get('/:id/achievements', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        if(user.achievement.length === 0) {
+            return res.status(404).json({'message': 'User has no achievements.'})
+        };
+        //This should work but we only get empty array, while we can log all the achievements to the console.
+        /*
+        var arr = [];
+        user.achievement.forEach(element => {
+            Achievement.findById(element, function(err, achievement){
+                if (err) { return next(err); }
+                arr.push(achievement);
+                console.log(achievement);
+            });
+        });
+        res.status(200).json(arr);
+        */
+
+        //This way we can print only the ID's.
+       res.status(200).json(user.achievement);
+    });
+});
+
+router.get('/:id/achievements/:idAch', function(req, res, next) {
+    var id = req.params.id;
+    var idAchievement = req.params.idAch;
+    User.findById(id, function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        Achievement.findById(idAchievement, function(err, achievement) {
+            if (err) { return next(err); }
+            if (achievement === null) {
+                return res.status(404).json({'message': 'Achievement not found'});
+            };
+            res.status(200).json(achievement);
+        });
     });
 });
 

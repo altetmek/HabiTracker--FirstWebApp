@@ -30,7 +30,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 //Function to return experiencePoints related to the degree.
-function degree(req) {
+var degree = (req) => {
     var degree = req.body.degree;
     switch (degree) {
         case 'Bronze':
@@ -117,3 +117,4 @@ router.put('/:id', function(req,res,next) {
 });
 
 module.exports = router;
+module.exports.degree = degree;
