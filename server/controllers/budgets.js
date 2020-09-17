@@ -93,18 +93,4 @@ router.put('/:id', function(req,res,next) {
     })
 })
 
-router.put('/:id', function(req, res, next) {
-    var id = req.params.id;
-    Budget.findById(id, function(err, budget) {
-        if(err) {return next (err);}
-        if(budget == null){
-            return res.status(404).json({"message": "Budget not found"});
-        }
-        budget.expenses = req.body.expenses,
-        budget.savings = req.body.savings,
-        budget.income = req.body.income
-        budget.save();
-        res.status(200).json(budget);
-        })
-})
 module.exports = router;
