@@ -78,6 +78,218 @@
 			"response": []
 		},
 		{
+			"name": "Post achievement to user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b89245b8-603e-40ff-811b-ff7185f1ece0",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var achievementIdforUser = jsonData._id;\r",
+							"pm.environment.set(\"achievement_id_forUser\", achievementIdforUser);\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Chores\",\r\n    \"name\": \"Get to level 10\",\r\n    \"degree\": \"Gold\",\r\n    \"description\": \"You must get to level 10 within a week\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/achievements",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"achievements"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get achievements of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b7e6d77-dbba-4623-919f-483a55cc1df3",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/achievements",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"achievements"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get achievements of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "427b029e-56bb-4032-a30d-abe340aca96e",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/achievements/:{{achievement_id_forUser}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"achievements",
+						":{{achievement_id_forUser}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "{{achievement_id_forUser}}",
+							"value": "{{achievement_id_forUser}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get achievements of a user by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "936b46d2-37a2-4801-b9ac-a6798ea0c7d8",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/achievements/:{{achievement_id_forUser}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"achievements",
+						":{{achievement_id_forUser}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "{{achievement_id_forUser}}",
+							"value": "{{achievement_id_forUser}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create another user (Altug)",
 			"event": [
 				{
@@ -257,7 +469,7 @@
 						"id": "a1c98a28-f8e6-441d-8e94-91eadcca4703",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -401,7 +613,7 @@
 							"var jsonData = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Correct user response\", function () {\r",
@@ -528,7 +740,7 @@
 						"id": "24ff4a4f-8d6d-410e-9e6b-42d318793d7a",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -659,8 +871,8 @@
 							"pm.test(\"Correct achievement response\", function () {",
 							"    pm.expect(jsonData.type).to.eql(\"Chores\");",
 							"    pm.expect(jsonData.name).to.eql(\"Get to level 5\");",
-							"    pm.expect(jsonData.degree).to.eql(\"Silver\");",
-							"    pm.expect(jsonData.experiencePoints).to.eql(20);",
+							"    pm.expect(jsonData.degree).to.eql(\"Gold\");",
+							"    pm.expect(jsonData.experiencePoints).to.eql(30);",
 							"    pm.expect(jsonData.description).to.eql(\"You must get to level 5 within a week\");",
 							"});",
 							""
@@ -685,7 +897,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"type\": \"Chores\",\n    \"name\": \"Get to level 5\",\n    \"degree\": \"Silver\",\n    \"description\": \"You must get to level 5 within a week\"\n}",
+					"raw": "{\n    \"type\": \"Chores\",\n    \"name\": \"Get to level 5\",\n    \"degree\": \"Gold\",\n    \"description\": \"You must get to level 5 within a week\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -736,6 +948,51 @@
 					"path": [
 						"api",
 						"achievements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get sort desc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "361f0714-abc5-4f00-8a6b-fddc252ec363",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/achievements/?sort=desc",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"achievements",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "desc"
+						}
 					]
 				}
 			},
@@ -798,7 +1055,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete one user (Fitness)",
+			"name": "Delete one achievement (Fitness)",
 			"event": [
 				{
 					"listen": "test",
@@ -806,7 +1063,7 @@
 						"id": "40a3b1bd-4aa9-4866-a435-1a068a92fde1",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -843,7 +1100,7 @@
 			"response": []
 		},
 		{
-			"name": "Get user by id after deleting (Fitness)",
+			"name": "Get achievement by id after deleting (Fitness)",
 			"event": [
 				{
 					"listen": "test",
@@ -888,7 +1145,7 @@
 			"response": []
 		},
 		{
-			"name": "Get all users after deleting one (Chores)",
+			"name": "Get all achievements after deleting one (Chores)",
 			"event": [
 				{
 					"listen": "test",
@@ -950,7 +1207,7 @@
 							"var jsonData = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Correct achievement response\", function () {\r",
@@ -1070,7 +1327,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete the users collection",
+			"name": "Delete the achievements collection",
 			"event": [
 				{
 					"listen": "test",
@@ -1078,7 +1335,7 @@
 						"id": "ef9d80f5-492a-49ba-8b60-f7d63574d2e4",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1353,7 +1610,7 @@
 						"id": "6d6b5b23-153a-47dd-b9bc-1b5cd0e89391",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1497,7 +1754,7 @@
 							"var jsonData = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Correct user response\", function () {\r",
@@ -1621,7 +1878,7 @@
 						"id": "80da0c83-1064-412c-a420-7e00cf694e43",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1895,7 +2152,7 @@
 						"id": "d422335c-c62e-4eb4-93bb-61f43897fce8",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -2029,7 +2286,7 @@
 							"var jsonData = pm.response.json();\r",
 							"\r",
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Correct category response\", function () {\r",
@@ -2147,7 +2404,7 @@
 						"id": "c4185fea-adb1-423f-b755-6dc46beed35d",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(202);\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
