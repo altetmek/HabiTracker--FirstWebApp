@@ -188,7 +188,7 @@
 			"response": []
 		},
 		{
-			"name": "Get achievements of a user by id",
+			"name": "Get specific achievement of a user by id",
 			"event": [
 				{
 					"listen": "test",
