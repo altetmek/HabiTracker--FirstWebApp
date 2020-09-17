@@ -73,7 +73,7 @@ router.delete('/:id/achievements/:idAch', function(req, res, next) {
         user.save()
         Achievement.findByIdAndDelete(idAch, function(err, achievement){
             if (err) { return next(err); };
-            res.status(202).json({'message': 'Achievement deleted succesfully!'});
+            res.status(200).json({'message': 'Achievement deleted succesfully!'});
         });
     }); 
 });
@@ -117,7 +117,7 @@ router.delete('/', function(req, res, next){
         if (users === null){
             return res.status(404).json({'message': 'There is no user to delete!'});
         };
-        res.status(202).json({'message': 'All users have been deleted.'})
+        res.status(200).json({'message': 'All users have been deleted.'})
     });
 });
 
@@ -129,7 +129,7 @@ router.delete('/:id', function(req, res, next) {
         if (user === null){
             return res.status(404).json({'message': 'User not found'});
         };
-        res.status(202).json({'message': 'User deleted'})
+        res.status(200).json({'message': 'User deleted'})
     
         });
 });
@@ -147,7 +147,7 @@ router.patch('/:id', function(req, res, next) {
         user.level = (req.body.level || user.level),
         user.username = (req.body.username || user.username)
         user.save();
-        res.status(201).json(user);
+        res.status(200).json(user);
     })
 })
 
