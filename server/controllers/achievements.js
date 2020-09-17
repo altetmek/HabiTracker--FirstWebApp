@@ -6,6 +6,19 @@ const bronze = 10;
 const silver = 20;
 const gold = 30;
 
+//
+router.get('/?sort=desc', function(req, res, next){
+    Achievement.find(function(err, achievements){
+        if (err) {return next(err);}
+        if (achievements.length === 0) {
+            return res.status(404).json({'message': 'There is no existing achievement!'});
+        }
+        console.log('Sort testing');
+        res.status(200).json({'achievements': achievements});
+    });
+});
+
+
 //GET all achievements.
 router.get('/', function(req, res, next){
     Achievement.find(function(err, achievements){

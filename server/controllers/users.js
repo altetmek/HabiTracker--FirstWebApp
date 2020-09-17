@@ -24,7 +24,7 @@ router.post('/:id/achievements', function(req, res, next){
 //GET achievement(s) user has by user id.
 router.get('/:id/achievements', function(req, res, next) {
     var id = req.params.id;
-    User.findById(id, function(err, user) {
+    User.findById(id, async function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
@@ -32,24 +32,16 @@ router.get('/:id/achievements', function(req, res, next) {
         if(user.achievement.length === 0) {
             return res.status(404).json({'message': 'User has no achievements.'})
         };
-        //This should work but we only get empty array, while we can log all the achievements to the console.
-        /*
         var arr = [];
-        user.achievement.forEach(element => {
-            Achievement.findById(element, function(err, achievement){
-                if (err) { return next(err); }
-                arr.push(achievement);
-                console.log(achievement);
-            });
-        });
+        for(el of user.achievement) {
+            var achievement = await Achievement.findById(el).exec(); 
+            arr.push(achievement);
+        }
         res.status(200).json(arr);
-        */
-
-        //This way we can print only the ID's.
-       res.status(200).json(user.achievement);
     });
 });
 
+//GET specific achievement from specific user by id.
 router.get('/:id/achievements/:idAch', function(req, res, next) {
     var id = req.params.id;
     var idAchievement = req.params.idAch;
@@ -66,6 +58,24 @@ router.get('/:id/achievements/:idAch', function(req, res, next) {
             res.status(200).json(achievement);
         });
     });
+});
+
+//DELETE a specific achievement from a specific user by id.
+router.delete('/:id/achievements/:idAch', function(req, res, next) {
+    var id = req.params.id;
+    var idAch = req.params.idAch;
+    User.findById(id, function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        user.achievement.pull(idAch);
+        user.save()
+        Achievement.findByIdAndDelete(idAch, function(err, achievement){
+            if (err) { return next(err); };
+            res.status(202).json({'message': 'Achievement deleted succesfully!'});
+        });
+    }); 
 });
 
 //GET all users.
