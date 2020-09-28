@@ -1,12 +1,39 @@
 <template>
   <div>
-    <b-container class="page-container" fluid="lg">
-        <b-row>
-         <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-        </b-row>
-    </b-container>
+    <b-jumbotron bg-variant="dark" text-variant="white" header="User Page" lead="CockSucker42069">
+      <b-container class="bv-example-row bv-example-row-flex-cols">
+  <b-row align-v="start">
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+  </b-row>
+
+  <b-row align-v="center">
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+  </b-row>
+
+  <b-row align-v="end">
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+  </b-row>
+
+  <b-row align-v="baseline">
+    <b-col style="font-size: 0.75rem;">One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col style="font-size: 1.25rem;">One of three columns</b-col>
+  </b-row>
+
+  <b-row align-v="stretch">
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+    <b-col>One of three columns</b-col>
+  </b-row>
+</b-container>
+      <b-button variant="primary" href="#">Pornhub</b-button>
+    </b-jumbotron>
   </div>
 </template>
 
@@ -38,5 +65,8 @@ export default {
 <style>
 .btn_message {
   margin-bottom: 1em;
+}
+.div {
+  height: 100%;
 }
 </style>
