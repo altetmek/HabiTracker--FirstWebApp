@@ -1,12 +1,36 @@
 <template>
   <div>
-    <b-jumbotron header="Budget" lead="Please input your expenses, income and intended savings.">
-       <p>
-        <b-form-input v-model="text" placeholder="Enter your expenses"></b-form-input>
-        <b-form-input v-model="text" placeholder="Enter your income"></b-form-input>
-        <b-form-input v-model="text" placeholder="Enter your intended savings"></b-form-input>
-       </p>
-       <p><b-button>I am a Button</b-button></p>
+    <b-jumbotron bg-variant="dark" text-variant="white" header="Budget" lead="Please input your expenses, income and intended savings.">
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="name" v-model="text" placeholder="Enter budget name"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="expense" v-model="text" placeholder="Enter your expenses"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="income" v-model="text" placeholder="Enter your income"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="saving" v-model="text" placeholder="Enter your intended savings"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+      </p>
+      <p><b-button>Save</b-button></p>
     </b-jumbotron>
   </div>
 </template>
@@ -17,11 +41,6 @@ import { Api } from '@/Api'
 
 export default {
   name: 'budget',
-  data() {
-    return {
-      text: ''
-    }
-  },
   methods: {
     getMessage() {
       Api.get('/')
