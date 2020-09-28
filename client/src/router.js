@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import UserPage from './views/UserPage.vue'
+import BudgetPage from './views/BudgetPage.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/UserPage',
       name: 'userpage',
       component: UserPage
+    },
+    {
+      path: '/BudgetPage',
+      name: 'budgetpage',
+      component: BudgetPage
     }
   ]
 })
