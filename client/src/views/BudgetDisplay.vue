@@ -4,7 +4,7 @@
         <h1>Your Budget</h1>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="budget in budgets" v-bind:key="budget._id">
-                <budget-item class="items" v-bind:budget="budget" v-on:del-budget="deleteBudget" v-on:get-budget="getBudget"/>
+                <budget-item class="items" v-bind:budget="budget" v-on:del-budget="deleteBudget"/>
             </b-col>
         </b-row>
     </b-container>
@@ -48,11 +48,6 @@ export default {
         })
         .catch(error => {
           this.message = error.message
-        })
-    },
-    getBudget(id) {
-      Api.get(`/budgets/${id}`)
-        .then(response => {
         })
     }
   }
