@@ -28,7 +28,7 @@
           <b-col></b-col>
         </b-row>
       </p>
-      <b-button v-on:click="postBudget">Save</b-button>
+      <b-button href="BudgetDisplay" v-on:click="postBudget">Save</b-button>
       <br><br><br><br>
     </b-jumbotron>
   </div>

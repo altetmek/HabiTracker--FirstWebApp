@@ -4,7 +4,6 @@ import Home from './views/Home.vue'
 import UserPage from './views/UserPage.vue'
 import BudgetPage from './views/BudgetPage.vue'
 import BudgetDisplay from './views/BudgetDisplay.vue'
-import BudgetIndividual from './views/BudgetIndividual.vue'
 
 Vue.use(Router)
 
@@ -31,11 +30,6 @@ export default new Router({
       path: '/BudgetDisplay',
       name: 'budgetdisplay',
       component: BudgetDisplay
-    },
-    {
-      path: '/BudgetIndividual',
-      name: 'budgetindividual',
-      component: BudgetIndividual
     }
   ]
 })

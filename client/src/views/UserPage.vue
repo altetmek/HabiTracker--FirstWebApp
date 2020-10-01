@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-jumbotron bg-variant="dark" text-variant="white" header="User Page" lead="CockSucker42069">
+    <b-jumbotron bg-variant="dark" text-variant="white" header="User Page" lead="this is a lead">
       <b-container class="bv-example-row bv-example-row-flex-cols">
   <b-row align-v="start">
     <b-col>One of three columns</b-col>
@@ -32,7 +32,7 @@
     <b-col>One of three columns</b-col>
   </b-row>
 </b-container>
-      <b-button variant="primary" href="#">Pornhub</b-button>
+      <b-button variant="primary" href="#">Some link</b-button>
     </b-jumbotron>
   </div>
 </template>
