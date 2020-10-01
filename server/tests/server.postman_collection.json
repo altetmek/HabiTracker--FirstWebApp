@@ -142,7 +142,7 @@
 			"response": []
 		},
 		{
-			"name": "Get all achievements of a user by id",
+			"name": "Get achievements of a user by id",
 			"event": [
 				{
 					"listen": "test",
