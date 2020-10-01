@@ -1,11 +1,29 @@
 <template>
   <div>
-    <b-jumbotron header="DIT341 Frontend" lead="Welcome to your DIT341 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
-    </b-jumbotron>
-  </div>
+  <b-jumbotron bg-variant="dark" text-variant="white">
+    <template v-slot:header>Welcome to HabiTracker!</template>
+    <template v-slot:lead>
+      Welcome to our Habit Tracker where you can create and customize your life, in a categorised manner. <br>
+      To start, fill in the information below!
+    </template>
+    <hr class="my-4">
+    <b-form-group id="input-group-1" label="Your Information:" label-for="input-1">
+        <b-form-input
+          id="input-1"
+          v-model="username"
+          required
+          placeholder="Enter username"
+        ></b-form-input>
+    </b-form-group>
+    <b-form-input type="password" v-model="password" placeholder="Enter your password"></b-form-input>
+    <b-button href="#" v-on:click="getUser" variant="primary">Login</b-button>
+    <b-button variant="success" href="#">Create Account</b-button>
+    <p>
+      It uses utility classes for typography and spacing to space content out within the larger
+      container.
+    </p>
+  </b-jumbotron>
+</div>
 </template>
 
 <script>
@@ -16,7 +34,8 @@ export default {
   name: 'home',
   data() {
     return {
-      message: 'none'
+      username: '',
+      password: ''
     }
   },
   methods: {
