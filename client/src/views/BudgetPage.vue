@@ -4,27 +4,27 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="text" placeholder="Enter budget name"></b-form-input></b-col>
+          <b-col><b-form-input id="name" v-model="textName" placeholder="Enter budget name"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="expense" v-model="text" placeholder="Enter your expenses"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="income" v-model="text" placeholder="Enter your income"></b-form-input></b-col>
+          <b-col><b-form-input id="expense" v-model="textExpense" placeholder="Enter your expenses"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="saving" v-model="text" placeholder="Enter your intended savings"></b-form-input></b-col>
+          <b-col><b-form-input id="income" v-model="textIncome" placeholder="Enter your income"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="saving" v-model="textSavings" placeholder="Enter your intended savings"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
@@ -44,7 +44,10 @@ export default {
     return {
       budgets: [],
       message: '',
-      text: ''
+      textName: '',
+      textExpense: '',
+      textIncome: '',
+      textSavings: ''
     }
   },
   methods: {
@@ -60,10 +63,10 @@ export default {
     postBudget() {
       Api.post('/budgets')
         .then(request => {
-          request.data.name = this.text.name
-          request.data.expenses = this.text.expense
-          request.data.income = this.text.income
-          request.data.savings = this.text.saving
+          request.data.name = this.textName
+          request.data.expenses = this.textExpense
+          request.data.income = this.textIncome
+          request.data.savings = this.textSavings
         })
         .catch(error => {
           this.message = error
