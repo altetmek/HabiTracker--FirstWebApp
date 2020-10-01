@@ -4,27 +4,27 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="textName" placeholder="Enter budget name"></b-form-input></b-col>
+          <b-col><b-form-input id="name" v-model="name" placeholder="Enter budget name"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="expense" v-model="textExpense" placeholder="Enter your expenses"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="income" v-model="textIncome" placeholder="Enter your income"></b-form-input></b-col>
+          <b-col><b-form-input id="expense" v-model="expense" placeholder="Enter your expenses"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="saving" v-model="textSavings" placeholder="Enter your intended savings"></b-form-input></b-col>
+          <b-col><b-form-input id="income" v-model="income" placeholder="Enter your income"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="saving" v-model="saving" placeholder="Enter your intended savings"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
@@ -44,10 +44,10 @@ export default {
     return {
       budgets: [],
       message: '',
-      textName: '',
-      textExpense: '',
-      textIncome: '',
-      textSavings: ''
+      name: '',
+      expense: '',
+      income: '',
+      saving: ''
     }
   },
   methods: {
@@ -61,12 +61,14 @@ export default {
         })
     },
     postBudget() {
-      Api.post('/budgets')
+      const params = {
+        name: this.name,
+        expenses: this.expense,
+        income: this.income,
+        savings: this.saving
+      }
+      Api.post('/budgets', params)
         .then(request => {
-          request.data.name = this.textName
-          request.data.expenses = this.textExpense
-          request.data.income = this.textIncome
-          request.data.savings = this.textSavings
         })
         .catch(error => {
           this.message = error
