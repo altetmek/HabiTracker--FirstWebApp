@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import UserPage from './views/UserPage.vue'
 import BudgetPage from './views/BudgetPage.vue'
+import BudgetDisplay from './views/BudgetDisplay.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/BudgetPage',
       name: 'budgetpage',
       component: BudgetPage
+    },
+    {
+      path: '/BudgetDisplay',
+      name: 'budgetdisplay',
+      component: BudgetDisplay
     }
   ]
 })

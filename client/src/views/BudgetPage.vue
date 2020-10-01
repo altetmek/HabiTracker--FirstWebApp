@@ -28,9 +28,8 @@
           <b-col></b-col>
         </b-row>
       </p>
-      <p>
-      </p>
-      <p><b-button>Save</b-button></p>
+      <b-button v-on:click="postBudget">Save</b-button>
+      <br><br><br><br>
     </b-jumbotron>
   </div>
 </template>
@@ -41,11 +40,30 @@ import { Api } from '@/Api'
 
 export default {
   name: 'budget',
+  data() {
+    return {
+      budgets: [],
+      message: '',
+      text: ''
+    }
+  },
   methods: {
     getMessage() {
       Api.get('/')
         .then(response => {
           this.message = response.data.message
+        })
+        .catch(error => {
+          this.message = error
+        })
+    },
+    postBudget() {
+      Api.post('/budgets')
+        .then(request => {
+          request.data.name = this.text.name
+          request.data.expenses = this.text.expense
+          request.data.income = this.text.income
+          request.data.savings = this.text.saving
         })
         .catch(error => {
           this.message = error
