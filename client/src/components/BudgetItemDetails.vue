@@ -9,9 +9,13 @@
     sub-title=""
   >
     <b-card-text>
-      <p>{{budget.name}}</p>
+      <p>Budget name; {{budget.name}}</p>
+      <p>Expenses: {{budget.expenses}}</p>
+      <p>Income: {{budget.income}}</p>
+      <p>Intended Savings: {{budget.savings}}</p>
     </b-card-text>
-    <b-button v-on:click="$emit('get-budget', budget._id)">See Details</b-button>
+    <!-- Fix this to go back -->
+    <!-- <b-button v-on:click="$emit('get-budget', budget._id)">Show less</b-button> -->
     <b-button variant="danger" v-on:click="$emit('del-budget', budget._id)">Delete Budget</b-button>
   </b-card>
   </div>
@@ -19,14 +23,11 @@
 
 <script>
 export default {
-  name: 'budget-item',
+  name: 'budget-details',
   props: ['budget'],
   methods: {
     deleteBudget() {
       this.$emit('del-budget', this.budget._id)
-    },
-    getBudget() {
-      this.$emit('get-budget', this.budget._id)
     }
   }
 }

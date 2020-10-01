@@ -3,8 +3,8 @@
         <p class="red">{{message}}</p>
         <h1>Your Budget</h1>
         <b-row align-h="center">
-            <b-col cols="12" sm="6" md="4" v-for="budget in budgets" v-bind:key="budget._id">
-                <budget-item class="items" v-bind:budget="budget" v-on:del-budget="deleteBudget" v-on:get-budget="getBudget"/>
+            <b-col cols="12" sm="6" md="4">
+                <budget-details class="items" v-on:del-budget="deleteBudget"/>
             </b-col>
         </b-row>
     </b-container>
@@ -12,25 +12,12 @@
 
 <script>
 import { Api } from '@/Api'
-import BudgetItem from '@/components/BudgetItem.vue'
+// import BudgetItemDetails from '@/components/BudgetItemDetails.vue'
 
 export default {
   name: 'budgets',
   components: {
-    BudgetItem
-  },
-  mounted() {
-    Api.get('/Budgets')
-      .then(response => {
-        this.budgets = response.data.budgets
-      })
-      .catch(error => {
-        this.message = error.message
-        this.budgets = []
-      })
-      .then(() => {
-        this.message = 'testing how this works'
-      })
+    // BudgetItemDetails
   },
   data() {
     return {
@@ -48,11 +35,6 @@ export default {
         })
         .catch(error => {
           this.message = error.message
-        })
-    },
-    getBudget(id) {
-      Api.get(`/budgets/${id}`)
-        .then(response => {
         })
     }
   }
