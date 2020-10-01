@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import UserPage from './views/UserPage.vue'
 import BudgetPage from './views/BudgetPage.vue'
 import BudgetDisplay from './views/BudgetDisplay.vue'
+import UserDisplay from './views/UserDisplay.vue'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/BudgetDisplay',
       name: 'budgetdisplay',
       component: BudgetDisplay
+    },
+    {
+      path: '/UserDisplay',
+      name: 'userdisplay',
+      component: UserDisplay
     }
   ]
 })

@@ -10,6 +10,9 @@
           <b-link href="UserPage">User Page</b-link>
         </p>
         <p>
+          <b-link href="UserDisplay">UserDisplay Page</b-link>
+        </p>
+        <p>
           <b-link href="BudgetPage">Budget Page</b-link>
         </p>
         <p>

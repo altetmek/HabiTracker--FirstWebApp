@@ -1,38 +1,22 @@
 <template>
   <div>
-    <b-jumbotron bg-variant="dark" text-variant="white" header="User Page" lead="this is a lead">
-      <b-container class="bv-example-row bv-example-row-flex-cols">
-  <b-row align-v="start">
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-  </b-row>
-
-  <b-row align-v="center">
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-  </b-row>
-
-  <b-row align-v="end">
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-  </b-row>
-
-  <b-row align-v="baseline">
-    <b-col style="font-size: 0.75rem;">One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-    <b-col style="font-size: 1.25rem;">One of three columns</b-col>
-  </b-row>
-
-  <b-row align-v="stretch">
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-    <b-col>One of three columns</b-col>
-  </b-row>
-</b-container>
-      <b-button variant="primary" href="#">Some link</b-button>
+    <b-jumbotron bg-variant="dark" text-variant="white" header="User" lead="Please input your username and starting title.">
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="username" v-model="username" placeholder="Enter your username"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="title" v-model="title" placeholder="Enter your starting title"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <b-button href="UserDisplay" v-on:click="postUser">Save</b-button>
+      <br><br><br><br>
     </b-jumbotron>
   </div>
 </template>
@@ -45,7 +29,12 @@ export default {
   name: 'user',
   data() {
     return {
-      message: 'none'
+      users: [],
+      message: '',
+      username: '',
+      title: '',
+      level: 1,
+      experiencePoints: 0
     }
   },
   methods: {
@@ -53,6 +42,20 @@ export default {
       Api.get('/')
         .then(response => {
           this.message = response.data.message
+        })
+        .catch(error => {
+          this.message = error
+        })
+    },
+    postUser() {
+      const params = {
+        username: this.username,
+        level: this.level,
+        title: this.title,
+        experiencePoints: this.experiencePoints
+      }
+      Api.post('/users', params)
+        .then(request => {
         })
         .catch(error => {
           this.message = error
