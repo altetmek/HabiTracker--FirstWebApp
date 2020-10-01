@@ -18,6 +18,12 @@
         <p>
           <b-link href="BudgetDisplay">BudgetDisplay Page</b-link>
         </p>
+        <p>
+          <b-link href="AchievementPage">Achievement Page</b-link>
+        </p>
+        <p>
+          <b-link href="AchievementDisplay">AchievementDisplay Page</b-link>
+        </p>
       </div>
     </b-sidebar>
     <!-- Render the content of the current page view -->
