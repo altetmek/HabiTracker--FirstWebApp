@@ -6,7 +6,7 @@ import BudgetPage from './views/BudgetPage.vue'
 import BudgetDisplay from './views/BudgetDisplay.vue'
 import UserDisplay from './views/UserDisplay.vue'
 import AchievementPage from './views/AchievementPage.vue'
-import AchievementDisplay from './views/AchievementDislpay.vue'
+import AchievementDisplay from './views/AchievementDisplay.vue'
 
 Vue.use(Router)
 
