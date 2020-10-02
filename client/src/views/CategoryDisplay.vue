@@ -1,6 +1,7 @@
 <template>
     <b-container>
         <div>
+          <!-- I have no idea whats going on here... -->
             <b-jumbotron bg-variant="dark" text-variant="white" header="Categories" lead="Here you can view your progress.">
             <b-tabs content-class="mt-3">
                 <b-tab title="Fitness" if active><p>
