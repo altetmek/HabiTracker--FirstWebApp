@@ -5,8 +5,8 @@ import UserPage from './views/UserPage.vue'
 import BudgetPage from './views/BudgetPage.vue'
 import BudgetDisplay from './views/BudgetDisplay.vue'
 import UserDisplay from './views/UserDisplay.vue'
-/* import AchievementPage from './views/AchievementPage.vue'
-import AchievementDisplay from './views/AchievementDislpay.vue' */
+import AchievementPage from './views/AchievementPage.vue'
+import AchievementDisplay from './views/AchievementDislpay.vue'
 
 Vue.use(Router)
 
@@ -38,8 +38,8 @@ export default new Router({
       path: '/UserDisplay',
       name: 'userdisplay',
       component: UserDisplay
-    }
-    /* {
+    },
+    {
       path: '/AchievementPage',
       name: 'achievementpage',
       component: AchievementPage
@@ -48,6 +48,6 @@ export default new Router({
       path: '/AchievementDisplay',
       name: 'achievementdisplay',
       component: AchievementDisplay
-    } */
+    } 
   ]
 })
