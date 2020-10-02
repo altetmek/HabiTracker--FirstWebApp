@@ -1,8 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
+    <b-button v-b-toggle.sidebar-1>Pages</b-button>
+    <b-sidebar id="sidebar-1" title="Sidebar" shadow>
+      <div class="px-3 py-2">
+        <p>
+          <b-link href="/">Home</b-link>
+        </p>
+        <p>
+          <b-link href="UserPage">User Page</b-link>
+        </p>
+        <p>
+          <b-link href="UserDisplay">UserDisplay Page</b-link>
+        </p>
+        <p>
+          <b-link href="BudgetPage">Budget Page</b-link>
+        </p>
+        <p>
+          <b-link href="BudgetDisplay">BudgetDisplay Page</b-link>
+        </p>
+        <p>
+          <b-link href="AchievementPage">Achievement Page</b-link>
+        </p>
+        <p>
+          <b-link href="AchievementDisplay">AchievementDisplay Page</b-link>
+        </p>
+        <p>
+          <b-link href="CategoryDisplay">CategoryDisplay Page</b-link>
+        </p>
+      </div>
+    </b-sidebar>
     <!-- Render the content of the current page view -->
     <router-view/>
   </div>

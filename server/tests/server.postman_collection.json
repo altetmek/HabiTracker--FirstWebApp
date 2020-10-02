@@ -142,7 +142,7 @@
 			"response": []
 		},
 		{
-			"name": "Get achievements of a user by id",
+			"name": "Get allllll achievements of a user by id",
 			"event": [
 				{
 					"listen": "test",
@@ -162,8 +162,8 @@
 				"header": [
 					{
 						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"url": {
@@ -239,7 +239,7 @@
 			"response": []
 		},
 		{
-			"name": "Get achievements of a user by id Copy",
+			"name": "Delete a specific achievement of a specific user by id",
 			"event": [
 				{
 					"listen": "test",
