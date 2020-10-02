@@ -24,6 +24,9 @@
         <p>
           <b-link href="AchievementDisplay">AchievementDisplay Page</b-link>
         </p>
+        <p>
+          <b-link href="CategoryDisplay">CategoryDisplay Page</b-link>
+        </p>
       </div>
     </b-sidebar>
     <!-- Render the content of the current page view -->
