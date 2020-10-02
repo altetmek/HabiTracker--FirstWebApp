@@ -19,8 +19,7 @@
     <b-button href="#" v-on:click="getUser" variant="primary">Login</b-button>
     <b-button variant="success" href="#">Create Account</b-button>
     <p>
-      It uses utility classes for typography and spacing to space content out within the larger
-      container.
+      Put a better text here
     </p>
   </b-jumbotron>
 </div>
