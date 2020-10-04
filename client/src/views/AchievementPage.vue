@@ -19,6 +19,7 @@
          <b-row align-v="start">
          <b-col></b-col>
          <b-col><b-form-select v-model="degree" :options="options2"></b-form-select></b-col>
+         <b-col></b-col>
          </b-row>
       </p>
       <b-button href="UserDisplay" v-on:click="postUser">Save</b-button>
@@ -37,14 +38,14 @@ export default {
     return {
       category: null,
       options1: [
-        { value: null, text: 'please select an option' },
+        { value: null, text: 'please select your category' },
         { value: 'Chores', text: 'Chores' },
         { value: 'Fitness', text: 'Fitness' },
         { value: 'Studies', text: 'Studies' }
       ],
       degree: null,
       options2: [
-        { value: null, text: 'please select an option' },
+        { value: null, text: 'please select the degree of it' },
         { value: 'bronze', text: 'Bronze' },
         { value: 'silver', text: 'Silver' },
         { value: 'gold', text: 'Gold' }
