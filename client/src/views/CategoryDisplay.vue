@@ -44,6 +44,7 @@ export default {
     Api.get('/Categories')
       .then(response => {
         this.categories = response.data.categories
+        console.log(response.data.categories)
       })
       .catch(error => {
         this.message = error.message

@@ -49,33 +49,11 @@ export default {
         this.show = false
         Api.get(`/categories/${this.category._typeName}`)
           .then(response => {
-            if (this.category.typeName === 'Fitness') {
-              if (response.data.typeName === 'Fitness') {
-                this.info = {
-                  typeName: response.data.typeName,
-                  level: response.data.level,
-                  experiencePoints: response.data.experiencePoints,
-                  achievements: response.data.achievements
-                }
-              }
-            } else if (this.category.typeName === 'Chores') {
-              if (response.data.typeName === 'Chores') {
-                this.info = {
-                  typeName: response.data.typeName,
-                  level: response.data.level,
-                  experiencePoints: response.data.experiencePoints,
-                  achievements: response.data.achievements
-                }
-              }
-            } else if (this.category.typeName === 'Studies') {
-              if (response.data.typeName === 'Studies') {
-                this.info = {
-                  typeName: response.data.typeName,
-                  level: response.data.level,
-                  experiencePoints: response.data.experiencePoints,
-                  achievements: response.data.achievements
-                }
-              }
+            this.info = {
+              typeName: response.data.typeName,
+              level: response.data.level,
+              experiencePoints: response.data.experiencePoints,
+              achievements: response.data.achievements
             }
           })
           .catch(error => {
