@@ -16,13 +16,20 @@
         </b-row>
       </p>
       <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col><b-form-input id="description" v-model="description" placeholder="Describe it here"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
          <b-row align-v="start">
          <b-col></b-col>
          <b-col><b-form-select v-model="degree" :options="options2"></b-form-select></b-col>
          <b-col></b-col>
          </b-row>
       </p>
-      <b-button href="UserDisplay" v-on:click="postUser">Save</b-button>
+      <b-button href="AchievementDisplay" v-on:click="postUser">Save</b-button>
       <br><br><br><br>
     </b-jumbotron>
   </div>
@@ -33,7 +40,7 @@
 import { Api } from '@/Api'
 
 export default {
-  name: 'user',
+  name: 'achievement',
   data() {
     return {
       category: null,
@@ -50,12 +57,10 @@ export default {
         { value: 'silver', text: 'Silver' },
         { value: 'gold', text: 'Gold' }
       ],
-      users: [],
+      achievements: [],
       message: '',
-      username: '',
-      title: '',
-      level: 1,
-      experiencePoints: 0
+      name: '',
+      description: ''
     }
   },
   methods: {
@@ -68,14 +73,14 @@ export default {
           this.message = error
         })
     },
-    postUser() {
+    postAchievement() {
       const params = {
-        username: this.username,
-        level: this.level,
-        title: this.title,
-        experiencePoints: this.experiencePoints
+        name: this.name,
+        category: this.category,
+        description: this.description,
+        degree: this.degree
       }
-      Api.post('/users', params)
+      Api.post('/achievements', params)
         .then(request => {
         })
         .catch(error => {
