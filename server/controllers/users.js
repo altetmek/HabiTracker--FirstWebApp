@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Achievement = require('../models/achievement');
+var Budget = require('../models/budget');
+var Category = require('../models/category');
 var achievementController = require('../controllers/achievements');
+const user = require('../models/user');
 
 //POST achievement to a user by id.
 router.post('/:id/achievements', function(req, res, next){
@@ -18,6 +21,38 @@ router.post('/:id/achievements', function(req, res, next){
         user.achievement.push(achievement);
         user.save();
         res.status(201).json(achievement);
+    });
+});
+
+//POST budget to a user by id.
+router.post('/:id/budgets', function(req, res, next){
+    var id = req.params.id;
+    User.findById(id).populate('budget').exec(function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        var budget = new Budget(req.body);
+        budget.save();
+        user.budget.push(budget);
+        user.save();
+        res.status(201).json(budget);
+    });
+});
+
+//POST category to a user by id.
+router.post('/:id/categories', function(req, res, next){
+    var id = req.params.id;
+    User.findById(id).populate('category').exec(function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        var category = new Category(req.body);
+        category.save();
+        user.category.push(category);
+        user.save();
+        res.status(201).json(category);
     });
 });
 
