@@ -44,9 +44,11 @@ export default {
     Api.get('/Categories')
       .then(response => {
         this.categories = response.data.categories
+        console.log(response.data)
       })
       .catch(error => {
         this.message = error.message
+        console.log(error.message)
         this.categories = []
       })
       .then(() => {
