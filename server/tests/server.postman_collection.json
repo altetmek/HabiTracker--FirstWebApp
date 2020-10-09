@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fd207b96-ecdc-4930-8f16-ddabf447e78c",
+		"_postman_id": "671c77e5-5d5d-4f38-a946-70feaea08ab7",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cb8bf60c-388e-4bb0-8570-ec733b953c62",
+						"id": "ce379939-bf3b-4b12-a6e4-ec5d418de812",
 						"exec": [
 							""
 						],
@@ -21,7 +21,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "10167043-f3c8-4807-8151-13b5d183bee6",
+						"id": "da5fca2e-1b73-4926-bd1e-223fbc129de3",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var userId = jsonData._id;",
@@ -83,7 +83,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b89245b8-603e-40ff-811b-ff7185f1ece0",
+						"id": "91e40628-a668-4bae-9ee4-07c5e8ffaf45",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var achievementIdforUser = jsonData._id;\r",
@@ -133,8 +133,140 @@
 					],
 					"variable": [
 						{
+							"id": "47a2ecd8-a36f-4f86-b14d-a774a1dd7c5a",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post budget to user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b11f9908-fbc0-448c-8ccf-b00d0f7106b5",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var budgetIdforUser = jsonData._id;\r",
+							"pm.environment.set(\"budget_id_forUser\", budgetIdforUser);\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"I like money wooohooooo!!\",\r\n    \"income\": 400,\r\n    \"expenses\": 50,\r\n    \"savings\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"budgets"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post category to user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b5255e3-eb52-4eaa-a446-15184e8164aa",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var categoryIdforUser = jsonData._id;\r",
+							"pm.environment.set(\"category_id_forUser\", categoryIdforUser);\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryType\": {\r\n        \"typeName\": \"Fitness\",\r\n        \"task\": \"Increase fitness level to very high levels\",\r\n        \"level\": \"1\",\r\n        \"typeExperience\": \"0\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"categories"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -147,7 +279,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b7e6d77-dbba-4623-919f-483a55cc1df3",
+						"id": "b23c5679-83cf-420c-aa13-23c0d87a2242",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -179,8 +311,10 @@
 					],
 					"variable": [
 						{
+							"id": "105cf296-94c5-41ac-afb6-68fc62aee9ee",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -193,7 +327,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "427b029e-56bb-4032-a30d-abe340aca96e",
+						"id": "3ca08804-0b09-428f-a8e4-2f3961920f1f",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -226,12 +360,16 @@
 					],
 					"variable": [
 						{
+							"id": "d9731442-5b96-4349-9a77-91298af950a1",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
 						},
 						{
+							"id": "fbdf483c-081c-4d1e-b53b-4888e5a295f6",
 							"key": "{{achievement_id_forUser}}",
-							"value": "{{achievement_id_forUser}}"
+							"value": "{{achievement_id_forUser}}",
+							"type": "string"
 						}
 					]
 				}
@@ -244,7 +382,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "936b46d2-37a2-4801-b9ac-a6798ea0c7d8",
+						"id": "7d7b009a-1a92-4001-9eb5-41b035485875",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -277,12 +415,16 @@
 					],
 					"variable": [
 						{
+							"id": "d0b7b5fd-07c4-4f87-93ca-2429d88866f4",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
 						},
 						{
+							"id": "c5bac2c4-fd32-4e3a-ba99-e4a45d48961e",
 							"key": "{{achievement_id_forUser}}",
-							"value": "{{achievement_id_forUser}}"
+							"value": "{{achievement_id_forUser}}",
+							"type": "string"
 						}
 					]
 				}
@@ -295,7 +437,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "f37d310d-099c-4f5f-9643-758e37fe79f3",
+						"id": "52e8a1f8-b85f-4038-a950-8a8963c286d9",
 						"exec": [
 							""
 						],
@@ -305,7 +447,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ff8075cf-6a17-485b-9653-ce1c81112c49",
+						"id": "f43a782c-56f2-48c6-b978-a8bcfaf61d78",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var userId2 = jsonData._id;",
@@ -367,7 +509,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5a8a77eb-4e80-429d-9874-d5348e1b3230",
+						"id": "8f06ab0b-6783-414c-938c-afdaadc1f992",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -405,7 +547,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7c02aaa9-6c09-4934-b44c-03877e538c61",
+						"id": "a29d4cba-f58f-4b24-bc7f-f78066651475",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -452,8 +594,10 @@
 					],
 					"variable": [
 						{
+							"id": "bac9ebd5-ee7c-4bf2-9656-dfdc2e3eb3ff",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -466,7 +610,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a1c98a28-f8e6-441d-8e94-91eadcca4703",
+						"id": "e9948128-2e36-456e-ba01-0e2e6260e2b9",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -497,8 +641,10 @@
 					],
 					"variable": [
 						{
+							"id": "04a6f3a8-a00f-4a85-a1a3-164828dd57d0",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -511,7 +657,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0b392201-cccf-41a2-bbd7-d92af8420096",
+						"id": "ea6e681c-dfb7-4f02-8403-c619399d1a2b",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -542,8 +688,10 @@
 					],
 					"variable": [
 						{
+							"id": "402f5c72-5b3f-4eb3-88c4-789b2d54f378",
 							"key": "{{user_id}}",
-							"value": "{{user_id}}"
+							"value": "{{user_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -556,7 +704,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2be9b318-f24e-416d-a445-3a81a66dd266",
+						"id": "3378a8d0-b508-4b72-b664-ce84350cf049",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var username = jsonData.username;\r",
@@ -608,7 +756,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d1879379-dab0-4645-98ed-074076d1a32c",
+						"id": "3146eb3c-4516-4fdb-859f-e5fb790a621e",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -657,6 +805,7 @@
 					],
 					"variable": [
 						{
+							"id": "531debe0-60ab-4349-8c19-575266ea253e",
 							"key": "{{user_id2}}",
 							"value": "{{user_id2}}",
 							"type": "string"
@@ -672,7 +821,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "303fbee4-2859-4071-943a-b46e13985172",
+						"id": "1a251b11-a4d2-4bf5-b24b-3fe146ff1a0b",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -721,7 +870,7 @@
 					],
 					"variable": [
 						{
-							"id": "b9661db2-3115-46e4-a618-fbde268830a4",
+							"id": "62e58e60-1c8f-46a1-b3cb-3270b9f77f23",
 							"key": "{{user_id2}}",
 							"value": "{{user_id2}}",
 							"type": "string"
@@ -737,7 +886,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "24ff4a4f-8d6d-410e-9e6b-42d318793d7a",
+						"id": "612ef9f1-d50d-4071-b225-ba1b1b3c8fed",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -775,7 +924,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cb7ecee5-65f0-4677-8e7d-d1c7da6ddf01",
+						"id": "9399957d-18d6-4eef-9297-fc472122b0f7",
 						"exec": [
 							""
 						],
@@ -785,7 +934,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e67d4373-e1ad-4657-875f-7fc220781aa7",
+						"id": "8ca1909d-9cf8-4c3d-86cb-8001dd5651ed",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var achievementId = jsonData._id;",
@@ -848,7 +997,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b0e64955-6f69-4f1b-9bcc-71298aba4067",
+						"id": "092aee6e-3cf7-4124-ae1f-60d4dcbd40a4",
 						"exec": [
 							""
 						],
@@ -858,7 +1007,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b6f5339-9f33-4f2f-ac17-ca05995cc6c5",
+						"id": "349ef551-2ba8-498e-98dd-b9821b9e5cc4",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var achievementId2 = jsonData._id;",
@@ -921,7 +1070,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6e6657a8-1677-4497-bf88-0198b0e03e86",
+						"id": "fa3f7cd6-dd9b-4d24-acb6-1ccdf8d14ea4",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -959,7 +1108,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "361f0714-abc5-4f00-8a6b-fddc252ec363",
+						"id": "7a4367b9-0203-4531-a0fc-7255144212f7",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -1004,7 +1153,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d545eb1c-ae58-4861-9b4c-36bb966cb9b2",
+						"id": "0aea7eb5-e647-45a0-a7c4-17cffcff7a44",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1046,8 +1195,10 @@
 					],
 					"variable": [
 						{
+							"id": "9bb5c08f-a0b5-4349-b4fa-a040aae10b1a",
 							"key": "{{achievement_id}}",
-							"value": "{{achievement_id}}"
+							"value": "{{achievement_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1060,7 +1211,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "40a3b1bd-4aa9-4866-a435-1a068a92fde1",
+						"id": "0f022792-6463-4ac0-9b8e-b0759a339cdf",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1091,8 +1242,10 @@
 					],
 					"variable": [
 						{
+							"id": "cc25610d-bae4-4f26-b77c-d72dff8a8eb8",
 							"key": "{{achievement_id}}",
-							"value": "{{achievement_id}}"
+							"value": "{{achievement_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1105,7 +1258,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5d120975-5573-408b-9e9f-da2f6b17ad92",
+						"id": "ccc9d3ef-4109-44a8-b06e-3bc865c70650",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -1136,8 +1289,10 @@
 					],
 					"variable": [
 						{
+							"id": "17fd6912-20b7-4288-a730-0d772851e78c",
 							"key": "{{achievement_id}}",
-							"value": "{{achievement_id}}"
+							"value": "{{achievement_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1150,7 +1305,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "345f14bd-3a4d-4665-a406-927b12ee44a2",
+						"id": "63b1a082-5bb3-48bb-ba6c-58efa89f5091",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var username = jsonData.username;\r",
@@ -1202,7 +1357,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b9691ec4-dc04-461b-8dec-a7b015cdc4e0",
+						"id": "1109d697-1123-4fad-98bf-f849bbf3b12f",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1253,8 +1408,10 @@
 					],
 					"variable": [
 						{
+							"id": "9eb8f51d-ad41-46c5-a941-3b32b3dd8bf2",
 							"key": "{{achievement_id2}}",
-							"value": "{{achievement_id2}}"
+							"value": "{{achievement_id2}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1267,7 +1424,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ad83fb14-c5f3-40e8-86a5-54a74e6ef51e",
+						"id": "60595414-1d2d-422d-af34-0981315af5cc",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1318,8 +1475,10 @@
 					],
 					"variable": [
 						{
+							"id": "787ed0be-c3d3-4e01-9e88-bcdbf813d52f",
 							"key": "{{achievement_id2}}",
-							"value": "{{achievement_id2}}"
+							"value": "{{achievement_id2}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1332,7 +1491,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ef9d80f5-492a-49ba-8b60-f7d63574d2e4",
+						"id": "eaf70edd-9540-4e85-a81d-6747c6cd0adf",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1370,7 +1529,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "0980a6c0-64d6-4d9c-a6b2-502b08b0ce47",
+						"id": "0e73d773-5fc7-405c-9be5-de042ae6374d",
 						"exec": [
 							""
 						],
@@ -1380,7 +1539,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4fb34231-40b7-41f0-ae07-2f63f3dea943",
+						"id": "70303b51-786e-4ba0-8746-4e9d1786a56d",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var budgetId = jsonData._id;",
@@ -1442,7 +1601,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "91369e72-f717-4266-b314-4bc9531efbe7",
+						"id": "759463b8-f07b-4965-8681-f19cccf8e9b8",
 						"exec": [
 							""
 						],
@@ -1452,7 +1611,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "752f4a7f-7efe-41da-97e0-87db741f96b8",
+						"id": "ad947690-2e5c-4930-a359-aa2f480229d5",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var budgetId2 = jsonData._id;",
@@ -1514,7 +1673,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e5147b14-a0b9-42cc-b062-07c4ed99f606",
+						"id": "5bd359d2-d7ab-450c-8642-7c77ae311884",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -1552,7 +1711,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "728174cb-47b2-47af-ae97-11b981b89372",
+						"id": "6fb8e66c-eb31-4162-b9f5-4d01b171286d",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1593,8 +1752,10 @@
 					],
 					"variable": [
 						{
+							"id": "cf4acd19-8a0e-4477-a224-d0504e294107",
 							"key": "{{budget_id}}",
-							"value": "{{budget_id}}"
+							"value": "{{budget_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1607,7 +1768,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6d6b5b23-153a-47dd-b9bc-1b5cd0e89391",
+						"id": "7d0450f9-9135-48c5-ad99-d286c3e66620",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1638,8 +1799,10 @@
 					],
 					"variable": [
 						{
+							"id": "8d44ff29-ee97-4b8d-8c20-5febd253c69f",
 							"key": "{{budget_id}}",
-							"value": "{{budget_id}}"
+							"value": "{{budget_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1652,7 +1815,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6f405d46-3859-4401-aa66-53c46b58f4b5",
+						"id": "d82e9aef-3d17-47b6-bf6b-8d23ed01ee15",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -1683,8 +1846,10 @@
 					],
 					"variable": [
 						{
+							"id": "980e37fc-d395-457f-a36d-aa2bc264df24",
 							"key": "{{budget_id}}",
-							"value": "{{budget_id}}"
+							"value": "{{budget_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1697,7 +1862,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9719d962-f59c-4ccb-aac2-795c4c9bb34c",
+						"id": "a852f59d-eb10-41c3-a0e9-ab11bf257cdc",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var name = jsonData.name;\r",
@@ -1749,7 +1914,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b4a9d522-7cc4-42c1-98bf-df702d14ca66",
+						"id": "ff56b9fc-5649-4502-bdbd-f46d2ac44692",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1798,8 +1963,10 @@
 					],
 					"variable": [
 						{
+							"id": "7211ed78-98d3-47f5-8cd1-26047664dd85",
 							"key": "{{budget_id2}}",
-							"value": "{{budget_id2}}"
+							"value": "{{budget_id2}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1812,7 +1979,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9153fbc3-021e-4e0a-a382-4b2d83521e5a",
+						"id": "64f82179-8ca5-40af-96c1-50421ee150b2",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1861,8 +2028,10 @@
 					],
 					"variable": [
 						{
+							"id": "6b6ac5ca-bdd6-40e2-847b-0daa812568d5",
 							"key": "{{budget_id2}}",
-							"value": "{{budget_id2}}"
+							"value": "{{budget_id2}}",
+							"type": "string"
 						}
 					]
 				}
@@ -1875,7 +2044,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "80da0c83-1064-412c-a420-7e00cf694e43",
+						"id": "b70680cf-31d1-453c-83bb-87e1ab7c04c5",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1913,7 +2082,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f227382e-5e16-459b-a0a7-f522bb5ed062",
+						"id": "a74c9db4-6da6-4185-9e42-58a0f865386b",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var categoryId = jsonData._id;",
@@ -1937,7 +2106,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "1839cc35-d244-4361-b494-392167dd13ed",
+						"id": "47f09835-96a3-439f-9fd4-3ad9af8b57ac",
 						"exec": [
 							""
 						],
@@ -1985,7 +2154,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a268dc33-bd1c-45cc-adf5-a435b0390e87",
+						"id": "cd1fea15-c51c-4fa7-b3fb-abe5d220a355",
 						"exec": [
 							""
 						],
@@ -1995,7 +2164,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "66f7c53f-5bb4-459a-be70-442f816cc730",
+						"id": "3137914e-3471-4f09-bdea-6fe2222e8b57",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var categoryId2 = jsonData._id;",
@@ -2057,7 +2226,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2155e57d-7ea8-42a9-837b-0014a17143da",
+						"id": "d097f050-6063-4cd0-b8a2-f05c1b7ccaff",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -2095,7 +2264,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "00270ecd-a0c8-4e44-b365-e7593c3d6848",
+						"id": "b4348b19-462c-4226-a54e-569b6928de9e",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2135,8 +2304,10 @@
 					],
 					"variable": [
 						{
+							"id": "aad88dbd-8c4f-4904-9e18-e7966d3ade83",
 							"key": "{{category_id}}",
-							"value": "{{category_id}}"
+							"value": "{{category_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -2149,7 +2320,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d422335c-c62e-4eb4-93bb-61f43897fce8",
+						"id": "837d582b-ee92-467a-9826-8b01f5c546dd",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -2180,8 +2351,10 @@
 					],
 					"variable": [
 						{
+							"id": "caf992ef-dcfc-437e-b2c7-ac23cdf9ef64",
 							"key": "{{category_id}}",
-							"value": "{{category_id}}"
+							"value": "{{category_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -2194,7 +2367,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1eea38a3-f4e5-4419-9d2d-7a7baaf42256",
+						"id": "8429cd69-1dc1-4083-9d5f-78d556a45ab4",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -2225,8 +2398,10 @@
 					],
 					"variable": [
 						{
+							"id": "1601e9a2-e4b6-4c81-91ef-651578eb516c",
 							"key": "{{category_id}}",
-							"value": "{{category_id}}"
+							"value": "{{category_id}}",
+							"type": "string"
 						}
 					]
 				}
@@ -2239,7 +2414,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f5b8dbe2-ba9e-4ee4-92d3-c1d89a60b5f0",
+						"id": "11c65653-8045-409d-a7d8-c5d0503a1205",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2281,7 +2456,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "84c8b6b3-6d3a-427b-b973-ad94372c2167",
+						"id": "7cdb9cc5-ea4a-4266-96d1-97e9d8637382",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2330,8 +2505,10 @@
 					],
 					"variable": [
 						{
+							"id": "f0956384-b975-4002-8356-5c8af81ffe00",
 							"key": "{{category_id2}}",
-							"value": "{{category_id2}}"
+							"value": "{{category_id2}}",
+							"type": "string"
 						}
 					]
 				}
@@ -2344,7 +2521,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "badd1717-6250-43e8-a188-63565a98f412",
+						"id": "d5edecd3-5ca8-4e5e-9e0f-55024aafd373",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2387,8 +2564,10 @@
 					],
 					"variable": [
 						{
+							"id": "423ce3f4-7dd2-432e-96e5-bc64edeea9ed",
 							"key": "{{category_id2}}",
-							"value": "{{category_id2}}"
+							"value": "{{category_id2}}",
+							"type": "string"
 						}
 					]
 				}
@@ -2401,7 +2580,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c4185fea-adb1-423f-b755-6dc46beed35d",
+						"id": "ce2d41c3-8196-49e0-8b2c-9cedd543a72c",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
