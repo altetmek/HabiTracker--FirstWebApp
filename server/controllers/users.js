@@ -142,6 +142,8 @@ router.patch('/:id', function(req, res, next) {
         if(user == null){
             return res.status(404).json({"message": "User not found"});
         }
+        user.email = (req.body.email || user.email),
+        user.password = (req.body.password || user.password),
         user.title = (req.body.title || user.title),
         user.experiencePoints = (req.body.experiencePoints || user.experiencePoints),
         user.level = (req.body.level || user.level),
@@ -159,6 +161,8 @@ router.put('/:id', function(req,res,next) {
         if (user == null) {
             return res.status(404).json({"message": "User not found"})
         }
+        user.email = req.body.email,
+        user.password = req.body.password,
         user.username = req.body.username,
         user.level = req.body.level,
         user.title = req.body.title,
