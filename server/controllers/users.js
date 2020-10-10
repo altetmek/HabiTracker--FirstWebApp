@@ -118,7 +118,7 @@ router.get('/:id/budgets/:idBud', function(req, res, next){
 router.get('/:id/categories/:idCat', function(req, res, next){
     var id = req.params.id;
     var idCategory = req.params.idCat;
-    User.findById(id, function(err, next){
+    User.findById(id, function(err, user){
         if (err) { return next(err); }
         if (user === null) {
             return res.status(404).json({'message': 'User not found'});
@@ -143,13 +143,48 @@ router.delete('/:id/achievements/:idAch', function(req, res, next) {
             return res.status(404).json({'message': 'User not found'});
         };
         user.achievement.pull(idAch);
-        user.save()
+        user.save();
         Achievement.findByIdAndDelete(idAch, function(err, achievement){
             if (err) { return next(err); };
             res.status(200).json({'message': 'Achievement deleted succesfully!'});
         });
     }); 
 });
+
+//DELETE a specific budget from a specific user by id.
+router.delete('/:id/budgets/:idBud', function(req, res, next){
+    var id = req.params.id;
+    var idBud = req.params.idBud;
+    User.findById(id, function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        user.budget.pull(idBud);
+        user.save();
+        Budget.findByIdAndDelete(idBud, function(err, budget){
+            if (err) { return next(err); };
+            res.status(200).json({'message': 'Budget deleted succesfully!'});
+        });
+    });
+});
+
+router.delete('/:id/categories/:idCat', function(req, res, next){
+    var id = req.params.id;
+    var idCat = req.params.idCat;
+    User.findById(id, function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        user.category.pull(idCat);
+        user.save();
+        Category.findByIdAndDelete(idCat, function(err, category){
+            if (err) { return next(err); };
+            res.status(200).json({'message': 'Category deleted succesfully!'});
+        })
+    })
+})
 
 //GET all users.
 router.get('/', function(req, res, next){
