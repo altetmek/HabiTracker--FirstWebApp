@@ -76,6 +76,46 @@ router.get('/:id/achievements', function(req, res, next) {
     });
 });
 
+//GET budget(s) user has by user id.
+router.get('/:id/budgets', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, async function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        if(user.budget.length === 0) {
+            return res.status(404).json({'message': 'User has no budgets.'})
+        };
+        var arr = [];
+        for(el of user.budget) {
+            var budget = await Budget.findById(el).exec(); 
+            arr.push(budget);
+        }
+        res.status(200).json(arr);
+    });
+});
+
+//GET category(s) user has by user id.
+router.get('/:id/categories', function(req, res, next) {
+    var id = req.params.id;
+    User.findById(id, async function(err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        if(user.category.length === 0) {
+            return res.status(404).json({'message': 'User has no categories.'})
+        };
+        var arr = [];
+        for(el of user.category) {
+            var category = await Category.findById(el).exec(); 
+            arr.push(category);
+        }
+        res.status(200).json(arr);
+    });
+});
+
 //GET specific achievement from specific user by id.
 router.get('/:id/achievements/:idAch', function(req, res, next) {
     var id = req.params.id;
