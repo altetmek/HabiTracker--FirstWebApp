@@ -270,7 +270,7 @@
 			"response": []
 		},
 		{
-			"name": "Get allllll achievements of a user by id",
+			"name": "Get all achievements of a user by id",
 			"event": [
 				{
 					"listen": "test",
@@ -304,6 +304,98 @@
 						"users",
 						":{{user_id}}",
 						"achievements"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all budgets of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9584cc38-d9d9-4163-8972-63dc38654da7",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"budgets"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all categories of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc680f07-3a1c-48af-ac82-3767d5da3dc3",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"categories"
 					],
 					"variable": [
 						{
