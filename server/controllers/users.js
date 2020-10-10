@@ -145,7 +145,10 @@ router.delete('/:id/achievements/:idAch', function(req, res, next) {
         user.achievement.pull(idAch);
         user.save();
         Achievement.findByIdAndDelete(idAch, function(err, achievement){
-            if (err) { return next(err); };
+            if (err) { return next(err); }
+            if (achievement === null) {
+                return res.status(404).json({'message': 'Achievement not found'});
+            };
             res.status(200).json({'message': 'Achievement deleted succesfully!'});
         });
     }); 
@@ -163,7 +166,10 @@ router.delete('/:id/budgets/:idBud', function(req, res, next){
         user.budget.pull(idBud);
         user.save();
         Budget.findByIdAndDelete(idBud, function(err, budget){
-            if (err) { return next(err); };
+            if (err) { return next(err); }
+            if (budget === null) {
+                return res.status(404).json({'message': 'Budget not found'});
+            };
             res.status(200).json({'message': 'Budget deleted succesfully!'});
         });
     });
@@ -180,7 +186,10 @@ router.delete('/:id/categories/:idCat', function(req, res, next){
         user.category.pull(idCat);
         user.save();
         Category.findByIdAndDelete(idCat, function(err, category){
-            if (err) { return next(err); };
+            if (err) { return next(err); }
+            if (category === null) {
+                return res.status(404).json({'message': 'Category not found'});
+            };
             res.status(200).json({'message': 'Category deleted succesfully!'});
         })
     })
