@@ -5,7 +5,6 @@ var Achievement = require('../models/achievement');
 var Budget = require('../models/budget');
 var Category = require('../models/category');
 var achievementController = require('../controllers/achievements');
-const user = require('../models/user');
 
 //POST achievement to a user by id.
 router.post('/:id/achievements', function(req, res, next){
@@ -56,6 +55,7 @@ router.post('/:id/categories', function(req, res, next){
     });
 });
 
+// TODO: Fix this async method
 //GET achievement(s) user has by user id.
 router.get('/:id/achievements', function(req, res, next) {
     var id = req.params.id;
@@ -91,6 +91,44 @@ router.get('/:id/achievements/:idAch', function(req, res, next) {
                 return res.status(404).json({'message': 'Achievement not found'});
             };
             res.status(200).json(achievement);
+        });
+    });
+});
+
+//GET specific budget from specific user by id.
+router.get('/:id/budgets/:idBud', function(req, res, next){
+    var id = req.params.id;
+    var idBudget = req.params.idBud;
+    User.findById(id, function(err, user){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        Budget.findById(idBudget, function(err, budget){
+            if (err) { return next(err); }
+            if (budget === null) {
+                return res.status(404).json({'message': 'Budget not found'});
+            };
+            res.status(200).json(budget);
+        });
+    });
+});
+
+//GET specific category from specific user by id.
+router.get('/:id/categories/:idCat', function(req, res, next){
+    var id = req.params.id;
+    var idCategory = req.params.idCat;
+    User.findById(id, function(err, next){
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found'});
+        };
+        Category.findById(idCategory, function(err, category){
+            if (err) { return next(err); }
+            if (category === null) {
+                return res.status(404).json({'message': 'Category not found'});
+            };
+            res.status(200).json(category);
         });
     });
 });
