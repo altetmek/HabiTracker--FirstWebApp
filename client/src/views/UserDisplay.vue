@@ -1,11 +1,11 @@
 <template>
-    <b-container>
+    <b-container v-if="loggedIn">
         <p class="red">{{message}}</p>
         <h1>User</h1>
         <b-button variant="danger" v-on:click="deleteUserCollection">Remove Kebab User</b-button>
         <b-row align-h="center">
-            <b-col cols="12" sm="6" md="4" v-for="user in users" v-bind:key="user._id">
-                <user-item class="items" v-bind:user="user" v-on:del-user="deleteUser"/>
+            <b-col cols="12" sm="6" md="4">
+                <user-item class="items" v-bind:user="userinfo"/>
             </b-col>
         </b-row>
     </b-container>
@@ -14,16 +14,22 @@
 <script>
 import { Api } from '@/Api'
 import UserItem from '@/components/UserItem.vue'
+import cookiesC from '../cookies/cookies'
 
 export default {
   name: 'users',
+  props: ['loggedIn', 'logging'],
   components: {
     UserItem
   },
   mounted() {
-    Api.get('/Users')
+    console.log(this.loggedIn + ' this is kjfhgöd')
+    var id = cookiesC.getCookieValue('id')
+    console.log(id)
+    Api.get(`/Users/${id}`)
       .then(response => {
-        this.users = response.data.users
+        console.log(response)
+        this.userinfo = response.data
       })
       .catch(error => {
         this.message = error.message
@@ -37,7 +43,8 @@ export default {
     return {
       users: [],
       message: '',
-      text: ''
+      text: '',
+      userinfo: {}
     }
   },
   methods: {

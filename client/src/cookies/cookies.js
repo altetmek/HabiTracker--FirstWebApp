@@ -44,7 +44,7 @@ const getCookieObj = () => {
   if (getCookieValue('email') === undefined || getCookieValue('id') === undefined || getCookieValue('username') === undefined || getCookieValue('loggedIn') === undefined) {
     return null
   } else {
-    return '{ "data" : { "user" : {"email" : ' + getCookieValue('email') + ',' +
+    return '{ "data" : { "user" : {"email" : "' + getCookieValue('email') + '" ,' +
         '"id" : "' + getCookieValue('id') + '",' +
         '"username" : "' + getCookieValue('username') + '",' +
         '"loggedIn" : ' + getCookieValue('loggedIn') + '}}}'

@@ -5,10 +5,10 @@
       <p>{{user.username}}</p>
     </b-card-text>
     <b-card-text v-if="!show">
-      <p>Username: {{info.username}}</p>
-      <p>Title: {{info.title}}</p>
-      <p>Level: {{info.level}}</p>
-      <p>Experience Points: {{info.experiencePoints}}</p>
+      <p>Username: {{user.username}}</p>
+      <p>Title: {{user.title}}</p>
+      <p>Level: {{user.level}}</p>
+      <p>Experience Points: {{user.experiencePoints}}</p>
     </b-card-text>
     <b-card-text v-if="patchFlag">
       <p>
@@ -19,9 +19,8 @@
         </b-row>
       </p>
     </b-card-text>
-    <b-button v-on:click="getUser">{{ status }}</b-button>
-    <b-button v-on:click="patchUser">Update your profile</b-button>
-    <b-button variant="danger" v-on:click="$emit('del-user', user._id)">Delete Profile</b-button>
+    <b-button v-on:click="getUser()">{{ status }}</b-button>
+    <b-button v-on:click="patchUser()">Update your profile</b-button>
   </b-card>
   </div>
 </template>
@@ -35,7 +34,6 @@ export default {
       show: true,
       patchFlag: false,
       status: 'See Details',
-      info: {},
       username: '',
       title: ''
     }
@@ -43,9 +41,6 @@ export default {
   name: 'user-item',
   props: ['user'],
   methods: {
-    deleteUser() {
-      this.$emit('del-user', this.user._id)
-    },
     getUser() {
       if (this.show === false) {
         this.show = true
@@ -53,11 +48,11 @@ export default {
       } else {
         this.status = 'Hide'
         this.show = false
-        Api.get(`/users/${this.user._id}`)
+        /* Api.get(`/users/${this.user._id}`)
           .then(response => {
             this.info = {
               username: response.data.username,
-              title: response.data.title,
+              title: response.data.titnle,
               level: response.data.level,
               experiencePoints: response.data.experiencePoints
             }
@@ -65,7 +60,7 @@ export default {
           .catch(error => {
             this.message = error.message
             this.users = []
-          })
+          }) */
       }
     },
     patchUser() {
