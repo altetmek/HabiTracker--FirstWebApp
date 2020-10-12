@@ -59,7 +59,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"gustav\",\n    \"level\": 1,\n    \"title\": \"This is a title\",\n    \"experiencePoints\": \"1\"\n}",
+					"raw": "{\n    \"email\": \"someemail@idk\",\n    \"password\": \"securePassword\",\n    \"username\": \"gustav\",\n    \"level\": 1,\n    \"title\": \"This is a title\",\n    \"experiencePoints\": \"1\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -72,6 +72,73 @@
 					"path": [
 						"api",
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1a8f286-1322-4091-9118-94e9dc67c6ae",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Correct user response\", function () {\r",
+							"     pm.expect(jsonData.username).to.eql(\"gustav\");\r",
+							"    pm.expect(jsonData.level).to.eql(1);\r",
+							"    pm.expect(jsonData.title).to.eql(\"This is a title\");\r",
+							"    pm.expect(jsonData.experiencePoints).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "applciation/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"securePassword\",\r\n    \"username\": \"gustav\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/authenticate/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"authenticate",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{user_id}}",
+							"disabled": true
+						}
 					]
 				}
 			},
