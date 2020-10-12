@@ -14,6 +14,7 @@ var userRouter = require('./controllers/users');
 var achievementRouter = require('./controllers/achievements');
 var categoryRouter = require('./controllers/categories');
 var budgetRouter = require('./controllers/budgets');
+var authController = require('./controllers/auth');
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function(err) {
     if (err) {
@@ -43,6 +44,7 @@ app.use('/api/users', userRouter);
 app.use('/api/achievements', achievementRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/budgets', budgetRouter);
+app.use('/api/authenticate/',authController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
