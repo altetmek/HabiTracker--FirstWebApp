@@ -32,6 +32,8 @@
 							"});",
 							"",
 							"pm.test(\"Correct user response\", function () {",
+							"    pm.expect(jsonData.email).to.eql(\"someemail@idk\");",
+							"     pm.expect(jsonData.password).to.eql(\"securePassword\");",
 							"     pm.expect(jsonData.username).to.eql(\"gustav\");",
 							"    pm.expect(jsonData.level).to.eql(1);",
 							"    pm.expect(jsonData.title).to.eql(\"This is a title\");",
@@ -87,26 +89,24 @@
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
-							"pm.test(\"Correct status code\", function() {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
 							"\r",
-							"pm.test(\"Correct user response\", function () {\r",
-							"     pm.expect(jsonData.username).to.eql(\"gustav\");\r",
-							"    pm.expect(jsonData.level).to.eql(1);\r",
-							"    pm.expect(jsonData.title).to.eql(\"This is a title\");\r",
-							"    pm.expect(jsonData.experiencePoints).to.eql(1);\r",
-							"});"
+							"\r",
+							"if (jsonData.loggedIn = true){\r",
+							"    pm.test(\"Correct status code\", function() {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}else {\r",
+							"    pm.test(\"Correct status code\", function() {\r",
+							"        pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Accept",
@@ -807,6 +807,8 @@
 							"});",
 							"",
 							"pm.test(\"Correct user response\", function () {",
+							"     pm.expect(jsonData.email).to.eql(\"someemailforaltug@idk\");",
+							"     pm.expect(jsonData.password).to.eql(\"securePasswordWow\");",
 							"     pm.expect(jsonData.username).to.eql(\"altug\");",
 							"    pm.expect(jsonData.level).to.eql(2);",
 							"    pm.expect(jsonData.title).to.eql(\"This is another title\");",
@@ -834,7 +836,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"altug\",\n    \"level\": 2,\n    \"title\": \"This is another title\",\n    \"experiencePoints\": \"3\"\n}",
+					"raw": "{\n    \"email\": \"someemailforaltug@idk\",\n    \"password\": \"securePasswordWow\",\n    \"username\": \"altug\",\n    \"level\": 2,\n    \"title\": \"This is another title\",\n    \"experiencePoints\": \"3\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -1108,6 +1110,8 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.email).to.eql(\"someemailforaltug@idk\");\r",
+							"     pm.expect(jsonData.password).to.eql(\"securePasswordWow\");\r",
 							"     pm.expect(jsonData.username).to.eql(\"filip\");\r",
 							"    pm.expect(jsonData.level).to.eql(2);\r",
 							"    pm.expect(jsonData.title).to.eql(\"changed title\");\r",
@@ -1171,6 +1175,8 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.email).to.eql(\"newemail@idk\");\r",
+							"    pm.expect(jsonData.password).to.eql(\"notSecurePassword\");\r",
 							"     pm.expect(jsonData.username).to.eql(\"gustav v2\");\r",
 							"    pm.expect(jsonData.level).to.eql(100);\r",
 							"    pm.expect(jsonData.title).to.eql(\"Put works!\");\r",
@@ -1192,7 +1198,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"gustav v2\",\r\n    \"level\": 100,\r\n    \"title\": \"Put works!\",\r\n    \"experiencePoints\": \"123\"\r\n}",
+					"raw": "{\r\n    \"email\": \"newemail@idk\",\r\n    \"password\": \"notSecurePassword\",\r\n    \"username\": \"gustav v2\",\r\n    \"level\": 100,\r\n    \"title\": \"Put works!\",\r\n    \"experiencePoints\": \"123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
