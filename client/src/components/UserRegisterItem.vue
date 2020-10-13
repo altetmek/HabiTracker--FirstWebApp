@@ -25,9 +25,9 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Your Password:" label-for="input-3">
+      <b-form-group id="input-group-3">
         <b-form @submit.stop.prevent>
-            <label for="text-password">Password</label>
+            <label for="text-password">Your Password</label>
             <b-input v-model="form.password" type="password" aria-describedby="password-help-block"></b-input>
             <b-form-text id="password-help-block">
                 Your password must be 8-20 characters long, contain letters and numbers, and must not
@@ -36,20 +36,34 @@
         </b-form>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-form-group id="input-group-4" label="Set a catchy title that represents you!:" label-for="input-4">
+        <b-form-input
+          id="input-4"
+          v-model="form.title"
+          required
+          placeholder="The Great Coder"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button href="/" v-on:click="postUser()" type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
+import { Api } from '@/Api'
+
 export default {
   data() {
     return {
       form: {
         email: '',
         username: '',
-        password: ''
+        password: '',
+        title: '',
+        level: 1,
+        experiencePoints: 0
       },
       show: true
     }
@@ -58,7 +72,22 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-      alert(JSON.stringify(this.form))
+    },
+    postUser() {
+      const params = {
+        email: this.form.email,
+        username: this.form.username,
+        password: this.form.password,
+        title: this.form.title,
+        level: this.form.level,
+        experiencePoints: this.form.experiencePoints
+      }
+      Api.post('/users', params)
+        .then(request => {
+        })
+        .catch(error => {
+          this.message = error
+        })
     },
     onReset(evt) {
       evt.preventDefault()

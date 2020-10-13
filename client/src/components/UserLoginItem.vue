@@ -50,12 +50,10 @@ export default {
       }
       Api.post('/authenticate/', params)
         .then(response => {
-          console.log(response)
           cookiesC.setCookies(response, 1)
           var logged = true
-          var log = false
           this.$emit('logged-In', logged)
-          this.$emit('logg-ing', log)
+          window.location.href = 'UserDisplay'
         })
         .catch(error => {
           console.log(error)

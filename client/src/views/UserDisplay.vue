@@ -2,7 +2,6 @@
     <b-container v-if="loggedIn">
         <p class="red">{{message}}</p>
         <h1>User</h1>
-        <b-button variant="danger" v-on:click="deleteUserCollection">Remove Kebab User</b-button>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4">
                 <user-item class="items" v-bind:user="userinfo"/>
@@ -23,20 +22,14 @@ export default {
     UserItem
   },
   mounted() {
-    console.log(this.loggedIn + ' this is kjfhgöd')
     var id = cookiesC.getCookieValue('id')
-    console.log(id)
     Api.get(`/Users/${id}`)
       .then(response => {
-        console.log(response)
         this.userinfo = response.data
       })
       .catch(error => {
         this.message = error.message
         this.users = []
-      })
-      .then(() => {
-        this.message = 'testing how this works'
       })
   },
   data() {
