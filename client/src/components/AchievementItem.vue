@@ -44,8 +44,12 @@
         </b-row>
       </p>
     </b-card-text>
+    <p>
     <b-button v-on:click="getAchievement">{{ status }}</b-button>
+    </p>
+    <p>
     <b-button v-on:click="putAchievement">Update your Achievement</b-button>
+    </p>
     <b-button variant="danger" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</b-button>
   </b-card>
   </div>
@@ -62,8 +66,8 @@ export default {
       status: 'See Details',
       info: {},
       name: '',
-      expense: '',
-      income: '',
+      category: '',
+      description: '',
       saving: ''
     }
   },
