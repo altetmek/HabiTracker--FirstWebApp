@@ -38,6 +38,7 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+import cookiesC from '../cookies/cookies'
 
 export default {
   name: 'achievement',
@@ -74,13 +75,14 @@ export default {
         })
     },
     postAchievement() {
+      var id = cookiesC.getCookieValue('id')
       const params = {
         name: this.name,
         category: this.category,
         description: this.description,
         degree: this.degree
       }
-      Api.post('/achievements', params)
+      Api.post(`users/${id}/achievements`, params)
         .then(request => {
         })
         .catch(error => {
