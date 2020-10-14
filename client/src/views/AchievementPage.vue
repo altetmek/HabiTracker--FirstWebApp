@@ -11,7 +11,7 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-select v-model="category" :options="options1"></b-form-select></b-col>
+          <b-col><b-form-select v-model="type" :options="options1"></b-form-select></b-col>
           <b-col></b-col>
         </b-row>
       </p>

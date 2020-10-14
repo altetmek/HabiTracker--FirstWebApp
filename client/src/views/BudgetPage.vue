@@ -37,6 +37,7 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
+import cookiesC from '../cookies/cookies'
 
 export default {
   name: 'budget',
@@ -61,13 +62,14 @@ export default {
         })
     },
     postBudget() {
+      var id = cookiesC.getCookieValue('id')
       const params = {
         name: this.name,
         expenses: this.expense,
         income: this.income,
         savings: this.saving
       }
-      Api.post('/budgets', params)
+      Api.post(`users/${id}/budgets`, params)
         .then(request => {
         })
         .catch(error => {
