@@ -44,7 +44,7 @@ export default {
   name: 'achievement',
   data() {
     return {
-      category: null,
+      type: null,
       options1: [
         { value: null, text: 'please select your category' },
         { value: 'Chores', text: 'Chores' },
@@ -78,7 +78,7 @@ export default {
       var id = cookiesC.getCookieValue('id')
       const params = {
         name: this.name,
-        category: this.category,
+        type: this.type,
         description: this.description,
         degree: this.degree
       }

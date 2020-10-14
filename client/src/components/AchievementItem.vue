@@ -3,7 +3,6 @@
   <b-card
     bg-variant="dark"
     text-variant="white"
-    title= "Achievement"
     sub-title=""
   >
     <b-card-text  v-if="show && !putFlag">
@@ -11,7 +10,7 @@
     </b-card-text>
     <b-card-text v-if="!show">
       <p>achievement name: {{info.name}}</p>
-      <p>Category: {{info.category}}</p>
+      <p>Category: {{info.type}}</p>
       <p>Description: {{info.description}}</p>
       <p>Degree: {{info.degree}}</p>
     </b-card-text>
@@ -81,15 +80,15 @@ export default {
     getAchievement() {
       if (this.show === false) {
         this.show = true
-        this.status = 'See Details'
+        this.details = 'See Details'
       } else {
-        this.status = 'Hide'
+        this.details = 'Hide'
         this.show = false
         Api.get(`/achievements/${this.achievement._id}`)
           .then(response => {
             this.info = {
               name: response.data.name,
-              category: response.data.category,
+              type: response.data.type,
               description: response.data.description,
               degree: response.data.degree
             }
