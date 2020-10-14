@@ -29,7 +29,7 @@
          <b-col></b-col>
          </b-row>
       </p>
-      <b-button href="AchievementDisplay" v-on:click="postUser">Save</b-button>
+      <b-button href="AchievementDisplay" v-on:click="postAchievement">Save</b-button>
       <br><br><br><br>
     </b-jumbotron>
   </div>
