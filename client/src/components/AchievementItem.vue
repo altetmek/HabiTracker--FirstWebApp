@@ -11,9 +11,9 @@
     </b-card-text>
     <b-card-text v-if="!show">
       <p>achievement name: {{info.name}}</p>
-      <p>Expenses: {{info.expenses}}</p>
-      <p>Income: {{info.income}}</p>
-      <p>Intended Savings: {{info.savings}}</p>
+      <p>Category: {{info.category}}</p>
+      <p>Description: {{info.description}}</p>
+      <p>Degree: {{info.degree}}</p>
     </b-card-text>
     <b-card-text v-if="putFlag">
       <p>
@@ -84,9 +84,9 @@ export default {
           .then(response => {
             this.info = {
               name: response.data.name,
-              expenses: response.data.expenses,
-              income: response.data.income,
-              savings: response.data.savings
+              category: response.data.category,
+              description: response.data.description,
+              degree: response.data.degree
             }
           })
           .catch(error => {
@@ -94,27 +94,27 @@ export default {
             this.achievement = []
           })
       }
-    },
-    putAchievement() {
-      if (this.putFlag === true) {
-        this.putFlag = false
-      } else {
-        this.putFlag = true
-        const params = {
-          name: this.name,
-          expenses: this.expense,
-          income: this.income,
-          savings: this.saving
-        }
-        Api.put(`/achievements/${this.achievement._id}`, params)
-          .then(response => {
-          })
-          .catch(error => {
-            this.message = error.message
-            this.achievements = []
-          })
-      }
     }
+    // putAchievement() {
+    //   if (this.putFlag === true) {
+    //     this.putFlag = false
+    //   } else {
+    //     this.putFlag = true
+    //     const params = {
+    //       name: this.name,
+    //       expenses: this.expense,
+    //       income: this.income,
+    //       savings: this.saving
+    //     }
+    //     Api.put(`/achievements/${this.achievement._id}`, params)
+    //       .then(response => {
+    //       })
+    //       .catch(error => {
+    //         this.message = error.message
+    //         this.achievements = []
+    //       })
+    //   }
+    // }
   }
 }
 </script>
