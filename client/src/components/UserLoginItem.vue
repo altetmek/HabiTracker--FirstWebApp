@@ -1,6 +1,10 @@
 <template>
   <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <div>
+        <b-row align-v="center">
+          <b-col><div></div></b-col>
+          <b-col>
       <b-form-group id="input-group-2" label="Your Username:" label-for="input-2">
         <b-form-input
           id="input-2"
@@ -9,7 +13,14 @@
           placeholder="Enter Username"
         ></b-form-input>
       </b-form-group>
-
+      </b-col>
+        <b-col><div></div></b-col>
+        </b-row>
+      </div>
+      <div>
+        <b-row align-v="center">
+          <b-col><div></div></b-col>
+          <b-col>
       <b-form-group id="input-group-3" label="Your Password:" label-for="input-3">
         <b-form @submit.stop.prevent>
             <b-input v-model="form.password" type="password" aria-describedby="password-help-block"></b-input>
@@ -19,6 +30,10 @@
             </b-form-text>
         </b-form>
       </b-form-group>
+      </b-col>
+        <b-col><div></div></b-col>
+        </b-row>
+      </div>
 
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>

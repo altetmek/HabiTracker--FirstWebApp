@@ -23,6 +23,7 @@
 
 <script>
 import { Api } from '@/Api'
+import cookiesC from '../cookies/cookies'
 
 export default {
   data() {

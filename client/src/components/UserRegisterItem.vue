@@ -1,21 +1,36 @@
 <template>
   <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <div>
+        <b-row align-v="center">
+          <b-col><div></div></b-col>
+          <b-col>
       <b-form-group
         id="input-group-1"
         label="Email address:"
         label-for="input-1"
         description="Don't forget to add @"
       >
-        <b-form-input
-          id="input-1"
-          v-model="form.email"
-          type="email"
-          required
-          placeholder="Enter email"
-        ></b-form-input>
+        <b-row align-v="center">
+          <b-col><b-input
+      id="inline-form-input-name"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      v-model="form.email1"
+      placeholder="example"
+    ></b-input></b-col>
+          <b-col> <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+      <b-input id="inline-form-input-username" placeholder="example.email.com" v-model="form.email2"></b-input>
+    </b-input-group></b-col>
+        </b-row>
       </b-form-group>
-
+            </b-col>
+        <b-col><div></div></b-col>
+        </b-row>
+      </div>
+      <div>
+        <b-row align-v="center">
+          <b-col><div></div></b-col>
+          <b-col>
       <b-form-group id="input-group-2" label="Your Username:" label-for="input-2">
         <b-form-input
           id="input-2"
@@ -24,7 +39,14 @@
           placeholder="Enter Username"
         ></b-form-input>
       </b-form-group>
-
+            </b-col>
+        <b-col><div></div></b-col>
+        </b-row>
+      </div>
+      <div>
+        <b-row align-v="center">
+          <b-col><div></div></b-col>
+          <b-col>
       <b-form-group id="input-group-3">
         <b-form @submit.stop.prevent>
             <label for="text-password">Your Password</label>
@@ -35,7 +57,14 @@
             </b-form-text>
         </b-form>
       </b-form-group>
-
+            </b-col>
+        <b-col><div></div></b-col>
+        </b-row>
+      </div>
+      <div>
+        <b-row align-v="center">
+          <b-col><div></div></b-col>
+          <b-col>
       <b-form-group id="input-group-4" label="Set a catchy title that represents you!:" label-for="input-4">
         <b-form-input
           id="input-4"
@@ -44,6 +73,10 @@
           placeholder="The Great Coder"
         ></b-form-input>
       </b-form-group>
+            </b-col>
+        <b-col><div></div></b-col>
+        </b-row>
+      </div>
 
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
@@ -76,7 +109,7 @@ export default {
     },
     postUser() {
       const params = {
-        email: this.form.email,
+        email: this.form.email1 + '@' + this.form.email2,
         username: this.form.username,
         password: this.form.password,
         title: this.form.title,

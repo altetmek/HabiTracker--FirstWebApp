@@ -1,4 +1,5 @@
 <template>
+  <div>
     <b-container v-if="loggedIn">
         <p class="red">{{message}}</p>
         <h1>User</h1>
@@ -8,20 +9,43 @@
             </b-col>
         </b-row>
     </b-container>
+
+    <div class="accordion" role="tablist">
+      <b-card no-body class="mb-1">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-1 variant="info">Achievements</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+          <b-card-body>
+            <b-row align-h="center">
+            <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" :key="achievement._id">
+                <user-achievement-item class="items" v-bind:achievement="achievementinfo"/>
+            </b-col>
+        </b-row>
+          </b-card-body>
+        </b-collapse>
+      </b-card>
+    </div>
+
+  </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
 import UserItem from '@/components/UserItem.vue'
 import cookiesC from '../cookies/cookies'
+import UserAchievementItem from '@/components/UserAchievementItem.vue'
 
 export default {
   name: 'users',
   props: ['loggedIn', 'logging'],
   components: {
-    UserItem
+    UserItem,
+    UserAchievementItem
   },
   mounted() {
+    this.getAchievement()
+    // this.getAch()
     var id = cookiesC.getCookieValue('id')
     Api.get(`/Users/${id}`)
       .then(response => {
@@ -34,10 +58,11 @@ export default {
   },
   data() {
     return {
-      users: [],
       message: '',
       text: '',
-      userinfo: {}
+      userinfo: {},
+      achievementinfo: {},
+      achievements: []
     }
   },
   methods: {
@@ -58,6 +83,33 @@ export default {
         })
         .catch(error => {
           this.message = error.message
+        })
+    },
+    getAchievement() {
+      var id = cookiesC.getCookieValue('id')
+      console.log(id)
+      Api.get(`/users/${id}/achievements`)
+        .then(response => {
+          this.achievements = response.data
+          console.log(this.achievements)
+          // console.log(this.achievements.length)
+        })
+        .catch(error => {
+          this.message = error.message
+          this.achievements = []
+        })
+    },
+    getAch() {
+      Api.get('/Achievements')
+        .then(response => {
+          this.achievements = response.data.achievements
+        })
+        .catch(error => {
+          this.message = error.message
+          this.achievements = []
+        })
+        .then(() => {
+          this.message = 'testing how this works'
         })
     }
   }
