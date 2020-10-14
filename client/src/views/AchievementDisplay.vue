@@ -2,7 +2,9 @@
     <b-container>
         <p class="red">{{message}}</p>
         <h1>Your Achievements</h1>
-        <b-button variant="danger" v-on:click="deleteAchievementCollection">Remove Kebab</b-button>
+        <p>
+        <b-button variant="danger" v-on:click="deleteAchievementCollection">Remove ALL achievements</b-button>
+        </p>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
                 <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievment="deleteAchievement"/>

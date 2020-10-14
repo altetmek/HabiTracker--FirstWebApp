@@ -3,7 +3,7 @@
   <b-card
     bg-variant="dark"
     text-variant="white"
-    title="Achievement"
+    title= "Achievement"
     sub-title=""
   >
     <b-card-text  v-if="show && !putFlag">
@@ -45,10 +45,10 @@
       </p>
     </b-card-text>
     <p>
-    <b-button v-on:click="getAchievement">{{ status }}</b-button>
+    <b-button v-on:click="getAchievement">{{ details }}</b-button>
     </p>
     <p>
-    <b-button v-on:click="putAchievement">Update your Achievement</b-button>
+    <b-button > {{ status }} </b-button>
     </p>
     <b-button variant="danger" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</b-button>
   </b-card>
@@ -63,7 +63,8 @@ export default {
     return {
       show: true,
       putFlag: false,
-      status: 'See Details',
+      status: 'Mark as complete',
+      details: 'See Details',
       info: {},
       name: '',
       category: '',
