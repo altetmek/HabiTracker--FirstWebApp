@@ -45,7 +45,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button href="/" v-on:click="postUser()" type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
@@ -72,6 +72,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
+      this.postUser()
     },
     postUser() {
       const params = {
@@ -84,6 +85,7 @@ export default {
       }
       Api.post('/users', params)
         .then(request => {
+          window.location.href = '/'
         })
         .catch(error => {
           this.message = error
