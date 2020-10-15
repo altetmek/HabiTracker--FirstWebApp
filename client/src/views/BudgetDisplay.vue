@@ -1,6 +1,5 @@
 <template>
     <b-container>
-        <p class="red">{{message}}</p>
         <h1>Your Budget</h1>
         <b-button variant="danger" v-on:click="deleteBudgetCollection">Remove Kebab</b-button>
         <b-row align-h="center">
@@ -29,9 +28,6 @@ export default {
       .catch(error => {
         this.message = error.message
         this.budgets = []
-      })
-      .then(() => {
-        this.message = 'testing how this works'
       })
   },
   data() {
