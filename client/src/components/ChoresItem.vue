@@ -23,6 +23,7 @@
 
 <script>
 import { Api } from '@/Api'
+import cookiesC from '../cookies/cookies'
 
 export default {
   data() {
@@ -37,18 +38,20 @@ export default {
       achievements: ''
     }
   },
-  name: 'category-item',
+  name: 'chores-item',
   props: ['category'],
   methods: {
     getCategory() {
       var id = cookiesC.getCookieValue('id')
       Api.get(`/users/${id}/category`)
         .then(response => {
-          this.info = {
-            typeName: response.data.typeName,
-            level: response.data.level,
-            experiencePoints: response.data.typeExperience,
-            achievements: response.data.achievements
+          if (response.data.typeName === 'Chores') {
+            this.info = {
+              typeName: response.data.typeName,
+              level: response.data.level,
+              experiencePoints: response.data.typeExperience,
+              achievements: response.data.achievements
+            }
           }
         })
         .catch(error => {
