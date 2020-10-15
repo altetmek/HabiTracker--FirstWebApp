@@ -7,7 +7,7 @@
         </p>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
-                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement"/>
+               <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement" v-on:complete-achievement="completeAchievement"/>
             </b-col>
         </b-row>
     </b-container>
@@ -59,6 +59,17 @@ export default {
       Api.delete('/achievements')
         .then(response => {
           location.reload()
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+    },
+    completeAchievement(id) {
+      const params = {
+        complete: true
+      }
+      Api.patch(`/achievements/${id}`, params)
+        .then(response => {
         })
         .catch(error => {
           this.message = error.message

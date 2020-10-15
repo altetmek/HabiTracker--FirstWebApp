@@ -9,7 +9,9 @@ var achievementSchema = new Schema ({
     description: {type: String},
     user: [{type: Schema.Types.ObjectId, ref: 'user'}],
     category: [{type: Schema.Types.ObjectId, ref: 'category'}],
-    budget: [{type: Schema.Types.ObjectId, ref: 'budget'}]
+    budget: [{type: Schema.Types.ObjectId, ref: 'budget'}],
+    complete: {type: Boolean}
+
 
 })
 

@@ -47,7 +47,7 @@
     <b-button v-on:click="getAchievement">{{ details }}</b-button>
     </p>
     <p>
-    <b-button > {{ status }} </b-button>
+    <b-button v-on:click="$emit('complete-achievement', achievement._id)" > {{ status }} </b-button>
     </p>
     <b-button variant="danger" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</b-button>
   </b-card>
@@ -96,18 +96,6 @@ export default {
             this.achievement = []
           })
       }
-    },
-    completeAchievement() {
-      const params = {
-        complete: false
-      }
-      Api.patch(`/achievements/${this.achievement._id}`, params)
-        .then(response => {
-          alert('it works!')
-        })
-        .catch(error => {
-          this.message = error.message
-        })
     }
   }
 }

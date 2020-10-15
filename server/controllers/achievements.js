@@ -63,6 +63,7 @@ var degree = (req) => {
 router.post('/', function(req, res, next) {
     var achievement = new Achievement(req.body);
     achievement.experiencePoints = degree(req);
+    achievement.complete = false;
     achievement.save(function(err, achievement) {
         if(err) { return next(err); }
         res.status(201).json(achievement);
@@ -106,6 +107,7 @@ router.patch('/:id', function(req, res, next) {
         achievement.name = (req.body.name || achievement.name),
         achievement.degree = (req.body.degree || achievement.degree),
         achievement.description = (req.body.description || achievement.description)
+        achievement.complete = (req.body.complete || achievement.complete)
         achievement.save();
         res.status(200).json(achievement);
     });

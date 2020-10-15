@@ -16,6 +16,7 @@ router.post('/:id/achievements', function(req, res, next){
         };
         var achievement = new Achievement(req.body);
         achievement.experiencePoints = achievementController.degree(req);
+        achievement.complete = false;
         achievement.save();
         user.achievement.push(achievement);
         user.save();
