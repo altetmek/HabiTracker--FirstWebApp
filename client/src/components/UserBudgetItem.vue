@@ -2,7 +2,7 @@
   <div>
     <b-list-group>
         <b-list-group-item class="d-flex justify-content-between align-items-center">
-            <p>{{ budgetObject.name }}</p>
+            {{ budgetObject.name }}
         <b-badge variant="primary" pill>{{ budgetObject.savings }} Saved!</b-badge>
         </b-list-group-item>
     </b-list-group>

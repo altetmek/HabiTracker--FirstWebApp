@@ -10,6 +10,7 @@
     </b-container>
 
     <b-row align-h="center">
+      <b-col></b-col>
       <b-col cols="12" sm="6" md="4">
     <div class="accordion" role="tablist">
       <b-card no-body class="mb-1">
@@ -17,13 +18,9 @@
           <b-button block v-b-toggle.accordion-1 variant="info">Achievements</b-button>
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-          <b-card-body>
-            <b-row align-h="center">
-              <p><b-button v-if="achFlag">{{ messagea }}click me to create one!</b-button></p>
-            <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" :key="achievement._id">
+          <b-card-body  v-for="achievement in achievements" :key="achievement._id">
+              <b-button v-if="achFlag">{{ messagea }}click me to create one!</b-button>
                 <user-achievement-item class="items" v-bind:achievementObject="achievement"/>
-            </b-col>
-        </b-row>
           </b-card-body>
         </b-collapse>
       </b-card>
@@ -33,13 +30,9 @@
           <b-button block v-b-toggle.accordion-2 variant="info">Budgets</b-button>
         </b-card-header>
         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-          <b-card-body>
-            <b-row align-h="center">
-              <p><b-button v-if="budFlag">{{ messageb }}click me to create one!</b-button></p>
-            <b-col cols="12" sm="6" md="4" v-for="budget in budgets" :key="budget._id">
+          <b-card-body v-for="budget in budgets" :key="budget._id">
+              <b-button v-if="budFlag">{{ messageb }}click me to create one!</b-button>
                 <user-budget-item class="items" v-bind:budgetObject="budget"/>
-            </b-col>
-        </b-row>
           </b-card-body>
         </b-collapse>
       </b-card>
@@ -49,20 +42,16 @@
           <b-button block v-b-toggle.accordion-3 variant="info">Other Categories</b-button>
         </b-card-header>
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-          <b-card-body>
-            <b-row align-h="center">
-              <p><b-button v-if="catFlag">{{ messagec }}click me to create one!</b-button></p>
-            <b-col cols="12" sm="6" md="4" v-for="category in categories" :key="category._id">
+          <b-card-body v-for="category in categories" :key="category._id">
+              <b-button v-if="catFlag">{{ messagec }}click me to create one!</b-button>
                 <user-category-item class="items" v-bind:categoryObject="category"/>
-            </b-col>
-        </b-row>
           </b-card-body>
         </b-collapse>
       </b-card>
     </div>
       </b-col>
+      <b-col></b-col>
     </b-row>
-
   </div>
 </template>
 
