@@ -9,10 +9,14 @@
       <p>{{achievement.name}}</p>
     </b-card-text>
     <b-card-text v-if="!show">
-      <p>achievement name: {{info.name}}</p>
+      <p>Achievement Name: {{info.name}}</p>
+      <hr class="my-4">
       <p>Category: {{info.type}}</p>
+      <hr class="my-4">
       <p>Description: {{info.description}}</p>
+      <hr class="my-4">
       <p>Degree: {{info.degree}}</p>
+      <hr class="my-4">
       <p>Exp: {{info.experiencePoints}}</p>
     </b-card-text>
     <p>

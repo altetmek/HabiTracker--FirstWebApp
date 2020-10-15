@@ -1,72 +1,18 @@
 <template>
-<div>
-  <b-card
-    overlay
-    img-src="https://images.pexels.com/photos/4040859/pexels-photo-4040859.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-    img-alt="Card Image"
-    text-variant="white"
-    title="Your Categories"
-    sub-title=""
-  >
-    <b-card-text  v-if="show">
-      <p>{{category.name}}</p>
-    </b-card-text>
-    <b-card-text v-if="!show">
-      <p>Category type: {{info.typeName}}</p>
-      <p>Level: {{info.level}}</p>
-      <p>Experience Points: {{info.experiencePoints}}</p>
-      <p>Achievements: {{info.achievements}}</p>
-    </b-card-text>
-  </b-card>
+  <div>
+    <b-list-group>
+        <b-list-group-item class="d-flex justify-content-between align-items-center">
+            {{ studiesObject.task }}
+        <b-badge variant="primary" pill>{{ studiesObject.typeExperience }} exp</b-badge>
+        </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
 <script>
-import { Api } from '@/Api'
-import cookiesC from '../cookies/cookies'
 
 export default {
-  data() {
-    return {
-      show: true,
-      putFlag: false,
-      status: 'See Details',
-      info: {},
-      typeName: '',
-      level: '',
-      experiencePoints: '',
-      achievements: ''
-    }
-  },
   name: 'studies-item',
-  props: ['category'],
-  methods: {
-    getCategory() {
-      var id = cookiesC.getCookieValue('id')
-      Api.get(`/users/${id}/category`)
-        .then(response => {
-          if (response.data.typeName === 'Studies') {
-            this.info = {
-              typeName: response.data.typeName,
-              level: response.data.level,
-              experiencePoints: response.data.typeExperience,
-              achievements: response.data.achievements
-            }
-          }
-        })
-        .catch(error => {
-          this.message = error.message
-          this.budgets = []
-        })
-
-      if (this.show === false) {
-        this.show = true
-        this.status = 'See Details'
-      } else {
-        this.status = 'Hide'
-        this.show = false
-      }
-    }
-  }
+  props: ['studiesObject']
 }
 </script>

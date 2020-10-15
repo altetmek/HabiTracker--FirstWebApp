@@ -1,7 +1,6 @@
 <template>
   <div>
     <b-container v-if="loggedIn">
-        <h1>User</h1>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4">
                 <user-item class="items" v-bind:user="userinfo"/>
@@ -15,7 +14,7 @@
     <div class="accordion" role="tablist">
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle.accordion-1 variant="info">Achievements</b-button>
+          <b-button block v-b-toggle.accordion-1 variant="info">Personal Achievements</b-button>
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
           <b-card-body  v-for="achievement in achievements" :key="achievement._id">
@@ -39,13 +38,28 @@
 
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle.accordion-3 variant="info">Other Categories</b-button>
+          <b-button block v-b-toggle.accordion-3 variant="info">Achievement Categories</b-button>
         </b-card-header>
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-          <b-card-body v-for="category in categories" :key="category._id">
-              <b-button v-if="catFlag">{{ messagec }}click me to create one!</b-button>
-                <user-category-item class="items" v-bind:categoryObject="category"/>
-          </b-card-body>
+          <div class="px-3 py-2">
+            <b-tabs content-class="mt-3">
+              <b-tab title="Fitness" active>
+                <b-card-body v-for="fitness in fitnesses" :key="fitness._id">
+                  <fitness-item class="items" v-bind:fitnessObject="fitness"/>
+                </b-card-body>
+              </b-tab>
+              <b-tab title="Chores">
+                <b-card-body v-for="chores in choreses" :key="chores._id">
+                  <chores-item class="items" v-bind:choresObject="chores"/>
+                </b-card-body>
+              </b-tab>
+              <b-tab title="Studies">
+                <b-card-body v-for="studies in studieses" :key="studies._id">
+                  <studies-item class="items" v-bind:studiesObject="studies"/>
+                </b-card-body>
+              </b-tab>
+            </b-tabs>
+          </div>
         </b-collapse>
       </b-card>
     </div>
@@ -61,7 +75,9 @@ import UserItem from '@/components/UserItem.vue'
 import cookiesC from '../cookies/cookies'
 import UserAchievementItem from '@/components/UserAchievementItem.vue'
 import UserBudgetItem from '@/components/UserBudgetItem.vue'
-import UserCategoryItem from '@/components/UserCategoryItem.vue'
+import FitnessItem from '@/components/FitnessItem.vue'
+import ChoresItem from '@/components/ChoresItem.vue'
+import StudiesItem from '@/components/StudiesItem.vue'
 
 export default {
   name: 'users',
@@ -70,12 +86,14 @@ export default {
     UserItem,
     UserAchievementItem,
     UserBudgetItem,
-    UserCategoryItem
+    FitnessItem,
+    ChoresItem,
+    StudiesItem
   },
   mounted() {
     this.getAchievement()
     this.getBudget()
-    this.getCategory()
+    this.getCategoryName()
     var id = cookiesC.getCookieValue('id')
     Api.get(`/Users/${id}`)
       .then(response => {
@@ -98,7 +116,10 @@ export default {
       catFlag: false,
       achievements: [],
       budgets: [],
-      categories: []
+      categories: [],
+      fitnesses: [],
+      choreses: [],
+      studieses: []
     }
   },
   methods: {
@@ -148,15 +169,24 @@ export default {
           this.budgets = []
         })
     },
-    getCategory() {
+    getCategoryName() {
       var id = cookiesC.getCookieValue('id')
       Api.get(`/users/${id}/categories`)
         .then(response => {
           this.categories = response.data
+          for (var i = 0; i < this.categories.length; i++) {
+            if (this.categories[i].categoryType.typeName === 'Fitness') {
+              this.fitnesses.push(this.categories[i].categoryType)
+            } else if (this.categories[i].categoryType.typeName === 'Chores') {
+              this.choreses.push(this.categories[i].categoryType)
+            } else {
+              this.studieses.push(this.categories[i].categoryType)
+            }
+          }
         })
         .catch(error => {
           this.catFlag = true
-          error.message = 'You have no other categories yet, '
+          error.message = 'You have no categories yet, '
           this.messagec = error.message
           this.budgets = []
         })

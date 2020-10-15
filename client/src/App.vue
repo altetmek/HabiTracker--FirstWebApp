@@ -7,25 +7,19 @@
           <b-link v-if="!show" href="/">Home</b-link>
         </p>
         <p>
-          <b-link v-if="show" href="UserPage">User Page</b-link>
+          <b-link v-if="show" href="UserDisplay">Your Profile</b-link>
         </p>
         <p>
-          <b-link v-if="show" href="UserDisplay">UserDisplay Page</b-link>
+          <b-link v-if="show" href="BudgetPage">Create a Budget</b-link>
         </p>
         <p>
-          <b-link v-if="show" href="BudgetPage">Budget Page</b-link>
+          <b-link v-if="show" href="BudgetDisplay">Your Budgets</b-link>
         </p>
         <p>
-          <b-link v-if="show" href="BudgetDisplay">BudgetDisplay Page</b-link>
+          <b-link v-if="show" href="AchievementPage">Create an Achievement</b-link>
         </p>
         <p>
-          <b-link v-if="show" href="AchievementPage">Achievement Page</b-link>
-        </p>
-        <p>
-          <b-link v-if="show" href="AchievementDisplay">AchievementDisplay Page</b-link>
-        </p>
-        <p>
-          <b-link v-if="show" href="CategoryDisplay">CategoryDisplay Page</b-link>
+          <b-link v-if="show" href="AchievementDisplay">Your Achievements</b-link>
         </p>
         <p>
           <b-link v-on:click="signOut()" v-if="show" href="/">Sign Out</b-link>
