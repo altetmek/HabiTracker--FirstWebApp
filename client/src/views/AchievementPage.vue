@@ -61,7 +61,13 @@ export default {
       achievements: [],
       message: '',
       name: '',
-      description: ''
+      description: '',
+      typeName: '',
+      task: '',
+      level: 1,
+      typeExperience: 0,
+      experiencePoints: 0,
+      achievementID: ''
     }
   },
   methods: {
@@ -82,8 +88,51 @@ export default {
         description: this.description,
         degree: this.degree
       }
-      Api.post(`users/${id}/achievements`, params)
+      if (this.type === 'Fitness' || this.type === 'Chores' || this.type === 'Studies') {
+        Api.post(`users/${id}/achievements`, params)
+          .then(request => {
+            this.achievementID = request.data._id
+            this.postCategory()
+          })
+          .catch(error => {
+            this.message = error
+          })
+      } else {
+        Api.post(`users/${id}/achievements`, params)
+          .then(request => {
+          })
+          .catch(error => {
+            this.message = error
+          })
+      }
+    },
+    async postCategory() {
+      await this.getAchievementInfo()
+      var id = cookiesC.getCookieValue('id')
+      const params = {
+        categoryType: {
+          typeName: this.type,
+          task: this.description,
+          level: this.level,
+          typeExperience: this.typeExperience
+        }
+      }
+      Api.post(`users/${id}/categories`, params)
         .then(request => {
+        })
+        .catch(error => {
+          this.message = error
+        })
+    },
+    async getAchievementInfo() {
+      var idwow = cookiesC.getCookieValue('id')
+      var id = this.achievementID
+      await Api.get(`users/${idwow}/achievements/${id}`)
+        .then(request => {
+          this.type = request.data.type
+          this.description = request.data.description
+          this.level = request.data.level
+          this.typeExperience = request.data.experiencePoints
         })
         .catch(error => {
           this.message = error
