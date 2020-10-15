@@ -56,6 +56,7 @@
 
 <script>
 import { Api } from '@/Api'
+// import cookies from '../cookies/cookies'
 
 export default {
   data() {
@@ -74,9 +75,6 @@ export default {
   name: 'achievement-item',
   props: ['achievement'],
   methods: {
-    deleteAchievement() {
-      this.$emit('del-achievement', this.achievement._id)
-    },
     getAchievement() {
       if (this.show === false) {
         this.show = true
@@ -98,27 +96,19 @@ export default {
             this.achievement = []
           })
       }
+    },
+    completeAchievement() {
+      const params = {
+        complete: false
+      }
+      Api.patch(`/achievements/${this.achievement._id}`, params)
+        .then(response => {
+          alert('it works!')
+        })
+        .catch(error => {
+          this.message = error.message
+        })
     }
-    // putAchievement() {
-    //   if (this.putFlag === true) {
-    //     this.putFlag = false
-    //   } else {
-    //     this.putFlag = true
-    //     const params = {
-    //       name: this.name,
-    //       expenses: this.expense,
-    //       income: this.income,
-    //       savings: this.saving
-    //     }
-    //     Api.put(`/achievements/${this.achievement._id}`, params)
-    //       .then(response => {
-    //       })
-    //       .catch(error => {
-    //         this.message = error.message
-    //         this.achievements = []
-    //       })
-    //   }
-    // }
   }
 }
 </script>

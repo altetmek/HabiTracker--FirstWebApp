@@ -72,9 +72,6 @@ export default {
   name: 'budget-item',
   props: ['budget'],
   methods: {
-    deleteBudget() {
-      this.$emit('del-budget', this.budget._id)
-    },
     getBudget() {
       if (this.show === false) {
         this.show = true
