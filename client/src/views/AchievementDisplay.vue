@@ -7,7 +7,7 @@
         </p>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
-                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievment="deleteAchievement"/>
+                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement"/>
             </b-col>
         </b-row>
     </b-container>
@@ -16,9 +16,10 @@
 <script>
 import { Api } from '@/Api'
 import AchievementItem from '@/components/AchievementItem.vue'
+import cookiesC from '../cookies/cookies'
 
 export default {
-  name: 'achievements',
+  name: 'achievement',
   components: {
     AchievementItem
   },
@@ -43,8 +44,9 @@ export default {
     }
   },
   methods: {
-    delete(id) {
-      Api.delete(`/achievements/${id}`)
+    deleteAchievement(id) {
+      var userId = cookiesC.getCookieValue('id')
+      Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
