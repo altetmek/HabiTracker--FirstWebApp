@@ -15,35 +15,6 @@
       <p>Degree: {{info.degree}}</p>
       <p>Exp: {{info.experiencePoints}}</p>
     </b-card-text>
-    <b-card-text v-if="putFlag">
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Enter new achievement name"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="expense" v-model="expense" placeholder="Enter new expenses"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="income" v-model="income" placeholder="Enter new income"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="saving" v-model="saving" placeholder="Enter new intended savings"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-    </b-card-text>
     <p>
     <b-button v-on:click="getAchievement">{{ details }}</b-button>
     </p>
