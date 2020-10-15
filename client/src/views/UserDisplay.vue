@@ -19,7 +19,7 @@
           <b-card-body>
             <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" :key="achievement._id">
-                <user-achievement-item class="items" v-bind:achievement="achievementinfo"/>
+                <user-achievement-item class="items" v-bind:achievementObject="achievement"/>
             </b-col>
         </b-row>
           </b-card-body>
@@ -45,7 +45,6 @@ export default {
   },
   mounted() {
     this.getAchievement()
-    // this.getAch()
     var id = cookiesC.getCookieValue('id')
     Api.get(`/Users/${id}`)
       .then(response => {
@@ -61,7 +60,6 @@ export default {
       message: '',
       text: '',
       userinfo: {},
-      achievementinfo: {},
       achievements: []
     }
   },
@@ -91,25 +89,10 @@ export default {
       Api.get(`/users/${id}/achievements`)
         .then(response => {
           this.achievements = response.data
-          console.log(this.achievements)
-          // console.log(this.achievements.length)
         })
         .catch(error => {
           this.message = error.message
           this.achievements = []
-        })
-    },
-    getAch() {
-      Api.get('/Achievements')
-        .then(response => {
-          this.achievements = response.data.achievements
-        })
-        .catch(error => {
-          this.message = error.message
-          this.achievements = []
-        })
-        .then(() => {
-          this.message = 'testing how this works'
         })
     }
   }
