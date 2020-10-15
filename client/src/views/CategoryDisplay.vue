@@ -6,22 +6,22 @@
             <b-tabs content-class="mt-3">
                 <b-tab title="Fitness" if active><p>
                             <b-row align-h="center">
-                                <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category.typeName === 'Fitness'">
-                                    <category-item class="items" v-bind:category="category"/>
+                                <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category">
+                                    <fitness-item class="items" v-bind:category="category"/>
                                 </b-col>
                             </b-row>
                     </p></b-tab>
                 <b-tab title="Chores"><p>
                     <b-row align-h="center">
-                                <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category.typeName === 'Chores'">
-                                    <category-item class="items" v-bind:category="category"/>
+                                <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category">
+                                    <chores-item class="items" v-bind:category="category"/>
                                 </b-col>
                             </b-row>
                     </p></b-tab>
                 <b-tab title="Studies"><p>
                     <b-row align-h="center">
-                                <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category.typeName === 'Studies'">
-                                    <category-item class="items" v-bind:category="category"/>
+                                <b-col cols="12" sm="6" md="4" v-for="category in categories" v-bind:key="category">
+                                    <studies-item class="items" v-bind:category="category"/>
                                 </b-col>
                             </b-row>
                     </p></b-tab>
@@ -33,26 +33,32 @@
 
 <script>
 import { Api } from '@/Api'
-import CategoryItem from '@/components/CategoryItem.vue'
+// import CategoryItem from '@/components/CategoryItem.vue'
+import FitnessItem from '@/components/FitnessItem.vue'
+import ChoresItem from '@/components/ChoresItem.vue'
+import StudiesItem from '@/components/StudiesItem.vue'
+import cookiesC from '../cookies/cookies'
 
 export default {
   name: 'categories',
+  props: ['loggedIn', 'logging'],
   components: {
-    CategoryItem
+    // CategoryItem,
+    FitnessItem,
+    ChoresItem,
+    StudiesItem
   },
   mounted() {
-    Api.get('/Categories')
+    this.getCategory()
+    // this.getAch()
+    var id = cookiesC.getCookieValue('id')
+    Api.get(`/Users/${id}/Categories`)
       .then(response => {
-        this.categories = response.data.categories
-        console.log(response.data)
+        this.userinfo = response.data
       })
       .catch(error => {
         this.message = error.message
-        console.log(error.message)
-        this.categories = []
-      })
-      .then(() => {
-        this.message = 'testing how this works'
+        this.users = []
       })
   },
   data() {

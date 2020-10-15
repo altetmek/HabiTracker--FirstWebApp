@@ -38,18 +38,20 @@ export default {
       achievements: ''
     }
   },
-  name: 'category-item',
+  name: 'studies-item',
   props: ['category'],
   methods: {
     getCategory() {
       var id = cookiesC.getCookieValue('id')
       Api.get(`/users/${id}/category`)
         .then(response => {
-          this.info = {
-            typeName: response.data.typeName,
-            level: response.data.level,
-            experiencePoints: response.data.typeExperience,
-            achievements: response.data.achievements
+          if (response.data.typeName === 'Studies') {
+            this.info = {
+              typeName: response.data.typeName,
+              level: response.data.level,
+              experiencePoints: response.data.typeExperience,
+              achievements: response.data.achievements
+            }
           }
         })
         .catch(error => {
