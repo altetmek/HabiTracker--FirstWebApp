@@ -29,7 +29,7 @@
          <b-col></b-col>
          </b-row>
       </p>
-      <b-button href="AchievementDisplay" v-on:click="postAchievement">Save</b-button>
+      <b-button v-on:click="postAchievement">Save</b-button>
       <br><br><br><br>
     </b-jumbotron>
   </div>
@@ -100,6 +100,7 @@ export default {
       } else {
         Api.post(`users/${id}/achievements`, params)
           .then(request => {
+            window.location.href = 'AchievementDisplay'
           })
           .catch(error => {
             this.message = error
@@ -119,6 +120,7 @@ export default {
       }
       Api.post(`users/${id}/categories`, params)
         .then(request => {
+          window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error
