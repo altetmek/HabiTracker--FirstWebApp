@@ -14,6 +14,7 @@
 <script>
 import { Api } from '@/Api'
 import BudgetItem from '@/components/BudgetItem.vue'
+import cookiesC from '../cookies/cookies'
 
 export default {
   name: 'budgets',
@@ -42,7 +43,8 @@ export default {
   },
   methods: {
     deleteBudget(id) {
-      Api.delete(`/budgets/${id}`)
+      var userId = cookiesC.getCookieValue('id')
+      Api.delete(`users/${userId}/budgets/${id}`)
         .then(response => {
           const index = this.budgets.findIndex(budget => budget._id === id)
           this.budgets.splice(index, 1)
