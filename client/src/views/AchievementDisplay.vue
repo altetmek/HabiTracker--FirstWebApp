@@ -55,27 +55,33 @@ export default {
           this.message = error.message
         })
     },
-    completeAchievement(id) {
+    async completeAchievement(id) {
       var userId = cookiesC.getCookieValue('id')
-      var userExperience
-      Api.get(`users/${userId}`)
-        .then(response => {
-          userExperience = response.data.experiencePoints
-          console.log(userExperience)
-        }).catch(error => {
-          this.message = error.message
-        })
-      Api.get(`users/${userId}/achievements/${id}`)
-        .then(response => {
-          userExperience += response.data.experiencePoints
-          console.log(userExperience)
-        })
-        .catch(error => {
-          this.message = error.message
-        })
-      const paramsUser = {
-        experiencePoints: userExperience
+      async function calcUserXp() {
+        var userExperience
+        await Api.get(`users/${userId}`)
+          .then(response => {
+            userExperience = response.data.experiencePoints
+            console.log(userExperience)
+          }).catch(error => {
+            this.message = error.message
+          })
+        await Api.get(`users/${userId}/achievements/${id}`)
+          .then(response => {
+            userExperience += response.data.experiencePoints
+            console.log(userExperience)
+          })
+          .catch(error => {
+            this.message = error.message
+          })
+        console.log(userExperience)
+        return userExperience
       }
+
+      const paramsUser = {
+        experiencePoints: await calcUserXp()
+      }
+      console.log(paramsUser)
       Api.patch(`users/${userId}`, paramsUser)
         .then(response => {
           alert('yo')
@@ -85,8 +91,8 @@ export default {
       }
       Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
-          alert('Congratulations your achievemtn has been marked as complete!')
-          window.location.href = 'AchievementDisplay'
+          alert('Congratulations on completing your goal!')
+          // window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error.message
