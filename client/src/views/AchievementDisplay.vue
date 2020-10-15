@@ -51,26 +51,31 @@ export default {
     },
     async completeAchievement(id) {
       var userId = cookiesC.getCookieValue('id')
-      async function calcUserXp() {
-        var userExperience
-        await Api.get(`users/${userId}`)
-          .then(response => {
-            userExperience = response.data.experiencePoints
-          }).catch(error => {
-            this.message = error.message
-          })
-        await Api.get(`users/${userId}/achievements/${id}`)
-          .then(response => {
-            userExperience += response.data.experiencePoints
-          })
-          .catch(error => {
-            this.message = error.message
-          })
-        return userExperience
+      var userExperience
+      var remainder
+      var lvl
+      await Api.get(`users/${userId}`)
+        .then(response => {
+          userExperience = response.data.experiencePoints
+          lvl = response.data.level
+        }).catch(error => {
+          this.message = error.message
+        })
+      await Api.get(`users/${userId}/achievements/${id}`)
+        .then(response => {
+          userExperience += response.data.experiencePoints
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+      if (userExperience >= 100) {
+        lvl += 1
+        remainder = userExperience - 100
+        userExperience = remainder
       }
-
       const paramsUser = {
-        experiencePoints: await calcUserXp()
+        experiencePoints: userExperience,
+        level: lvl
       }
       Api.patch(`users/${userId}`, paramsUser)
         .then(response => {
