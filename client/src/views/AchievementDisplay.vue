@@ -56,29 +56,27 @@ export default {
         await Api.get(`users/${userId}`)
           .then(response => {
             userExperience = response.data.experiencePoints
-            console.log(userExperience)
           }).catch(error => {
             this.message = error.message
           })
         await Api.get(`users/${userId}/achievements/${id}`)
           .then(response => {
             userExperience += response.data.experiencePoints
-            console.log(userExperience)
           })
           .catch(error => {
             this.message = error.message
           })
-        console.log(userExperience)
         return userExperience
       }
 
       const paramsUser = {
         experiencePoints: await calcUserXp()
       }
-      console.log(paramsUser)
       Api.patch(`users/${userId}`, paramsUser)
         .then(response => {
-          alert('yo')
+        })
+        .catch(error => {
+          this.message = error.message
         })
       const paramsAchievement = {
         complete: true
@@ -86,7 +84,7 @@ export default {
       Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
           alert('Congratulations on completing your goal!')
-          // window.location.href = 'AchievementDisplay'
+          window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error.message
