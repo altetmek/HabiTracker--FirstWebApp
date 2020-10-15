@@ -24,7 +24,7 @@ export default {
     AchievementItem
   },
   mounted() {
-    Api.get('/Achievements')
+    Api.get('/achievements/')
       .then(response => {
         this.achievements = response.data.achievements
       })
@@ -55,20 +55,35 @@ export default {
           this.message = error.message
         })
     },
-    deleteAchievementCollection() {
-      Api.delete('/achievements')
+    completeAchievement(id) {
+      var userId = cookiesC.getCookieValue('id')
+      var userExperience
+      Api.get(`users/${userId}`)
         .then(response => {
-          location.reload()
+          userExperience = response.data.experiencePoints
+          console.log(userExperience)
+        }).catch(error => {
+          this.message = error.message
+        })
+      Api.get(`users/${userId}/achievements/${id}`)
+        .then(response => {
+          userExperience += response.data.experiencePoints
+          console.log(userExperience)
         })
         .catch(error => {
           this.message = error.message
         })
-    },
-    completeAchievement(id) {
-      const params = {
+      const paramsUser = {
+        experiencePoints: userExperience
+      }
+      Api.patch(`users/${userId}`, paramsUser)
+        .then(response => {
+          alert('yo')
+        })
+      const paramsAchievement = {
         complete: true
       }
-      Api.patch(`/achievements/${id}`, params)
+      Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
           alert('Congratulations your achievemtn has been marked as complete!')
           window.location.href = 'AchievementDisplay'
