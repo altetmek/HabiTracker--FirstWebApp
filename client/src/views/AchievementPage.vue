@@ -54,9 +54,9 @@ export default {
       degree: null,
       options2: [
         { value: null, text: 'please select the degree of it' },
-        { value: 'bronze', text: 'Bronze' },
-        { value: 'silver', text: 'Silver' },
-        { value: 'gold', text: 'Gold' }
+        { value: 'Bronze', text: 'Bronze' },
+        { value: 'Silver', text: 'Silver' },
+        { value: 'Gold', text: 'Gold' }
       ],
       achievements: [],
       message: '',

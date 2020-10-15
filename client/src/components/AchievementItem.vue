@@ -13,6 +13,7 @@
       <p>Category: {{info.type}}</p>
       <p>Description: {{info.description}}</p>
       <p>Degree: {{info.degree}}</p>
+      <p>Exp: {{info.experiencePoints}}</p>
     </b-card-text>
     <b-card-text v-if="putFlag">
       <p>
@@ -47,7 +48,7 @@
     <b-button v-on:click="getAchievement">{{ details }}</b-button>
     </p>
     <p>
-    <b-button v-on:click="$emit('complete-achievement', achievement._id)" > {{ status }} </b-button>
+    <b-button v-on:click="$emit('complete-achievement', achievement._id)"> {{ status }} </b-button>
     </p>
     <b-button variant="danger" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</b-button>
   </b-card>
@@ -68,8 +69,7 @@ export default {
       info: {},
       name: '',
       category: '',
-      description: '',
-      saving: ''
+      description: ''
     }
   },
   name: 'achievement-item',
@@ -88,7 +88,8 @@ export default {
               name: response.data.name,
               type: response.data.type,
               description: response.data.description,
-              degree: response.data.degree
+              degree: response.data.degree,
+              experiencePoints: response.data.experiencePoints
             }
           })
           .catch(error => {
