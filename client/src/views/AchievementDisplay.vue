@@ -70,6 +70,8 @@ export default {
       }
       Api.patch(`/achievements/${id}`, params)
         .then(response => {
+          alert('Congratulations your achievemtn has been marked as complete!')
+          window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error.message
