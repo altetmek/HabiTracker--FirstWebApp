@@ -48,7 +48,8 @@
         <p>Username: {{user.username}}</p>
         <p>Title: {{user.title}}</p>
         <p>Level: {{user.level}}</p>
-        <p>Experience Points: {{user.experiencePoints}}</p>
+        <p>Experience Progression:</p>
+        <b-progress :value="user.experiencePoints" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
      </b-card-text>
 
       <b-card-text v-if="patchFlag" align-v="center">

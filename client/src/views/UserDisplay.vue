@@ -44,16 +44,19 @@
           <div class="px-3 py-2">
             <b-tabs content-class="mt-3">
               <b-tab title="Fitness" active>
+                <b-progress :value="fitnessXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
                 <b-card-body v-for="fitness in fitnesses" :key="fitness._id">
                   <fitness-item class="items" v-bind:fitnessObject="fitness"/>
                 </b-card-body>
               </b-tab>
               <b-tab title="Chores">
+                <b-progress :value="choresXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
                 <b-card-body v-for="chores in choreses" :key="chores._id">
                   <chores-item class="items" v-bind:choresObject="chores"/>
                 </b-card-body>
               </b-tab>
               <b-tab title="Studies">
+                <b-progress :value="studiesXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
                 <b-card-body v-for="studies in studieses" :key="studies._id">
                   <studies-item class="items" v-bind:studiesObject="studies"/>
                 </b-card-body>
@@ -119,7 +122,10 @@ export default {
       categories: [],
       fitnesses: [],
       choreses: [],
-      studieses: []
+      studieses: [],
+      fitnessXP: 0,
+      choresXP: 0,
+      studiesXP: 0
     }
   },
   methods: {
@@ -190,6 +196,9 @@ export default {
           this.messagec = error.message
           this.budgets = []
         })
+    },
+    getCategoryXP() {
+      this.getCategoryName()
     }
   }
 }
