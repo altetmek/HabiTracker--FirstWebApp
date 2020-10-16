@@ -18,6 +18,7 @@
       <p>Degree: {{info.degree}}</p>
       <hr class="my-4">
       <p>Exp: {{info.experiencePoints}}</p>
+      <hr class="my-4">
     </b-card-text>
     <p>
     <b-button v-on:click="getAchievement">{{ details }}</b-button>
