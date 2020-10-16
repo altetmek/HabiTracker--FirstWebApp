@@ -93,7 +93,10 @@ router.patch('/:id', function(req, res, next) {
         }
         budget.name = (req.body.name || budget.name),
         budget.income = (req.body.income || budget.income),
-        budget.expenses = (req.body.expenses || budget.expenses),
+        budget.food = (req.body.food || budget.food),
+        budget.essentials = (req.body.essentials || budget.essentials),
+        budget.misc = (req.body.misc || budget.misc),
+        budget.leisure = (req.body.leisure || budget.leisure)
         budget.savings = (req.body.savings || budget.savings)
         budget.save();
         res.status(200).json(budget);
