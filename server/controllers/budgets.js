@@ -91,6 +91,7 @@ router.patch('/:id', function(req, res, next) {
         if(budget == null){
             return res.status(404).json({"message": "Budget not found"});
         }
+        budget.expenses = (req.body.expenses || budget.expenses),
         budget.name = (req.body.name || budget.name),
         budget.income = (req.body.income || budget.income),
         budget.food = (req.body.food || budget.food),

@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var budgetSchema = new Schema ({
     name: {type: String},
+    expenses: {type: Number},
     income: {type: Number},
     savings: {type: Number},
     food: {type: Number},
