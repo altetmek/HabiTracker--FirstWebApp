@@ -5,6 +5,7 @@
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement" v-on:complete-achievement="completeAchievement"/>
+               <hr class="my-4">
             </b-col>
         </b-row>
     </b-container>

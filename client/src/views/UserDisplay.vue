@@ -17,7 +17,7 @@
           <b-button block v-b-toggle.accordion-1 variant="info">Personal Achievements</b-button>
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-          <b-card-body  v-for="achievement in achievements" :key="achievement._id">
+          <b-card-body v-for="achievement in personalAch" :key="achievement._id">
               <b-button v-if="achFlag">{{ messagea }}click me to create one!</b-button>
                 <user-achievement-item class="items" v-bind:achievementObject="achievement"/>
           </b-card-body>
@@ -125,7 +125,10 @@ export default {
       studieses: [],
       fitnessXP: 0,
       choresXP: 0,
-      studiesXP: 0
+      studiesXP: 0,
+      achievementID: '',
+      achType: '',
+      personalAch: []
     }
   },
   methods: {
@@ -154,6 +157,11 @@ export default {
       Api.get(`/users/${id}/achievements`)
         .then(response => {
           this.achievements = response.data
+          for (var i = 0; i < this.achievements.length; i++) {
+            if (this.achievements[i].type === 'Other') {
+              this.personalAch.push(this.achievements[i])
+            }
+          }
         })
         .catch(error => {
           this.achFlag = true
@@ -196,9 +204,6 @@ export default {
           this.messagec = error.message
           this.budgets = []
         })
-    },
-    getCategoryXP() {
-      this.getCategoryName()
     }
   }
 }

@@ -49,7 +49,8 @@ export default {
         { value: null, text: 'please select your category' },
         { value: 'Chores', text: 'Chores' },
         { value: 'Fitness', text: 'Fitness' },
-        { value: 'Studies', text: 'Studies' }
+        { value: 'Studies', text: 'Studies' },
+        { value: 'Other', text: 'Other' }
       ],
       degree: null,
       options2: [
