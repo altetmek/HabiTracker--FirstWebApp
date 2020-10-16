@@ -4,27 +4,13 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Enter budget name"></b-form-input></b-col>
+          <b-col><b-form-select v-model="name" :options="options"></b-form-select></b-col>
           <b-col></b-col>
         </b-row>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="expense" v-model="expense" placeholder="Enter your expenses"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
           <b-col><b-form-input id="income" v-model="income" placeholder="Enter your income"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="saving" v-model="saving" placeholder="Enter your intended savings"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
@@ -43,9 +29,24 @@ export default {
   name: 'budget',
   data() {
     return {
+      name: null,
+      options: [
+        { value: null, text: 'Select the current month' },
+        { value: 'January', text: 'January' },
+        { value: 'February', text: 'February' },
+        { value: 'Mars', text: 'Mars' },
+        { value: 'April', text: 'April' },
+        { value: 'May', text: 'may' },
+        { value: 'June', text: 'June ' },
+        { value: 'July', text: 'July' },
+        { value: 'August', text: 'August' },
+        { value: 'September', text: 'September' },
+        { value: 'October', text: 'October' },
+        { value: 'November', text: 'November' },
+        { value: 'December', text: 'Decemember' }
+      ],
       budgets: [],
       message: '',
-      name: '',
       expense: '',
       income: '',
       saving: ''
@@ -65,9 +66,7 @@ export default {
       var id = cookiesC.getCookieValue('id')
       const params = {
         name: this.name,
-        expenses: this.expense,
-        income: this.income,
-        savings: this.saving
+        income: this.income
       }
       Api.post(`users/${id}/budgets`, params)
         .then(request => {
