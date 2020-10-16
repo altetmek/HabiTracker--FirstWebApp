@@ -5,6 +5,7 @@ var Achievement = require('../models/achievement');
 var Budget = require('../models/budget');
 var Category = require('../models/category');
 var achievementController = require('../controllers/achievements');
+var budgetController = require('../controllers/budgets');
 
 //POST achievement to a user by id.
 router.post('/:id/achievements', function(req, res, next){
@@ -33,6 +34,12 @@ router.post('/:id/budgets', function(req, res, next){
             return res.status(404).json({'message': 'User not found'});
         };
         var budget = new Budget(req.body);
+        var total = req.body.income
+        budget.savings = budgetController.moneyDistributer('savings',total)
+        budget.food = budgetController.moneyDistributer('food',total)
+        budget.leisure = budgetController.moneyDistributer('leisure',total)
+        budget.essentials = budgetController.moneyDistributer('essentials',total)
+        budget.misc = budgetController.moneyDistributer('misc',total)
         budget.save();
         user.budget.push(budget);
         user.save();

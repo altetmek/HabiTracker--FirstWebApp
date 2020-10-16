@@ -2,6 +2,30 @@ var express = require('express');
 var router = express.Router();
 var Budget = require('../models/budget');
 
+
+
+var moneyDistributer = (type, total) => {
+    switch (type) {
+
+        case 'savings':
+            return (total * 0.25)
+        
+        case 'food':
+            return (total * 0.20)
+
+        case 'leisure':
+            return (total * 0.25)
+
+        case 'essentials':
+            return (total * 0.2)
+
+        case 'misc':
+            return (total * 0.1)
+
+    }
+
+}
+
 //GET all budgets.
 router.get('/', function(req, res, next){
     Budget.find(function(err, budgets){
@@ -28,6 +52,7 @@ router.get('/:id', function(req, res, next) {
 //POST a budget.
 router.post('/', function(req, res, next) {
     var budget = new Budget(req.body);
+    budget.savings = moneyDistributer('savings',req.body.income)
     budget.save(function(err, budget) {
         if(err) { return next(err); }
         res.status(201).json(budget);
@@ -94,3 +119,4 @@ router.put('/:id', function(req,res,next) {
 })
 
 module.exports = router;
+module.exports.moneyDistributer = moneyDistributer;
