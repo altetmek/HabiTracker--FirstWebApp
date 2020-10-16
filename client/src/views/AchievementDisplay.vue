@@ -21,14 +21,7 @@ export default {
     AchievementItem
   },
   mounted() {
-    Api.get('/achievements/')
-      .then(response => {
-        this.achievements = response.data.achievements
-      })
-      .catch(error => {
-        this.message = error.message
-        this.achievements = []
-      })
+    this.getAchievement()
   },
   data() {
     return {
@@ -47,6 +40,17 @@ export default {
           this.achievements.splice(index, 1)
         })
         .catch(error => {
+          this.message = error.message
+        })
+    },
+    getAchievement() {
+      var userId = cookiesC.getCookieValue('id')
+      Api.get(`/users/${userId}/achievements`)
+        .then(response => {
+          this.achievements = response.data
+        })
+        .catch(error => {
+          error.message = 'You have no achievements yet'
           this.message = error.message
         })
     },
