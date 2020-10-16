@@ -111,13 +111,37 @@ export default {
     showForm() {
       this.putFlag = true
     },
-    updateBudget() {
-      // var userId = cookiesC.getCookieValue('id')
+    async updateBudget() {
+      var totalFunds
+      var totalFood
+      var totalEssentials
+      var totalMisc
+      var totalLeisure
+      await Api.get(`/budgets/${this.budget._id}`)
+        .then(response => {
+          totalFood = response.data.food
+          totalFunds = response.data.income
+          totalLeisure = response.data.leisure
+          totalMisc = response.data.misc
+          totalEssentials = response.data.essentials
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+      totalFood -= this.food
+      totalEssentials -= this.essentials
+      totalMisc -= this.misc
+      totalLeisure -= this.leisure
+      totalFunds -= this.food
+      totalFunds -= this.essentials
+      totalFunds -= this.misc
+      totalFunds -= this.leisure
       const params = {
-        food: this.food,
-        misc: this.misc,
-        essentials: this.essentials,
-        leisure: this.leisure
+        income: totalFunds,
+        food: totalFood,
+        misc: totalMisc,
+        essentials: totalEssentials,
+        leisure: totalLeisure
       }
       Api.patch(`/budgets/${this.budget._id}`, params)
         .then(response => {
