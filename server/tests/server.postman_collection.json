@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "fd207b96-ecdc-4930-8f16-ddabf447e78c",
-		"name": "server",
+		"_postman_id": "e20798be-b6ad-403a-9b02-2fa3ba8f0756",
+		"name": "server Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,7 +11,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cb8bf60c-388e-4bb0-8570-ec733b953c62",
+						"id": "10e2d847-e190-4306-b191-3bedb9132a96",
 						"exec": [
 							""
 						],
@@ -21,7 +21,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "10167043-f3c8-4807-8151-13b5d183bee6",
+						"id": "d2ef4e55-b0de-449a-8b2a-7b09c81b011b",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var userId = jsonData._id;",
@@ -32,6 +32,8 @@
 							"});",
 							"",
 							"pm.test(\"Correct user response\", function () {",
+							"    pm.expect(jsonData.email).to.eql(\"someemail@idk\");",
+							"     pm.expect(jsonData.password).to.eql(\"securePassword\");",
 							"     pm.expect(jsonData.username).to.eql(\"gustav\");",
 							"    pm.expect(jsonData.level).to.eql(1);",
 							"    pm.expect(jsonData.title).to.eql(\"This is a title\");",
@@ -59,7 +61,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"gustav\",\n    \"level\": 1,\n    \"title\": \"This is a title\",\n    \"experiencePoints\": \"1\"\n}",
+					"raw": "{\n    \"email\": \"someemail@idk\",\n    \"password\": \"securePassword\",\n    \"username\": \"gustav\",\n    \"level\": 1,\n    \"title\": \"This is a title\",\n    \"experiencePoints\": \"1\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -78,12 +80,77 @@
 			"response": []
 		},
 		{
+			"name": "Authenticate User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed0c780d-e3fd-4cca-8679-ccc5ae92b948",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"\r",
+							"if (jsonData.loggedIn = true){\r",
+							"    pm.test(\"Correct status code\", function() {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"}else {\r",
+							"    pm.test(\"Correct status code\", function() {\r",
+							"        pm.response.to.have.status(404);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "applciation/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"securePassword\",\r\n    \"username\": \"gustav\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/authenticate/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"authenticate",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{user_id}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Post achievement to user by id",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "b89245b8-603e-40ff-811b-ff7185f1ece0",
+						"id": "dd29d154-deab-4438-a978-0e6e3a77db67",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var achievementIdforUser = jsonData._id;\r",
@@ -142,12 +209,140 @@
 			"response": []
 		},
 		{
-			"name": "Get allllll achievements of a user by id",
+			"name": "Post budget to user by id",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b7e6d77-dbba-4623-919f-483a55cc1df3",
+						"id": "b9deda2d-c0ec-4e87-a497-5c936491e1d4",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var budgetIdforUser = jsonData._id;\r",
+							"pm.environment.set(\"budget_id_forUser\", budgetIdforUser);\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"I like money wooohooooo!!\",\r\n    \"income\": 400,\r\n    \"expenses\": 50,\r\n    \"savings\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"budgets"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post category to user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d6e66b3-c3fc-48b8-892c-92ddbd27019a",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var categoryIdforUser = jsonData._id;\r",
+							"pm.environment.set(\"category_id_forUser\", categoryIdforUser);\r",
+							"\r",
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryType\": {\r\n        \"typeName\": \"Fitness\",\r\n        \"task\": \"Increase fitness level to very high levels\",\r\n        \"level\": \"1\",\r\n        \"typeExperience\": \"0\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"categories"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all achievements of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19e7557a-feff-4f71-91d6-9adb1e8ba390",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -188,12 +383,104 @@
 			"response": []
 		},
 		{
+			"name": "Get all budgets of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aeb96d78-eb3e-4743-b062-6acaaa71a63a",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/budgets",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"budgets"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all categories of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f88bc00-c77d-4e11-9889-0c267a5bd25a",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/categories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"categories"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get specific achievement of a user by id",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "427b029e-56bb-4032-a30d-abe340aca96e",
+						"id": "86aef801-ed6d-4530-8461-8f6416f5919d",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -239,12 +526,114 @@
 			"response": []
 		},
 		{
+			"name": "Get specific budget of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ee398ef-7b33-419f-b900-2195820c02cb",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/budgets/:{{budget_id_forUser}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"budgets",
+						":{{budget_id_forUser}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "{{budget_id_forUser}}",
+							"value": "{{budget_id_forUser}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get specific category of a user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1bd0ce9-f8b8-464f-8b46-063a5485b8ec",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/categories/:{{category_id_forUser}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"categories",
+						":{{category_id_forUser}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "{{category_id_forUser}}",
+							"value": "{{category_id_forUser}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete a specific achievement of a specific user by id",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "936b46d2-37a2-4801-b9ac-a6798ea0c7d8",
+						"id": "8b4472ae-1714-4636-b0cd-f1bc31bfd781",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -290,12 +679,114 @@
 			"response": []
 		},
 		{
+			"name": "Delete a specific budget of a specific user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "795a74d1-6816-44ce-a1de-1240f36bc3ae",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/budgets/:{{budget_id_forUser}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"budgets",
+						":{{budget_id_forUser}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "{{budget_id_forUser}}",
+							"value": "{{budget_id_forUser}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a specific category of a specific user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e18df22-3524-4606-a0fd-c11a26640047",
+						"exec": [
+							"pm.test(\"Correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/:{{user_id}}/categories/:{{category_id_forUser}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						":{{user_id}}",
+						"categories",
+						":{{category_id_forUser}}"
+					],
+					"variable": [
+						{
+							"key": "{{user_id}}",
+							"value": "{{user_id}}"
+						},
+						{
+							"key": "{{category_id_forUser}}",
+							"value": "{{category_id_forUser}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create another user (Altug)",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "f37d310d-099c-4f5f-9643-758e37fe79f3",
+						"id": "c28a2e7e-0903-4f9f-990f-f602836c5f48",
 						"exec": [
 							""
 						],
@@ -305,7 +796,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ff8075cf-6a17-485b-9653-ce1c81112c49",
+						"id": "b78f316b-67fc-4e75-aa6d-ecd8bd12cc6a",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var userId2 = jsonData._id;",
@@ -316,6 +807,8 @@
 							"});",
 							"",
 							"pm.test(\"Correct user response\", function () {",
+							"     pm.expect(jsonData.email).to.eql(\"someemailforaltug@idk\");",
+							"     pm.expect(jsonData.password).to.eql(\"securePasswordWow\");",
 							"     pm.expect(jsonData.username).to.eql(\"altug\");",
 							"    pm.expect(jsonData.level).to.eql(2);",
 							"    pm.expect(jsonData.title).to.eql(\"This is another title\");",
@@ -343,7 +836,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"altug\",\n    \"level\": 2,\n    \"title\": \"This is another title\",\n    \"experiencePoints\": \"3\"\n}",
+					"raw": "{\n    \"email\": \"someemailforaltug@idk\",\n    \"password\": \"securePasswordWow\",\n    \"username\": \"altug\",\n    \"level\": 2,\n    \"title\": \"This is another title\",\n    \"experiencePoints\": \"3\"\n}",
 					"options": {
 						"raw": {}
 					}
@@ -367,7 +860,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5a8a77eb-4e80-429d-9874-d5348e1b3230",
+						"id": "c5ea9389-1a7a-481e-99dc-9e3b0742fe2f",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -405,7 +898,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7c02aaa9-6c09-4934-b44c-03877e538c61",
+						"id": "5fb33f97-28b7-4fc7-80ee-8649fb1e6e4c",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -466,7 +959,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a1c98a28-f8e6-441d-8e94-91eadcca4703",
+						"id": "18ced095-6f1f-4f8b-b1bf-a9da699334ba",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -511,7 +1004,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0b392201-cccf-41a2-bbd7-d92af8420096",
+						"id": "da97c32e-c9e9-4836-8634-805a31257c4a",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -556,7 +1049,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2be9b318-f24e-416d-a445-3a81a66dd266",
+						"id": "cdb40e6f-dfbb-4b70-bdab-372f0076b046",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var username = jsonData.username;\r",
@@ -608,7 +1101,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d1879379-dab0-4645-98ed-074076d1a32c",
+						"id": "7f555f03-dce1-4752-bed3-41e656ee673c",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -617,6 +1110,8 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.email).to.eql(\"someemailforaltug@idk\");\r",
+							"     pm.expect(jsonData.password).to.eql(\"securePasswordWow\");\r",
 							"     pm.expect(jsonData.username).to.eql(\"filip\");\r",
 							"    pm.expect(jsonData.level).to.eql(2);\r",
 							"    pm.expect(jsonData.title).to.eql(\"changed title\");\r",
@@ -658,8 +1153,7 @@
 					"variable": [
 						{
 							"key": "{{user_id2}}",
-							"value": "{{user_id2}}",
-							"type": "string"
+							"value": "{{user_id2}}"
 						}
 					]
 				}
@@ -672,7 +1166,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "303fbee4-2859-4071-943a-b46e13985172",
+						"id": "72f9a22f-8a88-42bf-8053-81d73d3aa955",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -681,6 +1175,8 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Correct user response\", function () {\r",
+							"    pm.expect(jsonData.email).to.eql(\"newemail@idk\");\r",
+							"    pm.expect(jsonData.password).to.eql(\"notSecurePassword\");\r",
 							"     pm.expect(jsonData.username).to.eql(\"gustav v2\");\r",
 							"    pm.expect(jsonData.level).to.eql(100);\r",
 							"    pm.expect(jsonData.title).to.eql(\"Put works!\");\r",
@@ -702,7 +1198,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"gustav v2\",\r\n    \"level\": 100,\r\n    \"title\": \"Put works!\",\r\n    \"experiencePoints\": \"123\"\r\n}",
+					"raw": "{\r\n    \"email\": \"newemail@idk\",\r\n    \"password\": \"notSecurePassword\",\r\n    \"username\": \"gustav v2\",\r\n    \"level\": 100,\r\n    \"title\": \"Put works!\",\r\n    \"experiencePoints\": \"123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -721,10 +1217,8 @@
 					],
 					"variable": [
 						{
-							"id": "b9661db2-3115-46e4-a618-fbde268830a4",
 							"key": "{{user_id2}}",
-							"value": "{{user_id2}}",
-							"type": "string"
+							"value": "{{user_id2}}"
 						}
 					]
 				}
@@ -737,7 +1231,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "24ff4a4f-8d6d-410e-9e6b-42d318793d7a",
+						"id": "40c67d94-91ab-47bd-8f13-f519ba6fbb9d",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -775,7 +1269,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cb7ecee5-65f0-4677-8e7d-d1c7da6ddf01",
+						"id": "44362c1d-08d4-482d-bdae-26275d2bd685",
 						"exec": [
 							""
 						],
@@ -785,7 +1279,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e67d4373-e1ad-4657-875f-7fc220781aa7",
+						"id": "7720cf6a-4579-4cd0-809b-79ff51ca3e3c",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var achievementId = jsonData._id;",
@@ -848,7 +1342,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b0e64955-6f69-4f1b-9bcc-71298aba4067",
+						"id": "2a73ffd5-092c-41ad-a9d4-834aafadfbb6",
 						"exec": [
 							""
 						],
@@ -858,7 +1352,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b6f5339-9f33-4f2f-ac17-ca05995cc6c5",
+						"id": "90760fff-5758-4e47-83c4-c6082bc6f612",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var achievementId2 = jsonData._id;",
@@ -921,7 +1415,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6e6657a8-1677-4497-bf88-0198b0e03e86",
+						"id": "beb1c656-a4c2-4744-89d0-c27a0498dfc7",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -959,7 +1453,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "361f0714-abc5-4f00-8a6b-fddc252ec363",
+						"id": "62869858-099a-4fb3-a745-2b72dcd8884c",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -1004,7 +1498,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d545eb1c-ae58-4861-9b4c-36bb966cb9b2",
+						"id": "0622ca7c-ef57-4224-b052-cb8d7cd0dcc8",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1060,7 +1554,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "40a3b1bd-4aa9-4866-a435-1a068a92fde1",
+						"id": "7dca61db-671a-43c6-a6e0-099b7c38ff96",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1105,7 +1599,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5d120975-5573-408b-9e9f-da2f6b17ad92",
+						"id": "f47c2b9c-866d-44b5-a32f-af6373254679",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -1150,7 +1644,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "345f14bd-3a4d-4665-a406-927b12ee44a2",
+						"id": "7cde266f-1356-46ee-bcf1-8753e68f8cf3",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var username = jsonData.username;\r",
@@ -1202,7 +1696,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b9691ec4-dc04-461b-8dec-a7b015cdc4e0",
+						"id": "0bad29db-aae7-41cd-beb2-b28a1771a13d",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1267,7 +1761,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ad83fb14-c5f3-40e8-86a5-54a74e6ef51e",
+						"id": "9c8ac8c2-a691-4e23-b576-9b0892b5ed22",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1332,7 +1826,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ef9d80f5-492a-49ba-8b60-f7d63574d2e4",
+						"id": "fce30c97-b47a-44a2-bd19-d4c860dbc2fc",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1370,7 +1864,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "0980a6c0-64d6-4d9c-a6b2-502b08b0ce47",
+						"id": "a2ed544f-1e27-4c35-a80c-a4216a29a5a7",
 						"exec": [
 							""
 						],
@@ -1380,7 +1874,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4fb34231-40b7-41f0-ae07-2f63f3dea943",
+						"id": "fef1d83b-346f-4462-9319-e9dc42986e4f",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var budgetId = jsonData._id;",
@@ -1394,7 +1888,7 @@
 							"    pm.expect(jsonData.name).to.eql(\"I like money\")",
 							"    pm.expect(jsonData.income).to.eql(100);",
 							"    pm.expect(jsonData.expenses).to.eql(20);",
-							"    pm.expect(jsonData.savings).to.eql(10);",
+							"    pm.expect(jsonData.savings).to.eql(25);",
 							"});",
 							""
 						],
@@ -1442,7 +1936,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "91369e72-f717-4266-b314-4bc9531efbe7",
+						"id": "8b9c952b-932d-426e-940b-6bd1a04f27e0",
 						"exec": [
 							""
 						],
@@ -1452,7 +1946,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "752f4a7f-7efe-41da-97e0-87db741f96b8",
+						"id": "f6609989-e2ad-4ea1-b666-8b2029bde2d2",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var budgetId2 = jsonData._id;",
@@ -1466,7 +1960,7 @@
 							"    pm.expect(jsonData.name).to.eql(\"I like money more\")",
 							"    pm.expect(jsonData.income).to.eql(1000);",
 							"    pm.expect(jsonData.expenses).to.eql(200);",
-							"    pm.expect(jsonData.savings).to.eql(100);",
+							"    pm.expect(jsonData.savings).to.eql(250);",
 							"});",
 							""
 						],
@@ -1514,7 +2008,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e5147b14-a0b9-42cc-b062-07c4ed99f606",
+						"id": "4c217158-56e0-43f1-b07b-d0fefd6b73dd",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -1552,7 +2046,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "728174cb-47b2-47af-ae97-11b981b89372",
+						"id": "bc3ca00f-807d-45c3-b425-07d35fb94b72",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1564,7 +2058,7 @@
 							"    pm.expect(jsonData.name).to.eql(\"I like money\")\r",
 							"    pm.expect(jsonData.income).to.eql(100);\r",
 							"    pm.expect(jsonData.expenses).to.eql(20);\r",
-							"    pm.expect(jsonData.savings).to.eql(10);\r",
+							"    pm.expect(jsonData.savings).to.eql(25);\r",
 							"});\r",
 							""
 						],
@@ -1607,7 +2101,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6d6b5b23-153a-47dd-b9bc-1b5cd0e89391",
+						"id": "52431829-ca9d-4f3f-bc09-61bd97274f89",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1652,7 +2146,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6f405d46-3859-4401-aa66-53c46b58f4b5",
+						"id": "76e69a0f-7058-44ba-8107-0e0029d5cfa9",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -1697,7 +2191,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9719d962-f59c-4ccb-aac2-795c4c9bb34c",
+						"id": "35ec6871-561e-408f-8e5b-17b976df23f1",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"var name = jsonData.name;\r",
@@ -1749,7 +2243,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b4a9d522-7cc4-42c1-98bf-df702d14ca66",
+						"id": "aef44f7f-c708-47cc-be13-d24d2d18ccb8",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1812,7 +2306,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9153fbc3-021e-4e0a-a382-4b2d83521e5a",
+						"id": "ccef91e9-b4f5-4d1b-b20b-e6aab540f6f3",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -1875,7 +2369,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "80da0c83-1064-412c-a420-7e00cf694e43",
+						"id": "b87a0f52-79eb-4a45-80d5-d4ee5a168ab2",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -1913,7 +2407,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f227382e-5e16-459b-a0a7-f522bb5ed062",
+						"id": "8dfebd1a-c045-49bf-b866-1489e5684fa5",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var categoryId = jsonData._id;",
@@ -1937,7 +2431,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "1839cc35-d244-4361-b494-392167dd13ed",
+						"id": "d5cf10d2-f2c9-4012-aacb-e1688b0fbd0d",
 						"exec": [
 							""
 						],
@@ -1985,7 +2479,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a268dc33-bd1c-45cc-adf5-a435b0390e87",
+						"id": "897887a4-7e35-47c2-8801-f21dde9d9ba7",
 						"exec": [
 							""
 						],
@@ -1995,7 +2489,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "66f7c53f-5bb4-459a-be70-442f816cc730",
+						"id": "6739ce31-b94d-4ada-8340-b72b4d0a6474",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"var categoryId2 = jsonData._id;",
@@ -2057,7 +2551,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2155e57d-7ea8-42a9-837b-0014a17143da",
+						"id": "433f6851-9aa1-4acc-8242-5b64c6d45016",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"   pm.response.to.have.status(200);\r",
@@ -2095,7 +2589,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "00270ecd-a0c8-4e44-b365-e7593c3d6848",
+						"id": "c2460230-3139-41aa-8259-93c2f148532a",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2149,7 +2643,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d422335c-c62e-4eb4-93bb-61f43897fce8",
+						"id": "d939ba0d-9907-4b19-be45-16a1712a51b7",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -2194,7 +2688,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1eea38a3-f4e5-4419-9d2d-7a7baaf42256",
+						"id": "67791c81-b19c-4eee-a085-7c37612582a1",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -2239,7 +2733,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f5b8dbe2-ba9e-4ee4-92d3-c1d89a60b5f0",
+						"id": "540a82f5-e79c-4c5e-8428-432cf4d88d5f",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2281,7 +2775,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "84c8b6b3-6d3a-427b-b973-ad94372c2167",
+						"id": "bc514bde-b7a7-4b2c-b114-a7dafd3cf6be",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2344,7 +2838,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "badd1717-6250-43e8-a188-63565a98f412",
+						"id": "19516df7-d01c-416e-b652-7bbeb04698ef",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"\r",
@@ -2401,7 +2895,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c4185fea-adb1-423f-b755-6dc46beed35d",
+						"id": "1d57cde1-d286-462f-a79f-b9b855865c43",
 						"exec": [
 							"pm.test(\"Correct status code\", function() {\r",
 							"    pm.response.to.have.status(200);\r",

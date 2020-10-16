@@ -2,10 +2,9 @@
     <b-container>
         <p class="red">{{message}}</p>
         <h1>Your Achievements</h1>
-        <b-button variant="danger" v-on:click="deleteAchievementCollection">Remove Kebab</b-button>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
-                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievment="deleteAchievement"/>
+               <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement" v-on:complete-achievement="completeAchievement"/>
             </b-col>
         </b-row>
     </b-container>
@@ -14,35 +13,28 @@
 <script>
 import { Api } from '@/Api'
 import AchievementItem from '@/components/AchievementItem.vue'
+import cookiesC from '../cookies/cookies'
 
 export default {
-  name: 'achievements',
+  name: 'achievement',
   components: {
     AchievementItem
   },
   mounted() {
-    Api.get('/Achievements')
-      .then(response => {
-        this.achievements = response.data.achievements
-      })
-      .catch(error => {
-        this.message = error.message
-        this.achievements = []
-      })
-      .then(() => {
-        this.message = 'testing how this works'
-      })
+    this.getAchievement()
   },
   data() {
     return {
       achievements: [],
       message: '',
-      text: ''
+      text: '',
+      completeFlag: false
     }
   },
   methods: {
-    delete(id) {
-      Api.delete(`/achievements/${id}`)
+    deleteAchievement(id) {
+      var userId = cookiesC.getCookieValue('id')
+      Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
@@ -51,10 +43,66 @@ export default {
           this.message = error.message
         })
     },
-    deleteAchievementCollection() {
-      Api.delete('/achievements')
+    getAchievement() {
+      var userId = cookiesC.getCookieValue('id')
+      Api.get(`/users/${userId}/achievements`)
         .then(response => {
-          location.reload()
+          this.achievements = response.data
+        })
+        .catch(error => {
+          error.message = 'You have no achievements yet'
+          this.message = error.message
+        })
+    },
+    async completeAchievement(id) {
+      var userId = cookiesC.getCookieValue('id')
+      var userExperience
+      var remainder
+      var lvl
+      await Api.get(`users/${userId}`)
+        .then(response => {
+          userExperience = response.data.experiencePoints
+          lvl = response.data.level
+        }).catch(error => {
+          this.message = error.message
+        })
+      await Api.get(`users/${userId}/achievements/${id}`)
+        .then(response => {
+          userExperience += response.data.experiencePoints
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+      if (userExperience >= 100) {
+        lvl += 1
+        remainder = userExperience - 100
+        userExperience = remainder
+      }
+      const paramsUser = {
+        experiencePoints: userExperience,
+        level: lvl
+      }
+      Api.patch(`users/${userId}`, paramsUser)
+        .then(response => {
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+      const paramsAchievement = {
+        complete: true
+      }
+      await Api.delete(`users/${userId}/achievements/${id}`)
+        .then(response => {
+          const index = this.achievements.findIndex(achievement => achievement._id === id)
+          this.achievements.splice(index, 1)
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+      Api.patch(`/achievements/${id}`, paramsAchievement)
+        .then(response => {
+          alert('Congratulations on completing your goal!')
+          window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error.message

@@ -3,49 +3,29 @@
   <b-card
     bg-variant="dark"
     text-variant="white"
-    title="Achievement"
     sub-title=""
   >
     <b-card-text  v-if="show && !putFlag">
       <p>{{achievement.name}}</p>
     </b-card-text>
     <b-card-text v-if="!show">
-      <p>achievement name: {{info.name}}</p>
-      <p>Expenses: {{info.expenses}}</p>
-      <p>Income: {{info.income}}</p>
-      <p>Intended Savings: {{info.savings}}</p>
+      <p>Achievement Name: {{info.name}}</p>
+      <hr class="my-4">
+      <p>Category: {{info.type}}</p>
+      <hr class="my-4">
+      <p>Description: {{info.description}}</p>
+      <hr class="my-4">
+      <p>Degree: {{info.degree}}</p>
+      <hr class="my-4">
+      <p>Exp: {{info.experiencePoints}}</p>
+      <hr class="my-4">
     </b-card-text>
-    <b-card-text v-if="putFlag">
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Enter new achievement name"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="expense" v-model="expense" placeholder="Enter new expenses"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="income" v-model="income" placeholder="Enter new income"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="saving" v-model="saving" placeholder="Enter new intended savings"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-    </b-card-text>
-    <b-button v-on:click="getAchievement">{{ status }}</b-button>
-    <b-button v-on:click="putAchievement">Update your Achievement</b-button>
+    <p>
+    <b-button v-on:click="getAchievement">{{ details }}</b-button>
+    </p>
+    <p>
+    <b-button v-on:click="$emit('complete-achievement', achievement._id)"> {{ status }} </b-button>
+    </p>
     <b-button variant="danger" v-on:click="$emit('del-achievement', achievement._id)">Delete Achievement</b-button>
   </b-card>
   </div>
@@ -53,65 +33,44 @@
 
 <script>
 import { Api } from '@/Api'
+// import cookies from '../cookies/cookies'
 
 export default {
   data() {
     return {
       show: true,
       putFlag: false,
-      status: 'See Details',
+      status: 'Mark as complete',
+      details: 'See Details',
       info: {},
       name: '',
-      expense: '',
-      income: '',
-      saving: ''
+      category: '',
+      description: ''
     }
   },
   name: 'achievement-item',
   props: ['achievement'],
   methods: {
-    deleteAchievement() {
-      this.$emit('del-achievement', this.achievement._id)
-    },
     getAchievement() {
       if (this.show === false) {
         this.show = true
-        this.status = 'See Details'
+        this.details = 'See Details'
       } else {
-        this.status = 'Hide'
+        this.details = 'Hide'
         this.show = false
         Api.get(`/achievements/${this.achievement._id}`)
           .then(response => {
             this.info = {
               name: response.data.name,
-              expenses: response.data.expenses,
-              income: response.data.income,
-              savings: response.data.savings
+              type: response.data.type,
+              description: response.data.description,
+              degree: response.data.degree,
+              experiencePoints: response.data.experiencePoints
             }
           })
           .catch(error => {
             this.message = error.message
             this.achievement = []
-          })
-      }
-    },
-    putAchievement() {
-      if (this.putFlag === true) {
-        this.putFlag = false
-      } else {
-        this.putFlag = true
-        const params = {
-          name: this.name,
-          expenses: this.expense,
-          income: this.income,
-          savings: this.saving
-        }
-        Api.put(`/achievements/${this.achievement._id}`, params)
-          .then(response => {
-          })
-          .catch(error => {
-            this.message = error.message
-            this.achievements = []
           })
       }
     }
