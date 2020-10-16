@@ -5,7 +5,6 @@
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement" v-on:complete-achievement="completeAchievement"/>
-               <hr class="my-4">
             </b-col>
         </b-row>
     </b-container>
@@ -35,7 +34,8 @@ export default {
     return {
       achievements: [],
       message: '',
-      text: ''
+      text: '',
+      completeFlag: false
     }
   },
   methods: {
@@ -87,6 +87,14 @@ export default {
       const paramsAchievement = {
         complete: true
       }
+      await Api.delete(`users/${userId}/achievements/${id}`)
+        .then(response => {
+          const index = this.achievements.findIndex(achievement => achievement._id === id)
+          this.achievements.splice(index, 1)
+        })
+        .catch(error => {
+          this.message = error.message
+        })
       Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
           alert('Congratulations on completing your goal!')
