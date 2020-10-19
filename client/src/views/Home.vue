@@ -1,5 +1,5 @@
 <template>
-  <div class ="main bg-dark">
+  <div>
   <b-jumbotron v-if="!login" bg-variant="dark" text-variant="white">
     <template v-slot:header>Welcome to HabiTracker!</template>
     <template v-slot:lead>
@@ -86,10 +86,5 @@ export default {
 <style>
 .btn_message {
   margin-bottom: 1em;
-}
-.main {
-  min-height: 92.5vh;
-  display: flex;
-  flex-direction: column;
 }
 </style>

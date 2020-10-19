@@ -32,8 +32,8 @@
   <b-card class="bg-secondary" no-body>
     <b-card-header header-tag="nav">
       <b-nav card-header tabs>
-        <b-nav-item v-on:click="getUser()"><p class="yellow">{{ status }}</p></b-nav-item>
-        <b-nav-item v-on:click="patchReady()"><p class="yellow">Update Your Profile</p></b-nav-item>
+        <b-nav-item v-on:click="getUser()"><p class="white">{{ status }}</p></b-nav-item>
+        <b-nav-item v-on:click="patchReady()"><p class="white">Update Your Profile</p></b-nav-item>
       </b-nav>
     </b-card-header>
 
@@ -141,8 +141,5 @@ export default {
 <style>
 .white {
   color: white;
-}
-.yellow {
-  color:rgb(13, 31, 43)
 }
 </style>

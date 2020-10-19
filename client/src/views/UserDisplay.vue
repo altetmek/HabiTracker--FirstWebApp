@@ -43,7 +43,7 @@
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
           <div class="px-3 py-2">
             <b-tabs content-class="mt-3">
-              <b-tab title="Fitness" active>
+              <b-tab title="Fitness">
                 <b-progress :value="fitnessXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
                 <b-card-body v-for="fitness in fitnesses" :key="fitness._id">
                   <fitness-item class="items" v-bind:fitnessObject="fitness"/>

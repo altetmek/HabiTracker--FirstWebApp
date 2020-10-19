@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-list-group>
-        <b-list-group-item class="d-flex justify-content-between align-items-center">
+        <b-list-group-item style="color: white" class="d-flex justify-content-between align-items-center bg-secondary">
             {{ budgetObject.name }}
-        <b-badge variant="primary" pill>{{ budgetObject.savings }} Saved!</b-badge>
+        <b-badge variant="warning" pill>{{ budgetObject.savings }} Saved!</b-badge>
         </b-list-group-item>
     </b-list-group>
   </div>

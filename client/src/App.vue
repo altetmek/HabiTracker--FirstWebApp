@@ -1,9 +1,11 @@
 <template>
   <div class ="main bg-dark" id="app">
     <b-button v-b-toggle.sidebar-1>Pages</b-button>
-    <b-sidebar id="sidebar-1" title="Sidebar" shadow>
+    <b-sidebar id="sidebar-1" title="Pages" :backdrop-variant="variant"
+      backdrop
+      shadow>
       <div class="px-3 py-2">
-        <hr class="my-4">
+        <hr v-if="!show" class="my-4">
         <p>
           <b-link v-if="!show" href="/" class="serif">Home</b-link>
         </p>
@@ -11,27 +13,27 @@
         <p>
           <b-link v-if="show" href="UserDisplay" class="serif" id="profileLink">Your Profile</b-link>
         </p>
-        <hr class="my-4">
+        <hr v-if="show" class="my-4">
         <p>
           <b-link v-if="show" href="BudgetPage" class="serif">Create a Budget</b-link>
         </p>
-        <hr class="my-4">
+        <hr v-if="show" class="my-4">
         <p>
           <b-link v-if="show" href="BudgetDisplay" class="serif">Your Budgets</b-link>
         </p>
-        <hr class="my-4">
+        <hr v-if="show" class="my-4">
         <p>
           <b-link v-if="show" href="AchievementPage" class="serif">Create an Achievement</b-link>
         </p>
-        <hr class="my-4">
+        <hr v-if="show" class="my-4">
         <p>
           <b-link v-if="show" href="AchievementDisplay" class="serif">Your Achievements</b-link>
         </p>
-        <hr class="my-4">
+        <hr v-if="show" class="my-4">
         <p>
           <b-link v-on:click="signOut()" v-if="show" href="/" class="serif">Sign Out</b-link>
         </p>
-        <hr class="my-4">
+        <hr v-if="show" class="my-4">
       </div>
     </b-sidebar>
     <!-- Render the content of the current page view -->
