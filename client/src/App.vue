@@ -99,6 +99,11 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.main {
+  min-height: 95.9vh;
+  display: flex;
+  flex-direction: column;
+}
 .serif {
   font-family: "Times New Roman", Times, serif;
   color: white;
