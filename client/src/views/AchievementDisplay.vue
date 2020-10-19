@@ -125,4 +125,7 @@ export default {
 .idk {
   color: white;
 }
+div {
+  text-align: center;
+}
 </style>

@@ -88,4 +88,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+div {
+  text-align: center;
+}
 </style>
