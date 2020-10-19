@@ -66,4 +66,7 @@ export default {
 h1 {
   color: white;
 }
+div {
+  text-align: center;
+}
 </style>
