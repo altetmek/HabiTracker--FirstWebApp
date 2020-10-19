@@ -92,7 +92,7 @@ export default {
       const paramsAchievement = {
         complete: true
       }
-      await Api.delete(`users/${userId}/achievements/${id}`)
+      Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
