@@ -116,7 +116,7 @@ export default {
       const params = {
         categoryType: {
           typeName: this.type,
-          task: this.description,
+          task: this.name,
           level: this.level,
           typeExperience: this.typeExperience
         }
@@ -135,7 +135,7 @@ export default {
       await Api.get(`users/${idwow}/achievements/${id}`)
         .then(request => {
           this.type = request.data.type
-          this.description = request.data.description
+          this.name = request.data.name
           this.level = request.data.level
           this.typeExperience = request.data.experiencePoints
         })
