@@ -1,4 +1,5 @@
 <template>
+<div class ="main bg-dark">
   <div>
     <b-jumbotron bg-variant="dark" text-variant="white" header="Achievement" lead="Create an achivement and choose how much it will reward you">
       <p>
@@ -32,6 +33,7 @@
       <b-button v-on:click="postAchievement">Save</b-button>
       <br><br><br><br>
     </b-jumbotron>
+  </div>
   </div>
 </template>
 
@@ -151,5 +153,10 @@ export default {
 }
 .div {
   height: 100%;
+}
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

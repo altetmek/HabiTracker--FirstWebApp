@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class ="main bg-dark">
     <b-jumbotron bg-variant="dark" text-variant="white" header="Budget" lead="Please input your expenses, income and intended savings.">
       <p>
         <b-row align-v="start">
@@ -82,5 +82,10 @@ export default {
 <style>
 .btn_message {
   margin-bottom: 1em;
+}
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

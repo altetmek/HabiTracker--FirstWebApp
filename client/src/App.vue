@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class ="main bg-dark" id="app">
     <b-button v-b-toggle.sidebar-1>Pages</b-button>
     <b-sidebar id="sidebar-1" title="Sidebar" shadow>
       <div class="px-3 py-2">
@@ -85,5 +85,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

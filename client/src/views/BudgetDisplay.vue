@@ -1,4 +1,5 @@
 <template>
+<div class ="main bg-dark">
     <b-container>
         <h1>Your Budget</h1>
         <b-row align-h="center">
@@ -7,6 +8,7 @@
             </b-col>
         </b-row>
     </b-container>
+    </div>
 </template>
 
 <script>
@@ -55,5 +57,10 @@ export default {
 <style scoped>
 .red {
     color: red;
+}
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

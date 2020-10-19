@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class ="main bg-dark">
     <b-container v-if="loggedIn">
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4">
@@ -12,7 +12,7 @@
       <b-col></b-col>
       <b-col cols="12" sm="6" md="4">
     <div class="accordion" role="tablist">
-      <b-card no-body class="mb-1">
+      <b-card no-body class="mb-1 bg-dark">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 variant="info">Personal Achievements</b-button>
         </b-card-header>
@@ -24,7 +24,7 @@
         </b-collapse>
       </b-card>
 
-      <b-card no-body class="mb-1">
+      <b-card no-body class="mb-1 bg-dark">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-2 variant="info">Budgets</b-button>
         </b-card-header>
@@ -36,7 +36,7 @@
         </b-collapse>
       </b-card>
 
-      <b-card no-body class="mb-1">
+      <b-card no-body class="mb-1 bg-dark">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-3 variant="info">Achievement Categories</b-button>
         </b-card-header>
@@ -212,5 +212,10 @@ export default {
 <style scoped>
 .red {
     color: red;
+}
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>
