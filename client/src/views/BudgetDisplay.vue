@@ -22,14 +22,7 @@ export default {
     BudgetItem
   },
   mounted() {
-    Api.get('/Budgets')
-      .then(response => {
-        this.budgets = response.data.budgets
-      })
-      .catch(error => {
-        this.message = error.message
-        this.budgets = []
-      })
+    this.getBudget()
   },
   data() {
     return {
@@ -45,6 +38,16 @@ export default {
         .then(response => {
           const index = this.budgets.findIndex(budget => budget._id === id)
           this.budgets.splice(index, 1)
+        })
+        .catch(error => {
+          this.message = error.message
+        })
+    },
+    getBudget() {
+      var userId = cookiesC.getCookieValue('id')
+      Api.get(`users/${userId}/budgets`)
+        .then(response => {
+          this.budgets = response.data
         })
         .catch(error => {
           this.message = error.message

@@ -22,27 +22,27 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="food" v-model="food" placeholder="Enter todays spendings on food"></b-form-input></b-col>
+          <b-col cols="12" sm="12" md="12"><b-form-input id="food" v-model="food" placeholder="Enter todays spendings on food"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="essentials" v-model="essentials" placeholder="Enter todays spendings on essentials"></b-form-input></b-col>
-          <b-col></b-col>
-        </b-row>
-      </p>
-      <p>
-        <b-row align-v="start">
-          <b-col></b-col>
-          <b-col><b-form-input id="leisure" v-model="leisure" placeholder="Enter todays spendings on leisure"></b-form-input></b-col>
+          <b-col cols="12" sm="12" md="12"><b-form-input id="essentials" v-model="essentials" placeholder="Enter todays spendings on essentials"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="misc" v-model="misc" placeholder="Enter todays spendings on miscellaneous"></b-form-input></b-col>
+          <b-col cols="12" sm="12" md="12"><b-form-input id="leisure" v-model="leisure" placeholder="Enter todays spendings on leisure"></b-form-input></b-col>
+          <b-col></b-col>
+        </b-row>
+      </p>
+      <p>
+        <b-row align-v="start">
+          <b-col></b-col>
+          <b-col cols="12" sm="12" md="12"><b-form-input id="misc" v-model="misc" placeholder="Enter todays spendings on miscellaneous"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       <p>
