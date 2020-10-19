@@ -94,8 +94,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-template div {
-  min-height: 100vh;
+.main {
+  min-height: 95.9vh;
   display: flex;
   flex-direction: column;
 }

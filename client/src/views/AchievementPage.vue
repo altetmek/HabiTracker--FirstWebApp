@@ -151,11 +151,6 @@ export default {
 .btn_message {
   margin-bottom: 1em;
 }
-.main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 div {
   text-align: center;
   height: 100%;
