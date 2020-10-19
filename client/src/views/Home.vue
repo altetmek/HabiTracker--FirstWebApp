@@ -87,11 +87,6 @@ export default {
 .btn_message {
   margin-bottom: 1em;
 }
-.main {
-  min-height: 92.5vh;
-  display: flex;
-  flex-direction: column;
-}
 div {
   text-align: center;
 }

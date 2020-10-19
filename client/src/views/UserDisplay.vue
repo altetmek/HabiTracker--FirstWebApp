@@ -1,5 +1,6 @@
 <template>
-  <div class ="main bg-dark">
+  <div class ="def bg-dark">
+    <br>
     <b-container v-if="loggedIn">
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4">
@@ -213,12 +214,12 @@ export default {
 .red {
     color: red;
 }
-.main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 div {
   text-align: center;
+}
+.def {
+  min-height: 94vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

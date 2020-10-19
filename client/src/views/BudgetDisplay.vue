@@ -58,11 +58,6 @@ export default {
 .red {
     color: red;
 }
-.main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 h1 {
   color: white;
 }
