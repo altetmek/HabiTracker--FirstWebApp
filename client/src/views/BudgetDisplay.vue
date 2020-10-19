@@ -63,4 +63,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+h1 {
+  color: white;
+}
 </style>
