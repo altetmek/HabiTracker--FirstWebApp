@@ -18,10 +18,12 @@
           <b-button block v-b-toggle.accordion-1 variant="info">Personal Achievements</b-button>
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+          <b-button href="AchievementPage" v-if="achFlag">{{ messagea }}click me to create one!</b-button>
+          <div v-if="!achFlag">
           <b-card-body v-for="achievement in personalAch" :key="achievement._id">
-              <b-button v-if="achFlag">{{ messagea }}click me to create one!</b-button>
                 <user-achievement-item class="items" v-bind:achievementObject="achievement"/>
           </b-card-body>
+          </div>
         </b-collapse>
       </b-card>
 
@@ -30,10 +32,12 @@
           <b-button block v-b-toggle.accordion-2 variant="info">Budgets</b-button>
         </b-card-header>
         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+          <b-button href="BudgetPage" v-if="budFlag">{{ messageb }}click me to create one!</b-button>
+          <div v-if="!budFlag">
           <b-card-body v-for="budget in budgets" :key="budget._id">
-              <b-button v-if="budFlag">{{ messageb }}click me to create one!</b-button>
                 <user-budget-item class="items" v-bind:budgetObject="budget"/>
           </b-card-body>
+          </div>
         </b-collapse>
       </b-card>
 
@@ -42,7 +46,8 @@
           <b-button block v-b-toggle.accordion-3 variant="info">Achievement Categories</b-button>
         </b-card-header>
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-          <div class="px-3 py-2">
+          <b-button href="AchievementPage" v-if="catFlag">{{ messagec }}click me to create one!</b-button>
+          <div v-if="!budFlag" class="px-3 py-2">
             <b-tabs content-class="mt-3">
               <b-tab title="Fitness">
                 <b-progress :value="fitnessXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
@@ -164,10 +169,10 @@ export default {
             }
           }
         })
-        .catch(error => {
+        .catch(() => {
           this.achFlag = true
-          error.message = 'You have no achievements yet, '
-          this.messagea = error.message
+          this.messagea = 'You have no personalised achievements yet, '
+          console.log(this.messagea)
           this.achievements = []
         })
     },
@@ -179,7 +184,7 @@ export default {
         })
         .catch(error => {
           this.budFlag = true
-          error.message = 'You have no budget yet, '
+          error.message = 'You have no budgets yet, '
           this.messageb = error.message
           this.budgets = []
         })
@@ -201,7 +206,7 @@ export default {
         })
         .catch(error => {
           this.catFlag = true
-          error.message = 'You have no categories yet, '
+          error.message = 'You have no categorised achievements yet, '
           this.messagec = error.message
           this.budgets = []
         })
