@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main bg-dark">
   <b-jumbotron v-if="!login" bg-variant="dark" text-variant="white">
     <template v-slot:header>Welcome to HabiTracker!</template>
     <template v-slot:lead>
