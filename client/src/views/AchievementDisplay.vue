@@ -23,13 +23,16 @@ export default {
   },
   mounted() {
     this.getAchievement()
+    this.getCategory()
   },
   data() {
     return {
       achievements: [],
+      categories: [],
       message: '',
       text: '',
-      completeFlag: false
+      completeFlag: false,
+      deelte: ''
     }
   },
   methods: {
@@ -37,10 +40,30 @@ export default {
       var userId = cookiesC.getCookieValue('id')
       Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
+          this.deelte = response.data.name
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
+          this.deleteCategory()
         })
         .catch(error => {
+          this.message = error.message
+        })
+    },
+    deleteCategory() {
+      for (var i = 0; i < this.categories.length; i++) {
+        if (this.categories[i].name === this.deelte) {
+          this.categories.splice(i)
+        }
+      }
+    },
+    getCategory() {
+      var userId = cookiesC.getCookieValue('id')
+      Api.get(`users/${userId}/categories`)
+        .then(response => {
+          this.categories = response.data
+        })
+        .catch(error => {
+          error.message = 'You have no achievements yet'
           this.message = error.message
         })
     },
