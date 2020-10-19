@@ -94,7 +94,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-.main {
+template div {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
