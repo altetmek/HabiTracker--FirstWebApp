@@ -40,19 +40,27 @@ export default {
       var userId = cookiesC.getCookieValue('id')
       Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
-          this.deelte = response.data.name
+          this.deelte = response.data.description
+          this.deleteCategory()
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
-          this.deleteCategory()
         })
         .catch(error => {
           this.message = error.message
         })
     },
     deleteCategory() {
+      var userId = cookiesC.getCookieValue('id')
       for (var i = 0; i < this.categories.length; i++) {
-        if (this.categories[i].name === this.deelte) {
-          this.categories.splice(i)
+        if (this.categories[i].categoryType.task === this.deelte) {
+          var idCat = this.categories[i]._id
+          Api.delete(`users/${userId}/categories/${idCat}`)
+            .then(response => {
+              this.categories.splice(i, 1)
+            })
+            .catch(error => {
+              this.message = error.message
+            })
         }
       }
     },
@@ -61,6 +69,7 @@ export default {
       Api.get(`users/${userId}/categories`)
         .then(response => {
           this.categories = response.data
+          console.log(this.categories)
         })
         .catch(error => {
           error.message = 'You have no achievements yet'
