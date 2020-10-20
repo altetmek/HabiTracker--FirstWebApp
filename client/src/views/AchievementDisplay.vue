@@ -51,11 +51,13 @@ export default {
         })
     },
     deleteCategory() {
+      console.log('delete category' + this.deelte)
       var userId = cookiesC.getCookieValue('id')
       for (var i = 0; i < this.categories.length; i++) {
         console.log('hello')
         if (this.categories[i].categoryType.task === this.deelte) {
           var idCat = this.categories[i]._id
+          console.log(this.categories)
           Api.delete(`users/${userId}/categories/${idCat}`)
             .then(response => {
               this.categories.splice(i, 1)
@@ -129,18 +131,20 @@ export default {
       }
       Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
+          console.log('succesfully deleted achievement')
           this.deelte = response.data.name
           this.deleteCategory()
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
         })
         .catch(error => {
+          console.log('delete achievement failed')
           this.message = error.message
         })
       Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
           alert('Congratulations on completing your goal!')
-          window.location.href = 'AchievementDisplay'
+          // window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error.message
