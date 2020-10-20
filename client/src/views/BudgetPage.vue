@@ -4,13 +4,13 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-select v-model="name" :options="options"></b-form-select></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-select v-model="name" :options="options"></b-form-select></b-col>
           <b-col></b-col>
         </b-row>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="income" v-model="income" placeholder="Enter your income"></b-form-input></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-input id="income" v-model="income" placeholder="Enter your income"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>

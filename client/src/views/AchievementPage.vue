@@ -5,28 +5,28 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Name"></b-form-input></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-input id="name" v-model="name" placeholder="Name"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-select v-model="type" :options="options1"></b-form-select></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-select v-model="type" :options="options1"></b-form-select></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="description" v-model="description" placeholder="Describe it here"></b-form-input></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-input id="description" v-model="description" placeholder="Describe it here"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
          <b-row align-v="start">
          <b-col></b-col>
-         <b-col><b-form-select v-model="degree" :options="options2"></b-form-select></b-col>
+         <b-col cols="12" sm="6" md="4"><b-form-select v-model="degree" :options="options2"></b-form-select></b-col>
          <b-col></b-col>
          </b-row>
       </p>

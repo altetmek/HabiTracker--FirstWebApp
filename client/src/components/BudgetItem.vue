@@ -47,7 +47,7 @@
           <b-col></b-col>
         </b-row>
       <p>
-        <b-button v-on:click="updateBudget"> Save </b-button>
+        <b-button v-on:click="updateBudget"> Save/Quit </b-button>
       </p>
     </b-card-text>
     <p>
