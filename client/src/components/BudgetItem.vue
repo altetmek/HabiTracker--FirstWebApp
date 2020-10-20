@@ -11,12 +11,19 @@
     </b-card-text>
     <b-card-text v-if="!show">
       <p>Budget name: {{info.name}}</p>
+      <hr class="my-4">
       <p>Total amount left: {{info.income}}</p>
+      <hr class="my-4">
       <p>Money left for food {{info.food}}</p>
+      <hr class="my-4">
       <p>Money left for essentials {{info.essentials}}</p>
+      <hr class="my-4">
       <p>Money left for leisure {{info.leisure}}</p>
+      <hr class="my-4">
       <p>Money left for miscellaneous expenses {{info.misc}}</p>
+      <hr class="my-4">
       <p>Money put away to savings this month {{info.savings}}</p>
+      <hr class="my-4">
     </b-card-text>
     <b-card-text v-if="putFlag">
       <p> Enter what you spent today on the categories in each field!</p>

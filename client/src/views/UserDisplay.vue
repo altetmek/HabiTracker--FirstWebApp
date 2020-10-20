@@ -29,20 +29,6 @@
 
       <b-card no-body class="mb-1 bg-dark">
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle.accordion-2 variant="info">Budgets</b-button>
-        </b-card-header>
-        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-          <b-button href="BudgetPage" v-if="budFlag">{{ messageb }}click me to create one!</b-button>
-          <div v-if="!budFlag">
-          <b-card-body v-for="budget in budgets" :key="budget._id">
-                <user-budget-item class="items" v-bind:budgetObject="budget"/>
-          </b-card-body>
-          </div>
-        </b-collapse>
-      </b-card>
-
-      <b-card no-body class="mb-1 bg-dark">
-        <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-3 variant="info">Achievement Categories</b-button>
         </b-card-header>
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
@@ -71,6 +57,21 @@
           </div>
         </b-collapse>
       </b-card>
+
+      <b-card no-body class="mb-1 bg-dark">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-2 variant="info">Budgets</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+          <b-button href="BudgetPage" v-if="budFlag">{{ messageb }}click me to create one!</b-button>
+          <div v-if="!budFlag">
+          <b-card-body v-for="budget in budgets" :key="budget._id">
+                <user-budget-item class="items" v-bind:budgetObject="budget"/>
+          </b-card-body>
+          </div>
+        </b-collapse>
+      </b-card>
+
     </div>
       </b-col>
       <b-col></b-col>
@@ -208,7 +209,7 @@ export default {
           this.catFlag = true
           error.message = 'You have no categorised achievements yet, '
           this.messagec = error.message
-          this.budgets = []
+          this.categories = []
         })
     }
   }
