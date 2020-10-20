@@ -1,6 +1,6 @@
 <template>
   <div class ="main bg-dark">
-    <b-jumbotron bg-variant="dark" text-variant="white" header="Budget" lead="Please input your expenses, income and intended savings.">
+    <b-jumbotron bg-variant="dark" text-variant="white" header="Create a budget" lead="Put in your income for the specific month and it will allocate where to spend your money.">
       <p>
         <b-row align-v="start">
           <b-col></b-col>

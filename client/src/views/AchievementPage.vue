@@ -1,7 +1,7 @@
 <template>
 <div class ="main bg-dark">
   <div>
-    <b-jumbotron bg-variant="dark" text-variant="white" header="Achievement" lead="Create an achivement and choose how much it will reward you">
+    <b-jumbotron bg-variant="dark" text-variant="white" header="Create an achievement" lead="Name your achievement, select which category it belongs to, describe what you need to do in order to complete it, and finally decide on how much it will reward you!">
       <p>
         <b-row align-v="start">
           <b-col></b-col>
