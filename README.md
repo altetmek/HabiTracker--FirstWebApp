@@ -61,7 +61,7 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-The System will serve as a motivation to do things that you might normally put off. It will keep track of things like training or simple chores. Completing a certain amount will reward the user with certain titles and achievements. 
+The System will serve as a motivation to do things that you might normally put off. You are able to create tasks (achievements) for specific tasks, such as go to the gym, or study for a test. Completing these achievements will grant you experience and your profile can level up to serve as motivation for completing them. In addition to this there is also an option to create a budget with predefined values to help you manage your money a little bit better! 
 
 ### Pages
 
