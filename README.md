@@ -65,12 +65,13 @@ The System will serve as a motivation to do things that you might normally put o
 
 ### Pages
 
-* Home: Brief overview of the user profile and buttons that direct you to the other sections.
-* Profile: Shows the achievements, user level and other relevant information to the user.
-* Chores: List of chores, both done and in progress. Also able to add/delete chores.
-* Budget: control over the budget which includes savings, expenses and income. 
-* Education: List of studies, both done and in progress. Also able to add/delete studies.
-* Training: List of sessions, both done and in progress. Also able to add/delete sessions.
+* Home: Prompts you to login in or create an account
+* Profile: Shows the user profile, and gives a list of all active achievements, completed achievements and budgets.
+  Can also update your profile settings
+* Create Budget: A form to create a budget for a given month.
+* Budget Display: Displays all your current budgets, and gives the option to update it with what has been spent in that month.
+* Create Achievement: A from to create different kinds of achievements.
+* Achievement Display: Shows all your current achievements, and gives the option to mark them as complete giving the user experience points.
 
 # Entity-Relationship (ER) Diagram
 
