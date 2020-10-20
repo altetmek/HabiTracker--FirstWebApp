@@ -52,7 +52,7 @@ export default {
         { value: 'Chores', text: 'Chores' },
         { value: 'Fitness', text: 'Fitness' },
         { value: 'Studies', text: 'Studies' },
-        { value: 'Other', text: 'Other' }
+        { value: 'Other', text: 'Personal' }
       ],
       degree: null,
       options2: [
