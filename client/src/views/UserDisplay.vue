@@ -47,7 +47,7 @@
         </b-card-header>
         <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
           <b-button href="AchievementPage" v-if="catFlag">{{ messagec }}click me to create one!</b-button>
-          <div v-if="!budFlag" class="px-3 py-2">
+          <div v-if="!achFlag" class="px-3 py-2">
             <b-tabs content-class="mt-3">
               <b-tab title="Fitness">
                 <b-progress :value="fitnessXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
