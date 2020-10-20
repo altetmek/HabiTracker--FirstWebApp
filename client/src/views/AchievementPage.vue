@@ -5,7 +5,7 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Enter the name of the achievement"></b-form-input></b-col>
+          <b-col><b-form-input id="name" v-model="name" placeholder="Name"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
@@ -48,15 +48,15 @@ export default {
     return {
       type: null,
       options1: [
-        { value: null, text: 'please select your category' },
+        { value: null, text: 'Category' },
         { value: 'Chores', text: 'Chores' },
         { value: 'Fitness', text: 'Fitness' },
         { value: 'Studies', text: 'Studies' },
-        { value: 'Other', text: 'Other' }
+        { value: 'Other', text: 'Personal' }
       ],
       degree: null,
       options2: [
-        { value: null, text: 'please select the degree of it' },
+        { value: null, text: 'Degree' },
         { value: 'Bronze', text: 'Bronze' },
         { value: 'Silver', text: 'Silver' },
         { value: 'Gold', text: 'Gold' }
