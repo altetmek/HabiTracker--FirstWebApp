@@ -19,7 +19,7 @@
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
           <b-button href="AchievementPage" v-if="achFlag">{{ messagea }}click me to create one!</b-button>
-          <div v-if="!achFlag">
+          <div v-if="!perFlag">
           <b-card-body v-for="achievement in personalAch" :key="achievement._id">
                 <user-achievement-item class="items" v-bind:achievementObject="achievement"/>
           </b-card-body>
@@ -124,6 +124,7 @@ export default {
       achFlag: false,
       budFlag: false,
       catFlag: false,
+      perFlag: false,
       achievements: [],
       budgets: [],
       categories: [],
@@ -172,6 +173,7 @@ export default {
         })
         .catch(() => {
           this.achFlag = true
+          this.perFlag = true
           this.messagea = 'You have no personalised achievements yet, '
           console.log(this.messagea)
           this.achievements = []
