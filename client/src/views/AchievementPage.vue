@@ -48,7 +48,7 @@ export default {
     return {
       type: null,
       options1: [
-        { value: null, text: 'please select your category' },
+        { value: null, text: 'Category' },
         { value: 'Chores', text: 'Chores' },
         { value: 'Fitness', text: 'Fitness' },
         { value: 'Studies', text: 'Studies' },
@@ -56,7 +56,7 @@ export default {
       ],
       degree: null,
       options2: [
-        { value: null, text: 'please select the degree of it' },
+        { value: null, text: 'Degree' },
         { value: 'Bronze', text: 'Bronze' },
         { value: 'Silver', text: 'Silver' },
         { value: 'Gold', text: 'Gold' }
