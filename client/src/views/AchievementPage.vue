@@ -1,37 +1,39 @@
 <template>
+<div class ="main bg-dark">
   <div>
-    <b-jumbotron bg-variant="dark" text-variant="white" header="Achievement" lead="Create an achivement and choose how much it will reward you">
+    <b-jumbotron bg-variant="dark" text-variant="white" header="Create an achievement" lead="Name your achievement, select which category it belongs to, describe what you need to do in order to complete it, and finally decide on how much it will reward you!">
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Enter the name of the achievement"></b-form-input></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-input id="name" v-model="name" placeholder="Name"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-select v-model="type" :options="options1"></b-form-select></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-select v-model="type" :options="options1"></b-form-select></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="description" v-model="description" placeholder="Describe it here"></b-form-input></b-col>
+          <b-col cols="12" sm="6" md="4"><b-form-input id="description" v-model="description" placeholder="Describe it here"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
       <p>
          <b-row align-v="start">
          <b-col></b-col>
-         <b-col><b-form-select v-model="degree" :options="options2"></b-form-select></b-col>
+         <b-col cols="12" sm="6" md="4"><b-form-select v-model="degree" :options="options2"></b-form-select></b-col>
          <b-col></b-col>
          </b-row>
       </p>
       <b-button v-on:click="postAchievement">Save</b-button>
       <br><br><br><br>
     </b-jumbotron>
+  </div>
   </div>
 </template>
 
@@ -46,15 +48,15 @@ export default {
     return {
       type: null,
       options1: [
-        { value: null, text: 'please select your category' },
+        { value: null, text: 'Category' },
         { value: 'Chores', text: 'Chores' },
         { value: 'Fitness', text: 'Fitness' },
         { value: 'Studies', text: 'Studies' },
-        { value: 'Other', text: 'Other' }
+        { value: 'Other', text: 'Personal' }
       ],
       degree: null,
       options2: [
-        { value: null, text: 'please select the degree of it' },
+        { value: null, text: 'Degree' },
         { value: 'Bronze', text: 'Bronze' },
         { value: 'Silver', text: 'Silver' },
         { value: 'Gold', text: 'Gold' }
@@ -114,7 +116,7 @@ export default {
       const params = {
         categoryType: {
           typeName: this.type,
-          task: this.description,
+          task: this.name,
           level: this.level,
           typeExperience: this.typeExperience
         }
@@ -133,7 +135,7 @@ export default {
       await Api.get(`users/${idwow}/achievements/${id}`)
         .then(request => {
           this.type = request.data.type
-          this.description = request.data.description
+          this.name = request.data.name
           this.level = request.data.level
           this.typeExperience = request.data.experiencePoints
         })
@@ -149,7 +151,8 @@ export default {
 .btn_message {
   margin-bottom: 1em;
 }
-.div {
+div {
+  text-align: center;
   height: 100%;
 }
 </style>

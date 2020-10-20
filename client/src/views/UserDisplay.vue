@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class ="def bg-dark">
+    <br>
     <b-container v-if="loggedIn">
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4">
@@ -12,38 +13,29 @@
       <b-col></b-col>
       <b-col cols="12" sm="6" md="4">
     <div class="accordion" role="tablist">
-      <b-card no-body class="mb-1">
+      <b-card no-body class="mb-1 bg-dark">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 variant="info">Personal Achievements</b-button>
         </b-card-header>
         <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+          <b-button href="AchievementPage" v-if="achFlag">{{ messagea }}click me to create one!</b-button>
+          <div v-if="!achFlag">
           <b-card-body v-for="achievement in personalAch" :key="achievement._id">
-              <b-button v-if="achFlag">{{ messagea }}click me to create one!</b-button>
                 <user-achievement-item class="items" v-bind:achievementObject="achievement"/>
           </b-card-body>
+          </div>
         </b-collapse>
       </b-card>
 
-      <b-card no-body class="mb-1">
+      <b-card no-body class="mb-1 bg-dark">
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle.accordion-2 variant="info">Budgets</b-button>
+          <b-button block v-b-toggle.accordion-2 variant="info">Achievement Categories</b-button>
         </b-card-header>
         <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-          <b-card-body v-for="budget in budgets" :key="budget._id">
-              <b-button v-if="budFlag">{{ messageb }}click me to create one!</b-button>
-                <user-budget-item class="items" v-bind:budgetObject="budget"/>
-          </b-card-body>
-        </b-collapse>
-      </b-card>
-
-      <b-card no-body class="mb-1">
-        <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle.accordion-3 variant="info">Achievement Categories</b-button>
-        </b-card-header>
-        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-          <div class="px-3 py-2">
+          <b-button href="AchievementPage" v-if="catFlag">{{ messagec }}click me to create one!</b-button>
+          <div v-if="!catFlag" class="px-3 py-2">
             <b-tabs content-class="mt-3">
-              <b-tab title="Fitness" active>
+              <b-tab title="Fitness">
                 <b-progress :value="fitnessXP" variant="warning" :striped="true" show-progress class="mt-2"></b-progress>
                 <b-card-body v-for="fitness in fitnesses" :key="fitness._id">
                   <fitness-item class="items" v-bind:fitnessObject="fitness"/>
@@ -65,6 +57,21 @@
           </div>
         </b-collapse>
       </b-card>
+
+      <b-card no-body class="mb-1 bg-dark">
+        <b-card-header header-tag="header" class="p-1" role="tab">
+          <b-button block v-b-toggle.accordion-3 variant="info">Budgets</b-button>
+        </b-card-header>
+        <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
+          <b-button href="BudgetPage" v-if="budFlag">{{ messageb }}click me to create one!</b-button>
+          <div v-if="!budFlag">
+          <b-card-body v-for="budget in budgets" :key="budget._id">
+                <user-budget-item class="items" v-bind:budgetObject="budget"/>
+          </b-card-body>
+          </div>
+        </b-collapse>
+      </b-card>
+
     </div>
       </b-col>
       <b-col></b-col>
@@ -117,6 +124,7 @@ export default {
       achFlag: false,
       budFlag: false,
       catFlag: false,
+      personalFlag: false,
       achievements: [],
       budgets: [],
       categories: [],
@@ -152,6 +160,7 @@ export default {
         })
     },
     getAchievement() {
+      this.personalAch = []
       var id = cookiesC.getCookieValue('id')
       console.log(id)
       Api.get(`/users/${id}/achievements`)
@@ -160,13 +169,19 @@ export default {
           for (var i = 0; i < this.achievements.length; i++) {
             if (this.achievements[i].type === 'Other') {
               this.personalAch.push(this.achievements[i])
+              this.personalFlag = true
             }
           }
+          if (this.personalFlag === false) {
+            this.achFlag = true
+            this.messagea = 'You have no personalised achievements yet, '
+            this.personalAch = []
+          }
         })
-        .catch(error => {
+        .catch(() => {
           this.achFlag = true
-          error.message = 'You have no achievements yet, '
-          this.messagea = error.message
+          this.messagea = 'You have no personalised achievements yet, '
+          this.personalAch = []
           this.achievements = []
         })
     },
@@ -176,10 +191,9 @@ export default {
         .then(response => {
           this.budgets = response.data
         })
-        .catch(error => {
+        .catch(() => {
           this.budFlag = true
-          error.message = 'You have no budget yet, '
-          this.messageb = error.message
+          this.messageb = 'You have no budgets yet, '
           this.budgets = []
         })
     },
@@ -193,16 +207,15 @@ export default {
               this.fitnesses.push(this.categories[i].categoryType)
             } else if (this.categories[i].categoryType.typeName === 'Chores') {
               this.choreses.push(this.categories[i].categoryType)
-            } else {
+            } else if (this.categories[i].categoryType.typeName === 'Studies') {
               this.studieses.push(this.categories[i].categoryType)
             }
           }
         })
-        .catch(error => {
+        .catch(() => {
           this.catFlag = true
-          error.message = 'You have no categories yet, '
-          this.messagec = error.message
-          this.budgets = []
+          this.messagec = 'You have no categorised achievements yet, '
+          this.categories = []
         })
     }
   }
@@ -212,5 +225,13 @@ export default {
 <style scoped>
 .red {
     color: red;
+}
+div {
+  text-align: center;
+}
+.def {
+  min-height: 94vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

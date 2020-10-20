@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main bg-dark">
   <b-jumbotron v-if="!login" bg-variant="dark" text-variant="white">
     <template v-slot:header>Welcome to HabiTracker!</template>
     <template v-slot:lead>
@@ -21,7 +21,6 @@
   </b-jumbotron>
   <b-jumbotron v-if="login" bg-variant="dark" text-variant="white">
      <template v-slot:lead>You are already logged in!</template>
-     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   </b-jumbotron>
 </div>
 </template>
@@ -87,5 +86,8 @@ export default {
 <style>
 .btn_message {
   margin-bottom: 1em;
+}
+div {
+  text-align: center;
 }
 </style>

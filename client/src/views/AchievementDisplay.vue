@@ -1,13 +1,14 @@
-<template>
+<template> <div class ="main bg-dark">
     <b-container>
-        <p class="red">{{message}}</p>
-        <h1>Your Achievements</h1>
+        <h1 class ="idk">Your Achievements</h1>
         <b-row align-h="center">
             <b-col cols="12" sm="6" md="4" v-for="achievement in achievements" v-bind:key="achievement._id">
                <achievement-item class="items" v-bind:achievement="achievement" v-on:del-achievement="deleteAchievement" v-on:complete-achievement="completeAchievement"/>
             </b-col>
         </b-row>
+        <p class="red">{{message}}</p>
     </b-container>
+     </div>
 </template>
 
 <script>
@@ -22,13 +23,17 @@ export default {
   },
   mounted() {
     this.getAchievement()
+    this.getCategory()
   },
   data() {
     return {
       achievements: [],
+      categories: [],
       message: '',
+      messages: '',
       text: '',
-      completeFlag: false
+      completeFlag: false,
+      deelte: ''
     }
   },
   methods: {
@@ -36,11 +41,44 @@ export default {
       var userId = cookiesC.getCookieValue('id')
       Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
+          this.deelte = response.data.name
+          this.deleteCategory()
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
         })
         .catch(error => {
           this.message = error.message
+        })
+    },
+    deleteCategory() {
+      console.log('delete category' + this.deelte)
+      var userId = cookiesC.getCookieValue('id')
+      for (var i = 0; i < this.categories.length; i++) {
+        console.log('hello')
+        if (this.categories[i].categoryType.task === this.deelte) {
+          var idCat = this.categories[i]._id
+          console.log(this.categories)
+          Api.delete(`users/${userId}/categories/${idCat}`)
+            .then(response => {
+              this.categories.splice(i, 1)
+              console.log('hi')
+            })
+            .catch(error => {
+              this.message = error.message
+            })
+        }
+      }
+    },
+    getCategory() {
+      var userId = cookiesC.getCookieValue('id')
+      Api.get(`users/${userId}/categories`)
+        .then(response => {
+          this.categories = response.data
+          console.log(this.categories)
+        })
+        .catch(error => {
+          error.message = 'You have no achievements yet'
+          this.messages = error.message
         })
     },
     getAchievement() {
@@ -91,18 +129,22 @@ export default {
       const paramsAchievement = {
         complete: true
       }
-      await Api.delete(`users/${userId}/achievements/${id}`)
+      Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
+          console.log('succesfully deleted achievement')
+          this.deelte = response.data.name
+          this.deleteCategory()
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
         })
         .catch(error => {
+          console.log('delete achievement failed')
           this.message = error.message
         })
       Api.patch(`/achievements/${id}`, paramsAchievement)
         .then(response => {
           alert('Congratulations on completing your goal!')
-          window.location.href = 'AchievementDisplay'
+          // window.location.href = 'AchievementDisplay'
         })
         .catch(error => {
           this.message = error.message
@@ -115,5 +157,11 @@ export default {
 <style scoped>
 .red {
     color: red;
+}
+.idk {
+  color: white;
+}
+div {
+  text-align: center;
 }
 </style>

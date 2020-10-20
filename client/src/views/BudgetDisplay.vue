@@ -1,4 +1,5 @@
 <template>
+<div class ="main bg-dark">
     <b-container>
         <h1>Your Budget</h1>
         <b-row align-h="center">
@@ -7,6 +8,7 @@
             </b-col>
         </b-row>
     </b-container>
+    </div>
 </template>
 
 <script>
@@ -20,14 +22,7 @@ export default {
     BudgetItem
   },
   mounted() {
-    Api.get('/Budgets')
-      .then(response => {
-        this.budgets = response.data.budgets
-      })
-      .catch(error => {
-        this.message = error.message
-        this.budgets = []
-      })
+    this.getBudget()
   },
   data() {
     return {
@@ -47,6 +42,16 @@ export default {
         .catch(error => {
           this.message = error.message
         })
+    },
+    getBudget() {
+      var userId = cookiesC.getCookieValue('id')
+      Api.get(`users/${userId}/budgets`)
+        .then(response => {
+          this.budgets = response.data
+        })
+        .catch(error => {
+          this.message = error.message
+        })
     }
   }
 }
@@ -55,5 +60,11 @@ export default {
 <style scoped>
 .red {
     color: red;
+}
+h1 {
+  color: white;
+}
+div {
+  text-align: center;
 }
 </style>

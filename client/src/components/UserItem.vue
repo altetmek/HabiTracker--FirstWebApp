@@ -29,22 +29,22 @@
   </b-card> -->
 
   <div>
-  <b-card no-body>
+  <b-card class="bg-secondary" no-body>
     <b-card-header header-tag="nav">
       <b-nav card-header tabs>
-        <b-nav-item v-on:click="getUser()">{{ status }}</b-nav-item>
-        <b-nav-item v-on:click="patchReady()">Update Your Profile</b-nav-item>
+        <b-nav-item v-on:click="getUser()"><p class="white">{{ status }}</p></b-nav-item>
+        <b-nav-item v-on:click="patchReady()"><p class="white">Update Your Profile</p></b-nav-item>
       </b-nav>
     </b-card-header>
 
-    <b-card-body class="text-center">
-      <b-card-title>Your Profile</b-card-title>
+    <b-card-body class="text-center bg-secondary">
+      <b-card-title class="white">Your Profile</b-card-title>
 
-      <b-card-text v-if="show && !patchFlag">
+      <b-card-text v-if="show && !patchFlag" class ="white">
         <p>{{user.username}}</p>
       </b-card-text>
 
-      <b-card-text v-if="!show">
+      <b-card-text class ="white" v-if="!show">
         <p>Username: {{user.username}}</p>
         <p>Title: {{user.title}}</p>
         <p>Level: {{user.level}}</p>
@@ -137,3 +137,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.white {
+  color: white;
+}
+</style>
