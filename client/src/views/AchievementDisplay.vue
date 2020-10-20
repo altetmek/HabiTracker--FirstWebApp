@@ -30,6 +30,7 @@ export default {
       achievements: [],
       categories: [],
       message: '',
+      messages: '',
       text: '',
       completeFlag: false,
       deelte: ''
@@ -40,7 +41,7 @@ export default {
       var userId = cookiesC.getCookieValue('id')
       Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
-          this.deelte = response.data.description
+          this.deelte = response.data.name
           this.deleteCategory()
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
@@ -52,11 +53,13 @@ export default {
     deleteCategory() {
       var userId = cookiesC.getCookieValue('id')
       for (var i = 0; i < this.categories.length; i++) {
+        console.log('hello')
         if (this.categories[i].categoryType.task === this.deelte) {
           var idCat = this.categories[i]._id
           Api.delete(`users/${userId}/categories/${idCat}`)
             .then(response => {
               this.categories.splice(i, 1)
+              console.log('hi')
             })
             .catch(error => {
               this.message = error.message
@@ -73,7 +76,7 @@ export default {
         })
         .catch(error => {
           error.message = 'You have no achievements yet'
-          this.message = error.message
+          this.messages = error.message
         })
     },
     getAchievement() {
@@ -126,6 +129,8 @@ export default {
       }
       Api.delete(`users/${userId}/achievements/${id}`)
         .then(response => {
+          this.deelte = response.data.name
+          this.deleteCategory()
           const index = this.achievements.findIndex(achievement => achievement._id === id)
           this.achievements.splice(index, 1)
         })
