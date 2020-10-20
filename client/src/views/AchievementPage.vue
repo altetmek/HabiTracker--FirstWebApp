@@ -5,7 +5,7 @@
       <p>
         <b-row align-v="start">
           <b-col></b-col>
-          <b-col><b-form-input id="name" v-model="name" placeholder="Enter the name of the achievement"></b-form-input></b-col>
+          <b-col><b-form-input id="name" v-model="name" placeholder="Name"></b-form-input></b-col>
           <b-col></b-col>
         </b-row>
       </p>
